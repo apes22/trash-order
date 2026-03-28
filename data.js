@@ -9,96 +9,96 @@ const INITIAL_DATA = [
 
   // ===== FOOD =====
   // Candy
-  { id: 7, category: "FOOD", vendor: "SGC", packSize: "1 20 lb", brand: "Churn", item: "candy, Andes mints topping", unit: "ozs", totalWeightOz: 320, pricePerPkg: 81.84, perLbPint: 4.08, perOzUnit: 0.26, notes: "", par: 0, onHand: 0 },
-  { id: 8, category: "FOOD", vendor: "SGC", packSize: "1 25#", brand: "Ferraro", item: "candy, Butterfinger pieces", unit: "ozs", totalWeightOz: 400, pricePerPkg: 84.99, perLbPint: 3.80, perOzUnit: 0.21, notes: "S/O", par: 0, onHand: 0 },
-  { id: 9, category: "FOOD", vendor: "Walmart", packSize: "1 12 oz", brand: "Great Value", item: "candy, chocolate chips", unit: "ozs", totalWeightOz: 12, pricePerPkg: 3.68, perLbPint: 2.94, perOzUnit: 0.31, notes: "", par: 0, onHand: 0 },
-  { id: 10, category: "FOOD", vendor: "Webstaurant", packSize: "4 4.5#", brand: "Albanese", item: "candy, gummy worms mini", unit: "ozs", totalWeightOz: 288, pricePerPkg: 64.99, perLbPint: 3.75, perOzUnit: 0.23, notes: "", par: 0, onHand: 0 },
-  { id: 11, category: "FOOD", vendor: "SGC", packSize: "2 5 lb", brand: "TRTopper", item: "candy, gummy bears mini", unit: "ozs", totalWeightOz: 160, pricePerPkg: 70.29, perLbPint: 7.03, perOzUnit: 0.44, notes: "", par: 0, onHand: 0 },
-  { id: 12, category: "FOOD", vendor: "SGC", packSize: "4 2.5 lb", brand: "TRTopper", item: "candy, Heath bits w choc", unit: "ozs", totalWeightOz: 160, pricePerPkg: 74.33, perLbPint: 7.43, perOzUnit: 0.46, notes: "", par: 0, onHand: 0 },
-  { id: 13, category: "FOOD", vendor: "SGC", packSize: "2 4 lb", brand: "TRTopper", item: "candy, Kit Kat bits", unit: "ozs", totalWeightOz: 128, pricePerPkg: 44.29, perLbPint: 5.54, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
-  { id: 14, category: "FOOD", vendor: "SGC", packSize: "2 4 lb", brand: "TRTopper", item: "candy, M & Ms chopped", unit: "ozs", totalWeightOz: 128, pricePerPkg: 64.49, perLbPint: 5.45, perOzUnit: 0.34, notes: "", par: 0, onHand: 0 },
-  { id: 15, category: "FOOD", vendor: "Webstaurant", packSize: "1 10 lb", brand: "Nestle", item: "candy, Nerds rainbow", unit: "ozs", totalWeightOz: 160, pricePerPkg: 68.67, perLbPint: 6.86, perOzUnit: 0.43, notes: "", par: 0, onHand: 0 },
-  { id: 16, category: "FOOD", vendor: "Webstaurant", packSize: "1 10 lb", brand: "TRTopper", item: "candy, Reese's peanut butter cups", unit: "ozs", totalWeightOz: 160, pricePerPkg: 98.87, perLbPint: 4.58, perOzUnit: 0.29, notes: "", par: 0, onHand: 0 },
-  { id: 17, category: "FOOD", vendor: "SGC", packSize: "2 5 lb", brand: "TRTopper", item: "candy, Reese's Pieces mini", unit: "ozs", totalWeightOz: 160, pricePerPkg: 114.42, perLbPint: 2.89, perOzUnit: 0.58, notes: "", par: 0, onHand: 0 },
+  { id: 7, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 20 lb", brand: "Churn", item: "candy, Andes mints topping", unit: "ozs", totalWeightOz: 320, pricePerPkg: 81.84, perLbPint: 4.08, perOzUnit: 0.26, notes: "", par: 0, onHand: 0 },
+  { id: 8, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 25#", brand: "Ferraro", item: "candy, Butterfinger pieces", unit: "ozs", totalWeightOz: 400, pricePerPkg: 84.99, perLbPint: 3.80, perOzUnit: 0.21, notes: "S/O", par: 0, onHand: 0 },
+  { id: 9, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 12 oz", brand: "Great Value", item: "candy, chocolate chips", unit: "ozs", totalWeightOz: 12, pricePerPkg: 3.68, perLbPint: 2.94, perOzUnit: 0.31, notes: "", par: 0, onHand: 0 },
+  { id: 10, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "4 4.5#", brand: "Albanese", item: "candy, gummy worms mini", unit: "ozs", totalWeightOz: 288, pricePerPkg: 64.99, perLbPint: 3.75, perOzUnit: 0.23, notes: "", par: 0, onHand: 0 },
+  { id: 11, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 5 lb", brand: "TRTopper", item: "candy, gummy bears mini", unit: "ozs", totalWeightOz: 160, pricePerPkg: 70.29, perLbPint: 7.03, perOzUnit: 0.44, notes: "", par: 0, onHand: 0 },
+  { id: 12, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "4 2.5 lb", brand: "TRTopper", item: "candy, Heath bits w choc", unit: "ozs", totalWeightOz: 160, pricePerPkg: 74.33, perLbPint: 7.43, perOzUnit: 0.46, notes: "", par: 0, onHand: 0 },
+  { id: 13, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 4 lb", brand: "TRTopper", item: "candy, Kit Kat bits", unit: "ozs", totalWeightOz: 128, pricePerPkg: 44.29, perLbPint: 5.54, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
+  { id: 14, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 4 lb", brand: "TRTopper", item: "candy, M & Ms chopped", unit: "ozs", totalWeightOz: 128, pricePerPkg: 64.49, perLbPint: 5.45, perOzUnit: 0.34, notes: "", par: 0, onHand: 0 },
+  { id: 15, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "1 10 lb", brand: "Nestle", item: "candy, Nerds rainbow", unit: "ozs", totalWeightOz: 160, pricePerPkg: 68.67, perLbPint: 6.86, perOzUnit: 0.43, notes: "", par: 0, onHand: 0 },
+  { id: 16, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "1 10 lb", brand: "TRTopper", item: "candy, Reese's peanut butter cups", unit: "ozs", totalWeightOz: 160, pricePerPkg: 98.87, perLbPint: 4.58, perOzUnit: 0.29, notes: "", par: 0, onHand: 0 },
+  { id: 17, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 5 lb", brand: "TRTopper", item: "candy, Reese's Pieces mini", unit: "ozs", totalWeightOz: 160, pricePerPkg: 114.42, perLbPint: 2.89, perOzUnit: 0.58, notes: "", par: 0, onHand: 0 },
 
   // Cereal
-  { id: 18, category: "FOOD", vendor: "Walmart", packSize: "1 40 oz", brand: "GM", item: "cereal, Cap'n Crunch Berries", unit: "ozs", totalWeightOz: 40, pricePerPkg: 6.77, perLbPint: 2.89, perOzUnit: 0.17, notes: "", par: 0, onHand: 0 },
-  { id: 19, category: "FOOD", vendor: "Walmart", packSize: "1 32 oz", brand: "Quaker", item: "cereal, Cinnamon Toast Crunch", unit: "ozs", totalWeightOz: 32, pricePerPkg: 33.48, perLbPint: 3.39, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
-  { id: 20, category: "FOOD", vendor: "Walmart", packSize: "1 25 lb", brand: "MOM", item: "cereal, Fruity Dyno Bites", unit: "ozs", totalWeightOz: 184, pricePerPkg: 7.02, perLbPint: 2.81, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
-  { id: 21, category: "FOOD", vendor: "SGC", packSize: "4 4.48 oz", brand: "GM", item: "cereal, Golden Grahams", unit: "ozs", totalWeightOz: 35, pricePerPkg: 33.48, perLbPint: 3.21, perOzUnit: 0.20, notes: "", par: 0, onHand: 0 },
+  { id: 18, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 40 oz", brand: "GM", item: "cereal, Cap'n Crunch Berries", unit: "ozs", totalWeightOz: 40, pricePerPkg: 6.77, perLbPint: 2.89, perOzUnit: 0.17, notes: "", par: 0, onHand: 0 },
+  { id: 19, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 32 oz", brand: "Quaker", item: "cereal, Cinnamon Toast Crunch", unit: "ozs", totalWeightOz: 32, pricePerPkg: 33.48, perLbPint: 3.39, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
+  { id: 20, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 25 lb", brand: "MOM", item: "cereal, Fruity Dyno Bites", unit: "ozs", totalWeightOz: 184, pricePerPkg: 7.02, perLbPint: 2.81, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
+  { id: 21, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "4 4.48 oz", brand: "GM", item: "cereal, Golden Grahams", unit: "ozs", totalWeightOz: 35, pricePerPkg: 33.48, perLbPint: 3.21, perOzUnit: 0.20, notes: "", par: 0, onHand: 0 },
 
   // Spices / Coffee
-  { id: 22, category: "FOOD", vendor: "SGC", packSize: "1 18 oz", brand: "Spice Classics", item: "cinnamon, ground", unit: "ozs", totalWeightOz: 18, pricePerPkg: 7.98, perLbPint: 7.09, perOzUnit: 0.44, notes: "", par: 0, onHand: 0 },
-  { id: 23, category: "FOOD", vendor: "Sam's Club", packSize: "2 10.5 oz", brand: "State Fair", item: "coffee, instant", unit: "ozs", totalWeightOz: 21, pricePerPkg: 19.83, perLbPint: 0, perOzUnit: 0.90, notes: "", par: 0, onHand: 0 },
+  { id: 22, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 18 oz", brand: "Spice Classics", item: "cinnamon, ground", unit: "ozs", totalWeightOz: 18, pricePerPkg: 7.98, perLbPint: 7.09, perOzUnit: 0.44, notes: "", par: 0, onHand: 0 },
+  { id: 23, category: "TRASH TOPPINGS", vendor: "Sam's Club", packSize: "2 10.5 oz", brand: "State Fair", item: "coffee, instant", unit: "ozs", totalWeightOz: 21, pricePerPkg: 19.83, perLbPint: 0, perOzUnit: 0.90, notes: "", par: 0, onHand: 0 },
 
   // Cones
-  { id: 24, category: "FOOD", vendor: "Webstaurant", packSize: "12 18 ct", brand: "JOY", item: "cones, waffle lg prepacketed", unit: "each", totalWeightOz: 216, pricePerPkg: 69.18, perLbPint: 0, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
-  { id: 25, category: "FOOD", vendor: "SGC", packSize: "12 18 ct", brand: "JOY", item: "cones, sugar mini", unit: "each", totalWeightOz: 1000, pricePerPkg: 102.99, perLbPint: 4.90, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
+  { id: 24, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "12 18 ct", brand: "JOY", item: "cones, waffle lg prepacketed", unit: "each", totalWeightOz: 216, pricePerPkg: 69.18, perLbPint: 0, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
+  { id: 25, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "12 18 ct", brand: "JOY", item: "cones, sugar mini", unit: "each", totalWeightOz: 1000, pricePerPkg: 102.99, perLbPint: 4.90, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
 
   // Cookies
-  { id: 26, category: "FOOD", vendor: "Webstaurant", packSize: "1 1000 ct", brand: "TRTopper", item: "cookies, brownie bites", unit: "ozs", totalWeightOz: 100, pricePerPkg: 76.49, perLbPint: 4.10, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
-  { id: 27, category: "FOOD", vendor: "SGC", packSize: "1 10 lb", brand: "TRTopper", item: "cookies, cheesecake bites", unit: "ozs", totalWeightOz: 160, pricePerPkg: 48.83, perLbPint: 8.10, perOzUnit: 0.31, notes: "", par: 0, onHand: 0 },
-  { id: 28, category: "FOOD", vendor: "SGC", packSize: "1 10 lb", brand: "Rhino", item: "cookies, Biscoff crumbs", unit: "ozs", totalWeightOz: 320, pricePerPkg: 61.02, perLbPint: 2.59, perOzUnit: 0.38, notes: "", par: 0, onHand: 0 },
-  { id: 29, category: "FOOD", vendor: "SGC", packSize: "1 20 lbs", brand: "Lotus", item: "cookies, cookie dough", unit: "ozs", totalWeightOz: 264, pricePerPkg: 51.85, perLbPint: 4.68, perOzUnit: 0.16, notes: "", par: 0, onHand: 0 },
-  { id: 30, category: "FOOD", vendor: "Walmart", packSize: "1 16.53 lb", brand: "Mother's", item: "cookies, circus animals", unit: "ozs", totalWeightOz: 9, pricePerPkg: 76.99, perLbPint: 4.08, perOzUnit: 0.29, notes: "", par: 0, onHand: 0 },
-  { id: 31, category: "FOOD", vendor: "Walmart", packSize: "1 9 oz", brand: "Nabisco", item: "cookies, Nutter Butters", unit: "ozs", totalWeightOz: 18, pricePerPkg: 3.52, perLbPint: 4.89, perOzUnit: 0.39, notes: "", par: 0, onHand: 0 },
-  { id: 32, category: "FOOD", vendor: "Walmart", packSize: "1 16 oz", brand: "Nabisco", item: "cookies, Oreos sm crumbs", unit: "ozs", totalWeightOz: 384, pricePerPkg: 4.89, perLbPint: 4.26, perOzUnit: 0.30, notes: "", par: 0, onHand: 0 },
-  { id: 33, category: "FOOD", vendor: "Webstaurant", packSize: "24 1 lb", brand: "Nabisco", item: "cookies, pie chips", unit: "ozs", totalWeightOz: 160, pricePerPkg: 87.73, perLbPint: 4.07, perOzUnit: 0.25, notes: "", par: 0, onHand: 0 },
+  { id: 26, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "1 1000 ct", brand: "TRTopper", item: "cookies, brownie bites", unit: "ozs", totalWeightOz: 100, pricePerPkg: 76.49, perLbPint: 4.10, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
+  { id: 27, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 10 lb", brand: "TRTopper", item: "cookies, cheesecake bites", unit: "ozs", totalWeightOz: 160, pricePerPkg: 48.83, perLbPint: 8.10, perOzUnit: 0.31, notes: "", par: 0, onHand: 0 },
+  { id: 28, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 10 lb", brand: "Rhino", item: "cookies, Biscoff crumbs", unit: "ozs", totalWeightOz: 320, pricePerPkg: 61.02, perLbPint: 2.59, perOzUnit: 0.38, notes: "", par: 0, onHand: 0 },
+  { id: 29, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 20 lbs", brand: "Lotus", item: "cookies, cookie dough", unit: "ozs", totalWeightOz: 264, pricePerPkg: 51.85, perLbPint: 4.68, perOzUnit: 0.16, notes: "", par: 0, onHand: 0 },
+  { id: 30, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 16.53 lb", brand: "Mother's", item: "cookies, circus animals", unit: "ozs", totalWeightOz: 9, pricePerPkg: 76.99, perLbPint: 4.08, perOzUnit: 0.29, notes: "", par: 0, onHand: 0 },
+  { id: 31, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 9 oz", brand: "Nabisco", item: "cookies, Nutter Butters", unit: "ozs", totalWeightOz: 18, pricePerPkg: 3.52, perLbPint: 4.89, perOzUnit: 0.39, notes: "", par: 0, onHand: 0 },
+  { id: 32, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 16 oz", brand: "Nabisco", item: "cookies, Oreos sm crumbs", unit: "ozs", totalWeightOz: 384, pricePerPkg: 4.89, perLbPint: 4.26, perOzUnit: 0.30, notes: "", par: 0, onHand: 0 },
+  { id: 33, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "24 1 lb", brand: "Nabisco", item: "cookies, pie chips", unit: "ozs", totalWeightOz: 160, pricePerPkg: 87.73, perLbPint: 4.07, perOzUnit: 0.25, notes: "", par: 0, onHand: 0 },
 
   // Crackers / Donuts
-  { id: 34, category: "FOOD", vendor: "SGC", packSize: "1 10 lb", brand: "TRTopper", item: "crackers, Ritz", unit: "ozs", totalWeightOz: 76, pricePerPkg: 134.00, perLbPint: 13.60, perOzUnit: 0.85, notes: "", par: 0, onHand: 0 },
-  { id: 35, category: "FOOD", vendor: "Walmart", packSize: "1 10 lb", brand: "State Fair", item: "donuts, mini plain", unit: "ozs", totalWeightOz: 160, pricePerPkg: 25.24, perLbPint: 5.52, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
+  { id: 34, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 10 lb", brand: "TRTopper", item: "crackers, Ritz", unit: "ozs", totalWeightOz: 76, pricePerPkg: 134.00, perLbPint: 13.60, perOzUnit: 0.85, notes: "", par: 0, onHand: 0 },
+  { id: 35, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 10 lb", brand: "State Fair", item: "donuts, mini plain", unit: "ozs", totalWeightOz: 160, pricePerPkg: 25.24, perLbPint: 5.52, perOzUnit: 0.35, notes: "", par: 0, onHand: 0 },
 
   // Fruit
-  { id: 36, category: "FOOD", vendor: "SGC", packSize: "20 3.8 oz", brand: "Dole", item: "fruit, bananas iqf", unit: "ozs", totalWeightOz: 40, pricePerPkg: 20.13, perLbPint: 3.58, perOzUnit: 0.22, notes: "", par: 0, onHand: 0 },
-  { id: 37, category: "FOOD", vendor: "Walmart", packSize: "1 40 oz", brand: "Great Value", item: "fruit, dark sweet cherries w stem", unit: "ozs", totalWeightOz: 160, pricePerPkg: 8.98, perLbPint: 2.02, perOzUnit: 0.13, notes: "", par: 0, onHand: 0 },
-  { id: 38, category: "FOOD", vendor: "SGC", packSize: "2 58 bag", brand: "State Fair", item: "fruit, maraschino cherries w stem jar", unit: "jar", totalWeightOz: 384, pricePerPkg: 93.38, perLbPint: 15.56, perOzUnit: 0.24, notes: "$15.56", par: 0, onHand: 0 },
+  { id: 36, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "20 3.8 oz", brand: "Dole", item: "fruit, bananas iqf", unit: "ozs", totalWeightOz: 40, pricePerPkg: 20.13, perLbPint: 3.58, perOzUnit: 0.22, notes: "", par: 0, onHand: 0 },
+  { id: 37, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 40 oz", brand: "Great Value", item: "fruit, dark sweet cherries w stem", unit: "ozs", totalWeightOz: 160, pricePerPkg: 8.98, perLbPint: 2.02, perOzUnit: 0.13, notes: "", par: 0, onHand: 0 },
+  { id: 38, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 58 bag", brand: "State Fair", item: "fruit, maraschino cherries w stem jar", unit: "jar", totalWeightOz: 384, pricePerPkg: 93.38, perLbPint: 15.56, perOzUnit: 0.24, notes: "$15.56", par: 0, onHand: 0 },
 
   // Fruit (page 2)
-  { id: 39, category: "FOOD", vendor: "SGC", packSize: "2 5 lb", brand: "Commodity", item: "fruit, peaches iqf", unit: "ozs", totalWeightOz: 160, pricePerPkg: 29.37, perLbPint: 2.94, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
-  { id: 40, category: "FOOD", vendor: "SGC", packSize: "1 5 lb", brand: "Commodity", item: "fruit, raspberries sliced iqf", unit: "ozs", totalWeightOz: 320, pricePerPkg: 19.78, perLbPint: 0.99, perOzUnit: 0.06, notes: "", par: 0, onHand: 0 },
-  { id: 41, category: "FOOD", vendor: "SGC", packSize: "1 2.5 lb", brand: "Commodity", item: "fruit, strawberries sliced iqf", unit: "ozs", totalWeightOz: 160, pricePerPkg: 28.21, perLbPint: 2.82, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
+  { id: 39, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "2 5 lb", brand: "Commodity", item: "fruit, peaches iqf", unit: "ozs", totalWeightOz: 160, pricePerPkg: 29.37, perLbPint: 2.94, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
+  { id: 40, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 5 lb", brand: "Commodity", item: "fruit, raspberries sliced iqf", unit: "ozs", totalWeightOz: 320, pricePerPkg: 19.78, perLbPint: 0.99, perOzUnit: 0.06, notes: "", par: 0, onHand: 0 },
+  { id: 41, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 2.5 lb", brand: "Commodity", item: "fruit, strawberries sliced iqf", unit: "ozs", totalWeightOz: 160, pricePerPkg: 28.21, perLbPint: 2.82, perOzUnit: 0.18, notes: "", par: 0, onHand: 0 },
 
-  // Ice Cream
-  { id: 42, category: "FOOD", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, chocolate", unit: "tub", totalWeightOz: 320, pricePerPkg: 32.50, perLbPint: 10.83, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
-  { id: 43, category: "FOOD", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, coconut dairy free", unit: "tub", totalWeightOz: 320, pricePerPkg: 68.01, perLbPint: 22.67, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
-  { id: 44, category: "FOOD", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, vanilla", unit: "tub", totalWeightOz: 320, pricePerPkg: 33.00, perLbPint: 11.00, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
-  { id: 45, category: "FOOD", vendor: "SGC", packSize: "1 1 gal", brand: "Hiland", item: "ice cream, shake mix 5%", unit: "gal", totalWeightOz: 128, pricePerPkg: 46.53, perLbPint: 12.13, perOzUnit: 0.09, notes: "$12.13 ea", par: 0, onHand: 0 },
-  { id: 46, category: "FOOD", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Blue Your Mind", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
-  { id: 47, category: "FOOD", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Bustin' Berries", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
-  { id: 48, category: "FOOD", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Dirty Cheesecake", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
+  // ===== ICE CREAM =====
+  { id: 42, category: "ICE CREAM", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, chocolate", unit: "tub", totalWeightOz: 320, pricePerPkg: 32.50, perLbPint: 10.83, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
+  { id: 43, category: "ICE CREAM", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, coconut dairy free", unit: "tub", totalWeightOz: 320, pricePerPkg: 68.01, perLbPint: 22.67, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
+  { id: 44, category: "ICE CREAM", vendor: "SGC", packSize: "1 2.5 gal", brand: "ICF", item: "ice cream, vanilla", unit: "tub", totalWeightOz: 320, pricePerPkg: 33.00, perLbPint: 11.00, perOzUnit: 0.10, notes: "", par: 0, onHand: 0 },
+  { id: 45, category: "ICE CREAM", vendor: "SGC", packSize: "1 1 gal", brand: "Hiland", item: "ice cream, shake mix 5%", unit: "gal", totalWeightOz: 128, pricePerPkg: 46.53, perLbPint: 12.13, perOzUnit: 0.09, notes: "$12.13 ea", par: 0, onHand: 0 },
+  { id: 46, category: "ICE CREAM", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Blue Your Mind", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
+  { id: 47, category: "ICE CREAM", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Bustin' Berries", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
+  { id: 48, category: "ICE CREAM", vendor: "SGC", packSize: "12 12 oz pint", brand: "ICF", item: "ice cream, pint Dirty Cheesecake", unit: "pint", totalWeightOz: 144, pricePerPkg: 52.69, perLbPint: 4.39, perOzUnit: 0.37, notes: "", par: 0, onHand: 0 },
 
   // Dairy / Powders
-  { id: 49, category: "FOOD", vendor: "Walmart", packSize: "1 13 oz", brand: "Silk", item: "malted milk powder", unit: "ozs", totalWeightOz: 13, pricePerPkg: 5.34, perLbPint: 1.04, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
-  { id: 50, category: "FOOD", vendor: "Walmart", packSize: "1 1/2 gal", brand: "Great Value", item: "milk, coconut", unit: "ozs", totalWeightOz: 64, pricePerPkg: 4.17, perLbPint: 0.57, perOzUnit: 0.07, notes: "", par: 0, onHand: 0 },
+  { id: 49, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 13 oz", brand: "Silk", item: "malted milk powder", unit: "ozs", totalWeightOz: 13, pricePerPkg: 5.34, perLbPint: 1.04, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
+  { id: 50, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 1/2 gal", brand: "Great Value", item: "milk, coconut", unit: "ozs", totalWeightOz: 64, pricePerPkg: 4.17, perLbPint: 0.57, perOzUnit: 0.07, notes: "", par: 0, onHand: 0 },
 
   // Nuts
-  { id: 51, category: "FOOD", vendor: "SGC", packSize: "1 16 oz", brand: "Azar", item: "nuts, almonds sliced", unit: "ozs", totalWeightOz: 18, pricePerPkg: 8.48, perLbPint: 8.48, perOzUnit: 0.53, notes: "", par: 0, onHand: 0 },
-  { id: 52, category: "FOOD", vendor: "SGC", packSize: "6 17.5#", brand: "Great Value", item: "nuts, coconut sweetened shred", unit: "ozs", totalWeightOz: 14, pricePerPkg: 143.76, perLbPint: 13.88, perOzUnit: 0.87, notes: "", par: 0, onHand: 0 },
-  { id: 53, category: "FOOD", vendor: "SGC", packSize: "1 14 oz", brand: "Great Value", item: "nuts, peanuts granulated", unit: "ozs", totalWeightOz: 50, pricePerPkg: 3.22, perLbPint: 3.68, perOzUnit: 0.23, notes: "", par: 0, onHand: 0 },
-  { id: 54, category: "FOOD", vendor: "Sam's Club", packSize: "3 2#", brand: "Member's Mark", item: "nuts, pecan halves", unit: "ozs", totalWeightOz: 490, pricePerPkg: 27.54, perLbPint: 5.59, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
+  { id: 51, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 16 oz", brand: "Azar", item: "nuts, almonds sliced", unit: "ozs", totalWeightOz: 18, pricePerPkg: 8.48, perLbPint: 8.48, perOzUnit: 0.53, notes: "", par: 0, onHand: 0 },
+  { id: 52, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "6 17.5#", brand: "Great Value", item: "nuts, coconut sweetened shred", unit: "ozs", totalWeightOz: 14, pricePerPkg: 143.76, perLbPint: 13.88, perOzUnit: 0.87, notes: "", par: 0, onHand: 0 },
+  { id: 53, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 14 oz", brand: "Great Value", item: "nuts, peanuts granulated", unit: "ozs", totalWeightOz: 50, pricePerPkg: 3.22, perLbPint: 3.68, perOzUnit: 0.23, notes: "", par: 0, onHand: 0 },
+  { id: 54, category: "TRASH TOPPINGS", vendor: "Sam's Club", packSize: "3 2#", brand: "Member's Mark", item: "nuts, pecan halves", unit: "ozs", totalWeightOz: 490, pricePerPkg: 27.54, perLbPint: 5.59, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
 
   // Pretzels / PB
-  { id: 55, category: "FOOD", vendor: "Walmart", packSize: "1 32 oz", brand: "Great Value", item: "pretzels, mini twists", unit: "ozs", totalWeightOz: 16, pricePerPkg: 177.12, perLbPint: 6.49, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
-  { id: 56, category: "FOOD", vendor: "Walmart", packSize: "1 16 oz", brand: "JIF", item: "peanut butter, no added sugar", unit: "ozs", totalWeightOz: 32, pricePerPkg: 2.44, perLbPint: 6.44, perOzUnit: 0.15, notes: "", par: 0, onHand: 0 },
+  { id: 55, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 32 oz", brand: "Great Value", item: "pretzels, mini twists", unit: "ozs", totalWeightOz: 16, pricePerPkg: 177.12, perLbPint: 6.49, perOzUnit: 0.41, notes: "", par: 0, onHand: 0 },
+  { id: 56, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 16 oz", brand: "JIF", item: "peanut butter, no added sugar", unit: "ozs", totalWeightOz: 32, pricePerPkg: 2.44, perLbPint: 6.44, perOzUnit: 0.15, notes: "", par: 0, onHand: 0 },
 
   // Sprinkles
-  { id: 57, category: "FOOD", vendor: "Webstaurant", packSize: "1 10 lbs", brand: "Regal", item: "sprinkles, rainbow bulk", unit: "ozs", totalWeightOz: 180, pricePerPkg: 33.5, perLbPint: 3.14, perOzUnit: 0.20, notes: "", par: 0, onHand: 0 },
-  { id: 58, category: "FOOD", vendor: "Webstaurant", packSize: "1 10 lb", brand: "YC", item: "sprinkles, Yum Crumbs lemon", unit: "ozs", totalWeightOz: 64, pricePerPkg: 28.89, perLbPint: 2.70, perOzUnit: 0.17, notes: "", par: 0, onHand: 0 },
+  { id: 57, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "1 10 lbs", brand: "Regal", item: "sprinkles, rainbow bulk", unit: "ozs", totalWeightOz: 180, pricePerPkg: 33.5, perLbPint: 3.14, perOzUnit: 0.20, notes: "", par: 0, onHand: 0 },
+  { id: 58, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "1 10 lb", brand: "YC", item: "sprinkles, Yum Crumbs lemon", unit: "ozs", totalWeightOz: 64, pricePerPkg: 28.89, perLbPint: 2.70, perOzUnit: 0.17, notes: "", par: 0, onHand: 0 },
 
   // Syrups / Toppings
-  { id: 59, category: "FOOD", vendor: "SGC", packSize: "6 66 oz", brand: "Lyon's", item: "syrup, caramel sauce", unit: "ozs", totalWeightOz: 396, pricePerPkg: 36.89, perLbPint: 0.25, perOzUnit: 0.58, notes: "$16.84/ea", par: 0, onHand: 0 },
-  { id: 60, category: "FOOD", vendor: "SGC", packSize: "1 48 oz", brand: "Hershey's", item: "syrup, chocolate", unit: "ozs", totalWeightOz: 48, pricePerPkg: 74.58, perLbPint: 3.01, perOzUnit: 0.19, notes: "", par: 0, onHand: 0 },
-  { id: 61, category: "FOOD", vendor: "SGC", packSize: "6 36 oz", brand: "Jubilee", item: "syrup, fudge", unit: "ozs", totalWeightOz: 753, pricePerPkg: 71.14, perLbPint: 2.38, perOzUnit: 0.15, notes: "", par: 0, onHand: 0 },
-  { id: 62, category: "FOOD", vendor: "SGC", packSize: "6 10#", brand: "Jubilee", item: "syrup, marshmallow cream", unit: "ozs", totalWeightOz: 218, pricePerPkg: 101.02, perLbPint: 2.16, perOzUnit: 0.13, notes: "", par: 0, onHand: 0 },
-  { id: 63, category: "FOOD", vendor: "SGC", packSize: "6 36 oz", brand: "Lyon's", item: "syrup, peanut butter topping", unit: "ozs", totalWeightOz: 318, pricePerPkg: 45.04, perLbPint: 3.34, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
-  { id: 64, category: "FOOD", vendor: "Webstaurant", packSize: "3 10# cans", brand: "Lyon's", item: "syrup, peanut sundae topping", unit: "ozs", totalWeightOz: 318, pricePerPkg: 122.49, perLbPint: 8.16, perOzUnit: 0.39, notes: "", par: 0, onHand: 0 },
-  { id: 65, category: "FOOD", vendor: "Webstaurant", packSize: "3 1/2 gal", brand: "Berry", item: "topping, black raspberry sundae", unit: "jar", totalWeightOz: 316, pricePerPkg: 121.87, perLbPint: 6.13, perOzUnit: 0.39, notes: "$44.99/ea", par: 0, onHand: 0 },
+  { id: 59, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "6 66 oz", brand: "Lyon's", item: "syrup, caramel sauce", unit: "ozs", totalWeightOz: 396, pricePerPkg: 36.89, perLbPint: 0.25, perOzUnit: 0.58, notes: "$16.84/ea", par: 0, onHand: 0 },
+  { id: 60, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "1 48 oz", brand: "Hershey's", item: "syrup, chocolate", unit: "ozs", totalWeightOz: 48, pricePerPkg: 74.58, perLbPint: 3.01, perOzUnit: 0.19, notes: "", par: 0, onHand: 0 },
+  { id: 61, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "6 36 oz", brand: "Jubilee", item: "syrup, fudge", unit: "ozs", totalWeightOz: 753, pricePerPkg: 71.14, perLbPint: 2.38, perOzUnit: 0.15, notes: "", par: 0, onHand: 0 },
+  { id: 62, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "6 10#", brand: "Jubilee", item: "syrup, marshmallow cream", unit: "ozs", totalWeightOz: 218, pricePerPkg: 101.02, perLbPint: 2.16, perOzUnit: 0.13, notes: "", par: 0, onHand: 0 },
+  { id: 63, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "6 36 oz", brand: "Lyon's", item: "syrup, peanut butter topping", unit: "ozs", totalWeightOz: 318, pricePerPkg: 45.04, perLbPint: 3.34, perOzUnit: 0.21, notes: "", par: 0, onHand: 0 },
+  { id: 64, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "3 10# cans", brand: "Lyon's", item: "syrup, peanut sundae topping", unit: "ozs", totalWeightOz: 318, pricePerPkg: 122.49, perLbPint: 8.16, perOzUnit: 0.39, notes: "", par: 0, onHand: 0 },
+  { id: 65, category: "TRASH TOPPINGS", vendor: "Webstaurant", packSize: "3 1/2 gal", brand: "Berry", item: "topping, black raspberry sundae", unit: "jar", totalWeightOz: 316, pricePerPkg: 121.87, perLbPint: 6.13, perOzUnit: 0.39, notes: "$44.99/ea", par: 0, onHand: 0 },
 
   // Whipped Cream / Yogurt
-  { id: 66, category: "FOOD", vendor: "SGC", packSize: "12 16 oz", brand: "ReddiWhip", item: "whipped cream, aerosol", unit: "each", totalWeightOz: 12, pricePerPkg: 50.87, perLbPint: 5.12, perOzUnit: 0.28, notes: "", par: 0, onHand: 0 },
-  { id: 67, category: "FOOD", vendor: "Walmart", packSize: "1 7 oz", brand: "ReddiWhip", item: "whipped cream, non dairy", unit: "each", totalWeightOz: 7, pricePerPkg: 4.64, perLbPint: 4.24, perOzUnit: 0.68, notes: "", par: 0, onHand: 0 },
-  { id: 68, category: "FOOD", vendor: "Walmart", packSize: "1 32 oz", brand: "Great Value", item: "yogurt, plain", unit: "ozs", totalWeightOz: 32, pricePerPkg: 2.78, perLbPint: 1.38, perOzUnit: 0.09, notes: "", par: 0, onHand: 0 },
+  { id: 66, category: "TRASH TOPPINGS", vendor: "SGC", packSize: "12 16 oz", brand: "ReddiWhip", item: "whipped cream, aerosol", unit: "each", totalWeightOz: 12, pricePerPkg: 50.87, perLbPint: 5.12, perOzUnit: 0.28, notes: "", par: 0, onHand: 0 },
+  { id: 67, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 7 oz", brand: "ReddiWhip", item: "whipped cream, non dairy", unit: "each", totalWeightOz: 7, pricePerPkg: 4.64, perLbPint: 4.24, perOzUnit: 0.68, notes: "", par: 0, onHand: 0 },
+  { id: 68, category: "TRASH TOPPINGS", vendor: "Walmart", packSize: "1 32 oz", brand: "Great Value", item: "yogurt, plain", unit: "ozs", totalWeightOz: 32, pricePerPkg: 2.78, perLbPint: 1.38, perOzUnit: 0.09, notes: "", par: 0, onHand: 0 },
 
   // ===== PAPERGOODS =====
   { id: 69, category: "PAPERGOODS", vendor: "Trash", packSize: "1 4 ct", brand: "", item: "pup cup, prepared", unit: "each", totalWeightOz: 0, pricePerPkg: 0.55, perLbPint: 0, perOzUnit: 73.80, notes: "", par: 0, onHand: 0 },

@@ -145,10 +145,29 @@ main {
 }
 
 .cat-BEVERAGE .category-header { background: #2563eb; }
-.cat-FOOD .category-header { background: #16a34a; }
+.cat-ICE_CREAM .category-header { background: #0891b2; }
+.cat-TRASH_TOPPINGS .category-header { background: #16a34a; }
 .cat-PAPERGOODS .category-header { background: #d97706; }
 .cat-JOB_SUPPLIES .category-header { background: #7c3aed; }
 .cat-NOT_FOR_INVENTORY .category-header { background: #6b7280; }
+
+.category-header {
+  cursor: pointer;
+}
+
+.category-header:hover {
+  filter: brightness(1.1);
+}
+
+.chevron {
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 4px;
+}
+
+.category-section.collapsed {
+  margin-bottom: 8px;
+}
 
 .category-header .add-to-cat {
   padding: 3px 10px;
@@ -414,6 +433,110 @@ main {
   color: #9ca3af;
 }
 
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 12px;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .header-actions .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .header-bar {
+    margin-top: 8px;
+  }
+
+  #search-input {
+    max-width: 100%;
+    font-size: 16px; /* prevents iOS zoom */
+  }
+
+  .col-toggles {
+    display: none;
+  }
+
+  main {
+    padding: 8px;
+  }
+
+  /* Hide non-essential columns on mobile */
+  .col-vendor,
+  .col-unit,
+  .col-price {
+    display: none !important;
+  }
+
+  .order-table {
+    font-size: 11px;
+  }
+
+  .order-table .col-item { min-width: 120px; }
+  .order-table .col-pack { min-width: 60px; }
+  .order-table .col-brand { min-width: 60px; }
+
+  .order-table th {
+    padding: 5px 4px;
+    font-size: 10px;
+  }
+
+  .order-table td {
+    padding: 3px 2px;
+  }
+
+  /* Bigger touch targets for inputs */
+  .inline-input {
+    width: 50px;
+    padding: 6px 4px;
+    font-size: 14px;
+  }
+
+  .inline-text {
+    font-size: 11px;
+    padding: 4px 3px;
+  }
+
+  .category-header {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .category-section {
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+
+  .order-positive {
+    font-size: 13px;
+  }
+
+  /* Modal full-width on mobile */
+  .modal-content {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== PRINT STYLES ===== */
 @media print {
   @page {
@@ -466,7 +589,8 @@ main {
     print-color-adjust: exact;
   }
 
-  .category-header .add-to-cat {
+  .category-header .add-to-cat,
+  .chevron {
     display: none;
   }
 

@@ -4,8 +4,9 @@ let editingItemId = null;
 let searchQuery = '';
 let sortCol = 'item';
 let sortDir = 'asc'; // 'asc' | 'desc'
+let collapsedCats = new Set();
 
-const CATEGORY_ORDER = ['BEVERAGE', 'FOOD', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
+const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
 
 const COLUMNS = [
   { key: 'vendor',      label: 'Vendor',    cls: 'col-vendor',  type: 'text' },
@@ -109,20 +110,12 @@ function bindEvents() {
 
   // Print PAR sheet
   document.getElementById('print-par-btn').addEventListener('click', () => {
-    document.getElementById('print-date').textContent = 'Date: ' + new Date().toLocaleDateString();
-    document.getElementById('print-mode').textContent = 'PAR Levels';
-    document.body.classList.add('print-par');
-    window.print();
-    document.body.classList.remove('print-par');
+    printWithMode('print-par', 'PAR Levels');
   });
 
   // Print Order sheet
   document.getElementById('print-order-btn').addEventListener('click', () => {
-    document.getElementById('print-date').textContent = 'Date: ' + new Date().toLocaleDateString();
-    document.getElementById('print-mode').textContent = 'Suggested Order';
-    document.body.classList.add('print-order');
-    window.print();
-    document.body.classList.remove('print-order');
+    printWithMode('print-order', 'Suggested Order');
   });
 
   // Reset
@@ -187,32 +180,47 @@ function render() {
   applyColumnToggles();
 }
 
+function toggleCategory(category) {
+  if (collapsedCats.has(category)) {
+    collapsedCats.delete(category);
+  } else {
+    collapsedCats.add(category);
+  }
+  render();
+}
+
 function renderCategory(category) {
   const catItems = sortItems(filterItems(items.filter(i => i.category === category)));
   if (catItems.length === 0) return '';
 
   const cssClass = category.replace(/\s+/g, '_');
+  const collapsed = collapsedCats.has(category);
+  const chevron = collapsed ? '&#9654;' : '&#9660;';
 
-  let html = `<div class="category-section cat-${cssClass}">`;
-  html += `<div class="category-header">
-    <span>${category} (${catItems.length})</span>
-    <button class="add-to-cat no-print" onclick="openModal('${category}')">+ Add</button>
+  let html = `<div class="category-section cat-${cssClass}${collapsed ? ' collapsed' : ''}">`;
+  html += `<div class="category-header" onclick="toggleCategory('${category}')">
+    <span><span class="chevron">${chevron}</span> ${category} (${catItems.length})</span>
+    <button class="add-to-cat no-print" onclick="event.stopPropagation(); openModal('${category}')">+ Add</button>
   </div>`;
 
-  html += '<table class="order-table"><thead><tr>';
-  for (const col of COLUMNS) {
-    const active = sortCol === col.key;
-    const arrow = active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '';
-    html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" onclick="toggleSort('${col.key}')">${col.label}${arrow}</th>`;
-  }
-  html += '<th class="row-actions no-print"></th>';
-  html += '</tr></thead><tbody>';
+  if (!collapsed) {
+    html += '<table class="order-table"><thead><tr>';
+    for (const col of COLUMNS) {
+      const active = sortCol === col.key;
+      const arrow = active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '';
+      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${arrow}</th>`;
+    }
+    html += '<th class="row-actions no-print"></th>';
+    html += '</tr></thead><tbody>';
 
-  for (const item of catItems) {
-    html += renderRow(item);
+    for (const item of catItems) {
+      html += renderRow(item);
+    }
+
+    html += '</tbody></table>';
   }
 
-  html += '</tbody></table></div>';
+  html += '</div>';
   return html;
 }
 
@@ -335,7 +343,7 @@ function fillForm(item) {
 }
 
 function clearForm() {
-  document.getElementById('f-category').value = 'FOOD';
+  document.getElementById('f-category').value = 'TRASH TOPPINGS';
   document.getElementById('f-vendor').value = '';
   document.getElementById('f-packSize').value = '';
   document.getElementById('f-brand').value = '';
@@ -384,6 +392,26 @@ function deleteItem(id) {
   if (item && confirm(`Delete "${item.item}"?`)) {
     items = items.filter(i => i.id !== id);
     saveData();
+    render();
+  }
+}
+
+// ===== PRINT =====
+function printWithMode(cls, label) {
+  // Expand all categories for print, restore after
+  const savedCollapsed = new Set(collapsedCats);
+  if (collapsedCats.size > 0) {
+    collapsedCats.clear();
+    render();
+  }
+  document.getElementById('print-date').textContent = 'Date: ' + new Date().toLocaleDateString();
+  document.getElementById('print-mode').textContent = label;
+  document.body.classList.add(cls);
+  window.print();
+  document.body.classList.remove(cls);
+  // Restore collapsed state
+  if (savedCollapsed.size > 0) {
+    collapsedCats = savedCollapsed;
     render();
   }
 }
