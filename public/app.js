@@ -29,16 +29,28 @@ async function api(path, options = {}) {
   }
 }
 
+function updateRoleBanner() {
+  const banner = document.getElementById('role-banner');
+  if (token) {
+    banner.style.display = '';
+    banner.textContent = 'Logged in as: ' + (isManager() ? 'Manager' : 'Crew');
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
 function showLogin() {
   document.getElementById('login-screen').style.display = '';
   document.getElementById('dashboard-screen').style.display = 'none';
   document.getElementById('app-container').style.display = 'none';
+  updateRoleBanner();
 }
 
 function showDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard-screen').style.display = '';
   document.getElementById('app-container').style.display = 'none';
+  updateRoleBanner();
 }
 
 function hideLogin() {
