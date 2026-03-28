@@ -1,0 +1,9 @@
+node_modules
+.git
+.env
+.env.*
+__pycache__
+*.pyc
+decisions.md
+parking_lot.md
+whiteboard.md
