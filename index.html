@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIC Ordering Guide</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="no-print">
+    <div class="header-top">
+      <h1>TIC Ordering Guide</h1>
+      <div class="header-actions">
+        <button id="add-item-btn" class="btn btn-primary">+ Add Item</button>
+        <button id="print-par-btn" class="btn">Print PAR Sheet</button>
+        <button id="print-order-btn" class="btn">Print Order Sheet</button>
+        <button id="reset-btn" class="btn btn-danger">Reset Data</button>
+      </div>
+    </div>
+    <div class="header-bar">
+      <input type="text" id="search-input" placeholder="Search items..." autocomplete="off">
+      <div class="col-toggles">
+        <span class="col-toggles-label">Columns:</span>
+        <label><input type="checkbox" data-col="col-vendor" checked> Vendor</label>
+        <label><input type="checkbox" data-col="col-item" checked disabled> Item</label>
+        <label><input type="checkbox" data-col="col-pack" checked> Pack Size</label>
+        <label><input type="checkbox" data-col="col-brand" checked> Brand</label>
+        <label><input type="checkbox" data-col="col-unit" checked> Unit</label>
+        <label><input type="checkbox" data-col="col-price" checked> Price/Pkg</label>
+        <label><input type="checkbox" data-col="col-par" checked> PAR</label>
+        <label><input type="checkbox" data-col="col-onhand" checked> On Hand</label>
+        <label><input type="checkbox" data-col="col-order" checked> Order</label>
+      </div>
+    </div>
+  </header>
+
+  <div class="print-only" id="print-header">
+    <h1>TIC Ordering Guide</h1>
+    <div class="print-meta">
+      <span id="print-date"></span>
+      <span id="print-mode"></span>
+    </div>
+  </div>
+
+  <main id="table-container"></main>
+
+  <!-- Add / Edit Item Modal -->
+  <div id="item-modal" class="modal hidden no-print">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <h2 id="modal-title">Add New Item</h2>
+      <form id="item-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="f-category">Category</label>
+            <select id="f-category" required>
+              <option value="BEVERAGE">BEVERAGE</option>
+              <option value="FOOD" selected>FOOD</option>
+              <option value="PAPERGOODS">PAPERGOODS</option>
+              <option value="JOB SUPPLIES">JOB SUPPLIES</option>
+              <option value="NOT FOR INVENTORY">NOT FOR INVENTORY</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-vendor">Vendor</label>
+            <input type="text" id="f-vendor" required>
+          </div>
+          <div class="form-group">
+            <label for="f-item">Item Name</label>
+            <input type="text" id="f-item" required>
+          </div>
+          <div class="form-group">
+            <label for="f-brand">Brand</label>
+            <input type="text" id="f-brand">
+          </div>
+          <div class="form-group">
+            <label for="f-packSize">Pack Size</label>
+            <input type="text" id="f-packSize" required placeholder="e.g. 24 12 oz">
+          </div>
+          <div class="form-group">
+            <label for="f-unit">Unit</label>
+            <input type="text" id="f-unit" value="each">
+          </div>
+          <div class="form-group">
+            <label for="f-pricePerPkg">Price / Pkg ($)</label>
+            <input type="number" id="f-pricePerPkg" step="0.01" min="0">
+          </div>
+          <div class="form-group">
+            <label for="f-perOzUnit">Per oz/unit ($)</label>
+            <input type="number" id="f-perOzUnit" step="0.01" min="0">
+          </div>
+          <div class="form-group full-width">
+            <label for="f-notes">Notes</label>
+            <input type="text" id="f-notes">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-danger" id="modal-delete" style="display:none; margin-right:auto;">Delete Item</button>
+          <button type="button" class="btn" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
