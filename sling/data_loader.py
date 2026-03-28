@@ -79,12 +79,22 @@ def classify_employees_from_sling():
     Returns:
         dict: {user_id: {"name": str, "role": str, "positions": set, "locations": set}}
     """
-    token = os.getenv("SLING_AUTH_TOKEN")
+    token = os.getenv("SLING_AUTH_TOKEN", "").strip()
+    if not token:
+        print("WARNING: SLING_AUTH_TOKEN not set — classifying from shift history only")
+        return {}
+
     headers = {"Authorization": token}
 
     # Get all users
     r = requests.get(f"{SLING_BASE_URL}/v1/users", headers=headers)
+    if r.status_code != 200:
+        print(f"WARNING: Sling API returned {r.status_code} — classifying from shift history only")
+        return {}
     users = r.json()
+    if not isinstance(users, list):
+        print("WARNING: Sling API returned unexpected format — classifying from shift history only")
+        return {}
     active_ids = {u['id'] for u in users if u.get('active', False)}
     user_names = {u['id']: f"{u['name']} {u['lastname']}" for u in users}
 
