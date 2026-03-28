@@ -1,11 +1,14 @@
 // ===== STATE =====
 let items = [];
+let storeData = {};  // { storeName: { itemId: { par, onHand } } }
+let currentStore = 'Bentonville';
 let editingItemId = null;
 let searchQuery = '';
 let sortCol = 'item';
-let sortDir = 'asc'; // 'asc' | 'desc'
+let sortDir = 'asc';
 let collapsedCats = new Set();
 
+const STORES = ['Bentonville', 'Rogers'];
 const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
 
 const COLUMNS = [
@@ -29,16 +32,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== DATA =====
 function loadData() {
-  const saved = localStorage.getItem('tic-order-guide');
-  if (saved) {
-    items = JSON.parse(saved);
+  const savedItems = localStorage.getItem('tic-items');
+  const savedStores = localStorage.getItem('tic-stores');
+  const savedCurrent = localStorage.getItem('tic-current-store');
+
+  if (savedItems) {
+    items = JSON.parse(savedItems);
   } else {
-    items = JSON.parse(JSON.stringify(INITIAL_DATA));
+    // Migrate from old format or use defaults
+    const legacy = localStorage.getItem('tic-order-guide');
+    if (legacy) {
+      const old = JSON.parse(legacy);
+      items = old.map(i => {
+        const { par, onHand, ...rest } = i;
+        return rest;
+      });
+      // Pull old par/onHand into first store
+      storeData = { Bentonville: {}, Rogers: {} };
+      old.forEach(i => {
+        if (i.par || i.onHand) {
+          storeData.Bentonville[i.id] = { par: i.par || 0, onHand: i.onHand || 0 };
+        }
+      });
+      localStorage.removeItem('tic-order-guide');
+      saveData();
+      return;
+    }
+    items = JSON.parse(JSON.stringify(INITIAL_DATA)).map(i => {
+      const { par, onHand, ...rest } = i;
+      return rest;
+    });
   }
+
+  if (savedStores) {
+    storeData = JSON.parse(savedStores);
+  } else {
+    storeData = {};
+    STORES.forEach(s => storeData[s] = {});
+  }
+
+  if (savedCurrent && STORES.includes(savedCurrent)) {
+    currentStore = savedCurrent;
+  }
+
+  // Make sure all stores exist
+  STORES.forEach(s => { if (!storeData[s]) storeData[s] = {}; });
 }
 
 function saveData() {
-  localStorage.setItem('tic-order-guide', JSON.stringify(items));
+  localStorage.setItem('tic-items', JSON.stringify(items));
+  localStorage.setItem('tic-stores', JSON.stringify(storeData));
+  localStorage.setItem('tic-current-store', currentStore);
 }
 
 function getNextId() {
@@ -52,8 +96,21 @@ function getCategories() {
   return [...ordered, ...extra];
 }
 
+function getStoreVal(itemId, field) {
+  const sd = storeData[currentStore];
+  return (sd && sd[itemId] && sd[itemId][field]) || 0;
+}
+
+function setStoreVal(itemId, field, value) {
+  if (!storeData[currentStore]) storeData[currentStore] = {};
+  if (!storeData[currentStore][itemId]) storeData[currentStore][itemId] = { par: 0, onHand: 0 };
+  storeData[currentStore][itemId][field] = value;
+}
+
 function getOrder(item) {
-  return Math.max(0, (item.par || 0) - (item.onHand || 0));
+  const par = getStoreVal(item.id, 'par');
+  const onHand = getStoreVal(item.id, 'onHand');
+  return Math.max(0, par - onHand);
 }
 
 // ===== SEARCH & SORT =====
@@ -75,7 +132,10 @@ function sortItems(list) {
     if (sortCol === 'order') {
       av = getOrder(a);
       bv = getOrder(b);
-    } else if (sortCol === 'pricePerPkg' || sortCol === 'par' || sortCol === 'onHand') {
+    } else if (sortCol === 'par' || sortCol === 'onHand') {
+      av = getStoreVal(a.id, sortCol);
+      bv = getStoreVal(b.id, sortCol);
+    } else if (sortCol === 'pricePerPkg') {
       av = a[sortCol] || 0;
       bv = b[sortCol] || 0;
     } else {
@@ -102,27 +162,38 @@ function toggleSort(col) {
 function bindEvents() {
   document.getElementById('add-item-btn').addEventListener('click', () => openModal());
 
+  // Store selector
+  const storeSelect = document.getElementById('store-select');
+  storeSelect.value = currentStore;
+  storeSelect.addEventListener('change', (e) => {
+    currentStore = e.target.value;
+    saveData();
+    render();
+  });
+
   // Search
   document.getElementById('search-input').addEventListener('input', (e) => {
     searchQuery = e.target.value.trim();
     render();
   });
 
-  // Print PAR sheet
+  // Print
   document.getElementById('print-par-btn').addEventListener('click', () => {
-    printWithMode('print-par', 'PAR Levels');
+    printWithMode('print-par', 'PAR Levels -- ' + currentStore);
   });
-
-  // Print Order sheet
   document.getElementById('print-order-btn').addEventListener('click', () => {
-    printWithMode('print-order', 'Suggested Order');
+    printWithMode('print-order', 'Suggested Order -- ' + currentStore);
   });
 
   // Reset
   document.getElementById('reset-btn').addEventListener('click', () => {
-    if (confirm('Reset all data to defaults? This will clear all PAR levels, inventory counts, and any items you added.')) {
+    if (confirm('Reset ALL data to defaults? This clears all stores, PAR levels, inventory counts, and custom items.')) {
+      localStorage.removeItem('tic-items');
+      localStorage.removeItem('tic-stores');
+      localStorage.removeItem('tic-current-store');
       localStorage.removeItem('tic-order-guide');
-      items = JSON.parse(JSON.stringify(INITIAL_DATA));
+      loadData();
+      document.getElementById('store-select').value = currentStore;
       render();
     }
   });
@@ -147,6 +218,8 @@ function bindEvents() {
   document.getElementById('modal-delete').addEventListener('click', () => {
     if (editingItemId && confirm('Delete this item?')) {
       items = items.filter(i => i.id !== editingItemId);
+      // Clean up store data
+      STORES.forEach(s => { if (storeData[s]) delete storeData[s][editingItemId]; });
       saveData();
       closeModal();
       render();
@@ -229,8 +302,10 @@ function textCell(cls, id, field, value) {
 }
 
 function renderRow(item) {
-  const suggestedOrder = getOrder(item);
-  const needsOrder = item.par > 0 && suggestedOrder > 0;
+  const par = getStoreVal(item.id, 'par');
+  const onHand = getStoreVal(item.id, 'onHand');
+  const suggestedOrder = Math.max(0, par - onHand);
+  const needsOrder = par > 0 && suggestedOrder > 0;
 
   let html = `<tr class="${needsOrder ? 'needs-order' : ''}" data-id="${item.id}">`;
   html += textCell('col-vendor', item.id, 'vendor', item.vendor);
@@ -240,14 +315,14 @@ function renderRow(item) {
   html += textCell('col-unit', item.id, 'unit', item.unit);
   html += `<td class="col-price"><input type="number" class="inline-input inline-text inline-price" data-id="${item.id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`;
 
-  // PAR
-  html += `<td class="col-par"><input type="number" class="inline-input input-par" data-id="${item.id}" data-field="par" value="${item.par || ''}" min="0" step="1" placeholder="0"></td>`;
+  // PAR -- inline text style (like pack size / brand)
+  html += `<td class="col-par"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`;
 
   // On Hand
-  html += `<td class="col-onhand"><input type="number" class="inline-input input-onhand" data-id="${item.id}" data-field="onHand" value="${item.onHand || ''}" min="0" step="1" placeholder="0"></td>`;
+  html += `<td class="col-onhand"><input type="number" class="inline-input input-onhand" data-id="${item.id}" data-field="onHand" data-store="1" value="${onHand || ''}" min="0" step="1" placeholder="0"></td>`;
 
   // Suggested Order
-  if (item.par > 0) {
+  if (par > 0) {
     html += `<td class="col-order ${suggestedOrder > 0 ? 'order-positive' : 'order-zero'}">${suggestedOrder}</td>`;
   } else {
     html += `<td class="col-order order-zero">-</td>`;
@@ -268,18 +343,23 @@ function attachInlineListeners() {
     input.addEventListener('change', (e) => {
       const id = parseInt(e.target.dataset.id);
       const field = e.target.dataset.field;
+      const isStore = e.target.dataset.store === '1';
       const isNumeric = numericFields.has(field);
       const value = isNumeric ? (parseFloat(e.target.value) || 0) : e.target.value.trim();
-      const item = items.find(i => i.id === id);
-      if (item) {
-        item[field] = value;
-        saveData();
-        if (field === 'par' || field === 'onHand') {
-          const focusField = e.target.dataset.field;
-          render();
-          const nextInput = document.querySelector(`.inline-input[data-id="${id}"][data-field="${focusField}"]`);
-          if (nextInput) nextInput.focus();
-        }
+
+      if (isStore) {
+        setStoreVal(id, field, value);
+      } else {
+        const item = items.find(i => i.id === id);
+        if (item) item[field] = value;
+      }
+      saveData();
+
+      if (field === 'par' || field === 'onHand') {
+        const focusField = field;
+        render();
+        const nextInput = document.querySelector(`.inline-input[data-id="${id}"][data-field="${focusField}"]`);
+        if (nextInput) nextInput.focus();
       }
     });
 
@@ -376,8 +456,6 @@ function saveItemFromForm() {
       ...data,
       totalWeightOz: 0,
       perLbPint: 0,
-      par: 0,
-      onHand: 0,
     });
   }
 
@@ -391,6 +469,7 @@ function deleteItem(id) {
   const item = items.find(i => i.id === id);
   if (item && confirm(`Delete "${item.item}"?`)) {
     items = items.filter(i => i.id !== id);
+    STORES.forEach(s => { if (storeData[s]) delete storeData[s][id]; });
     saveData();
     render();
   }
@@ -398,7 +477,6 @@ function deleteItem(id) {
 
 // ===== PRINT =====
 function printWithMode(cls, label) {
-  // Expand all categories for print, restore after
   const savedCollapsed = new Set(collapsedCats);
   if (collapsedCats.size > 0) {
     collapsedCats.clear();
@@ -409,7 +487,6 @@ function printWithMode(cls, label) {
   document.body.classList.add(cls);
   window.print();
   document.body.classList.remove(cls);
-  // Restore collapsed state
   if (savedCollapsed.size > 0) {
     collapsedCats = savedCollapsed;
     render();

@@ -33,6 +33,29 @@ header h1 {
   color: #222;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.store-select {
+  padding: 6px 10px;
+  border: 2px solid #2563eb;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eef2ff;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.store-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
 .header-actions {
   display: flex;
   gap: 8px;
@@ -303,9 +326,9 @@ main {
   width: 80px;
 }
 
-.inline-input.input-par {
-  border-color: #a5b4fc;
-  background: #eef2ff;
+.inline-num {
+  text-align: center;
+  width: 60px;
 }
 
 .inline-input.input-onhand {
