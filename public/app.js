@@ -31,12 +31,41 @@ async function api(path, options = {}) {
 
 function showLogin() {
   document.getElementById('login-screen').style.display = '';
+  document.getElementById('dashboard-screen').style.display = 'none';
+  document.getElementById('app-container').style.display = 'none';
+}
+
+function showDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard-screen').style.display = '';
   document.getElementById('app-container').style.display = 'none';
 }
 
 function hideLogin() {
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app-container').style.display = '';
+}
+
+async function openTool(tool) {
+  if (tool === 'order') {
+    document.getElementById('dashboard-screen').style.display = 'none';
+    document.getElementById('app-container').style.display = '';
+    try {
+      await loadData();
+      bindEvents();
+      render();
+    } catch (err) {
+      console.warn('Load error:', err);
+      document.getElementById('table-container').innerHTML =
+        '<div class="empty-state"><p>Could not connect to server. Try again.</p></div>';
+    }
+  } else if (tool === 'schedule') {
+    window.location.href = '/schedule/';
+  }
+}
+
+function backToDashboard() {
+  document.getElementById('app-container').style.display = 'none';
+  document.getElementById('dashboard-screen').style.display = '';
 }
 
 async function login() {
@@ -55,10 +84,7 @@ async function login() {
       userRole = data.role;
       localStorage.setItem('tic-token', token);
       localStorage.setItem('tic-role', userRole);
-      hideLogin();
-      await loadData();
-      bindEvents();
-      render();
+      showDashboard();
     } else {
       errorEl.textContent = 'Wrong PIN. Try again.';
     }
@@ -112,17 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   if (token) {
-    hideLogin();
-    try {
-      await loadData();
-      bindEvents();
-      render();
-    } catch (err) {
-      console.warn('Load error:', err);
-      // Token is still valid, just couldn't reach server
-      document.getElementById('table-container').innerHTML =
-        '<div class="empty-state"><p>Could not connect to server. Pull to refresh.</p></div>';
-    }
+    showDashboard();
   } else {
     showLogin();
   }

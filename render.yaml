@@ -5,21 +5,34 @@ databases:
 
 services:
   - type: web
-    name: tic-ordering-guide
-    runtime: node
+    name: tic-management
+    runtime: docker
     plan: starter
-    buildCommand: npm install && npx prisma migrate deploy && npx prisma db seed
-    startCommand: node server.js
+    dockerCommand: bash start.sh
     envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: tic-ordering-db
           property: connectionString
-      - key: NODE_VERSION
-        value: "22"
       - key: JWT_SECRET
         generateValue: true
       - key: MANAGER_PIN
         value: "1234"
       - key: CREW_PIN
         value: "0000"
+      - key: SLING_PORT
+        value: "8001"
+      - key: SLING_AUTH_TOKEN
+        sync: false
+      - key: TOAST_GUID_TRASH_BENTONVILLE
+        sync: false
+      - key: TOAST_CLIENT_ID_TRASH_BENTONVILLE
+        sync: false
+      - key: TOAST_CLIENT_SECRET_TRASH_BENTONVILLE
+        sync: false
+      - key: TOAST_GUID_TRASH_ROGERS
+        sync: false
+      - key: TOAST_CLIENT_ID_TRASH_ROGERS
+        sync: false
+      - key: TOAST_CLIENT_SECRET_TRASH_ROGERS
+        sync: false

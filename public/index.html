@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TIC Ordering Guide</title>
+  <title>TIC Management Tools</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
   <!-- Login Screen -->
   <div id="login-screen" class="login-screen">
     <div class="login-card">
-      <h1>TIC Ordering Guide</h1>
+      <h1>TIC Management Tools</h1>
       <p>Enter your PIN to continue</p>
       <input type="password" id="login-pin" placeholder="PIN" inputmode="numeric" autocomplete="off">
       <button id="login-btn" class="btn btn-primary">Log In</button>
@@ -19,12 +19,34 @@
     </div>
   </div>
 
-  <!-- Main App (hidden until authenticated) -->
+  <!-- Dashboard (tool picker, shown after login) -->
+  <div id="dashboard-screen" style="display:none">
+    <div class="dashboard">
+      <h1>TIC Management Tools</h1>
+      <p class="dashboard-sub">Choose a tool</p>
+      <div class="dashboard-grid">
+        <button class="dashboard-card" onclick="openTool('order')">
+          <div class="dashboard-card-icon">O</div>
+          <div class="dashboard-card-title">Ordering Guide</div>
+          <div class="dashboard-card-desc">PAR levels, inventory counts, suggested orders</div>
+        </button>
+        <button class="dashboard-card" onclick="openTool('schedule')">
+          <div class="dashboard-card-icon">S</div>
+          <div class="dashboard-card-title">Scheduling Guide</div>
+          <div class="dashboard-card-desc">Build shifts, fairness tracking, push to Sling</div>
+        </button>
+      </div>
+      <button class="btn dashboard-logout" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- Ordering Guide App (hidden until selected) -->
   <div id="app-container" style="display:none">
 
     <header class="no-print">
       <div class="header-top">
         <div class="header-left">
+          <button class="btn btn-back" onclick="backToDashboard()">&larr;</button>
           <h1>TIC Ordering Guide</h1>
           <select id="store-select" class="store-select"></select>
         </div>

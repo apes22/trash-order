@@ -1,14 +1,22 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const path = require('path');
 
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
+const SLING_PORT = process.env.SLING_PORT || 8001;
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production';
 const MANAGER_PIN = process.env.MANAGER_PIN || '1234';
 const CREW_PIN = process.env.CREW_PIN || '0000';
+
+// Proxy sling-api requests to FastAPI backend
+app.use('/sling-api', createProxyMiddleware({
+  target: `http://127.0.0.1:${SLING_PORT}`,
+  changeOrigin: true,
+}));
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));

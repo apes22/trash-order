@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sling Scheduler — Trash Ice Cream</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --lead-bg: #EEF2FF;
+            --lead-border: #6366F1;
+            --lead-text: #3730A3;
+            --cashier-bg: #F0FDFA;
+            --cashier-border: #14B8A6;
+            --cashier-text: #115E59;
+        }
+
+        body {
+            background: #F8FAFC;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .shift-block {
+            border-radius: 6px;
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            line-height: 1.3;
+            cursor: pointer;
+            transition: box-shadow 0.15s, transform 0.1s;
+            border-left-width: 3px;
+            border-left-style: solid;
+        }
+
+        .shift-block:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
+        }
+
+        .shift-lead {
+            background: var(--lead-bg);
+            border-left-color: var(--lead-border);
+            color: var(--lead-text);
+        }
+
+        .shift-cashier {
+            background: var(--cashier-bg);
+            border-left-color: var(--cashier-border);
+            color: var(--cashier-text);
+        }
+
+        .grid-header {
+            background: #1E293B;
+            color: white;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .grid-cell {
+            min-height: 80px;
+            border-right: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 6px;
+            background: white;
+        }
+
+        .tab-btn {
+            padding: 8px 24px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .tab-active {
+            background: white;
+            color: #1E293B;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+        }
+
+        .tab-inactive {
+            background: #334155;
+            color: #94A3B8;
+        }
+
+        .tab-inactive:hover {
+            color: white;
+            background: #475569;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-lead-only { background: #C7D2FE; color: #3730A3; }
+        .badge-lead-eligible { background: #DDD6FE; color: #5B21B6; }
+        .badge-cashier-only { background: #A7F3D0; color: #065F46; }
+
+        .sidebar-employee {
+            padding: 10px 12px;
+            border-bottom: 1px solid #F1F5F9;
+            transition: background 0.1s;
+        }
+
+        .sidebar-employee:hover {
+            background: #F8FAFC;
+        }
+
+        .fairness-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: #E2E8F0;
+            overflow: hidden;
+        }
+
+        .fairness-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-overlay.hidden {
+            display: none !important;
+        }
+
+        .loading-spinner {
+            border: 3px solid #E2E8F0;
+            border-top: 3px solid #6366F1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 100;
+            animation: slideUp 0.3s ease-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .toast-success { background: #059669; }
+        .toast-error { background: #DC2626; }
+        .toast-info { background: #2563EB; }
+
+        /* Algorithm panel styles */
+        .algo-section {
+            transition: max-height 0.3s ease-out, opacity 0.2s;
+            overflow: hidden;
+        }
+
+        .algo-section.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .algo-section.expanded {
+            max-height: none;
+            opacity: 1;
+        }
+
+        .algo-bar {
+            height: 20px;
+            border-radius: 3px;
+            transition: width 0.4s ease-out;
+            min-width: 2px;
+        }
+
+        .algo-bar-txn { background: #6366F1; }
+        .algo-bar-staff { background: #A5B4FC; }
+
+        .algo-row {
+            display: grid;
+            grid-template-columns: 70px 1fr 60px 50px;
+            gap: 8px;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid #F1F5F9;
+            font-size: 12px;
+        }
+
+        .algo-row:last-child {
+            border-bottom: none;
+        }
+
+        .algo-row.peak-row {
+            background: #FEF3C7;
+            border-radius: 4px;
+            padding: 4px 6px;
+            margin: 0 -6px;
+        }
+
+        .algo-day-tab {
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .algo-day-tab.active {
+            background: #4F46E5;
+            color: white;
+        }
+
+        .algo-day-tab:not(.active) {
+            background: #F1F5F9;
+            color: #64748B;
+        }
+
+        .algo-day-tab:not(.active):hover {
+            background: #E2E8F0;
+            color: #334155;
+        }
+
+        .shift-slot-card {
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-left: 3px solid;
+        }
+
+        .shift-slot-card.slot-lead {
+            border-left-color: var(--lead-border);
+            background: #FAFAFE;
+        }
+
+        .shift-slot-card.slot-cashier {
+            border-left-color: var(--cashier-border);
+            background: #FAFFFE;
+        }
+
+        .settings-drawer {
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 380px;
+            background: white;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+            z-index: 55;
+            transform: translateX(100%);
+            transition: transform 0.25s ease-out;
+            overflow-y: auto;
+        }
+
+        .settings-drawer.open {
+            transform: translateX(0);
+        }
+
+        .settings-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 54;
+            display: none;
+        }
+
+        .settings-backdrop.open {
+            display: block;
+        }
+
+        .setting-row {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .setting-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .setting-desc {
+            font-size: 11px;
+            color: #94A3B8;
+            margin-bottom: 8px;
+        }
+
+        .setting-input {
+            width: 100%;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: #6366F1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+        }
+
+        .staffing-adequate { color: #059669; }
+        .staffing-minimum { color: #D97706; }
+        .staffing-understaffed { color: #DC2626; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="bg-gray-900 text-white shadow-lg">
+        <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold tracking-tight">Sling Scheduler</h1>
+                <span class="text-gray-400 text-sm font-medium">Trash Ice Cream</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Page nav -->
+                <nav class="flex items-center gap-1 bg-gray-800 rounded-lg p-1">
+                    <button id="nav-schedule" onclick="switchPage('schedule')"
+                            class="px-4 py-1.5 rounded-md text-sm font-medium transition bg-gray-700 text-white">
+                        Schedule
+                    </button>
+                    <button id="nav-availability" onclick="switchPage('availability')"
+                            class="px-4 py-1.5 rounded-md text-sm font-medium transition text-gray-400 hover:text-white">
+                        Availability
+                    </button>
+                </nav>
+                <div class="flex items-center gap-2 text-sm text-gray-400">
+                    <span class="inline-block w-3 h-3 rounded" style="background: var(--lead-border);"></span>
+                    Lead
+                    <span class="inline-block w-3 h-3 rounded ml-2" style="background: var(--cashier-border);"></span>
+                    Cashier
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SCHEDULE PAGE ========== -->
+    <div id="page-schedule">
+
+    <!-- Controls bar -->
+    <div class="bg-gray-800 border-b border-gray-700">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex items-center justify-between py-3">
+                <!-- Location tabs -->
+                <div class="flex gap-1">
+                    <button id="tab-bentonville" class="tab-btn tab-active" onclick="switchLocation('Bentonville')">
+                        Bentonville
+                    </button>
+                    <button id="tab-rogers" class="tab-btn tab-inactive" onclick="switchLocation('Rogers')">
+                        Rogers
+                    </button>
+                </div>
+
+                <!-- Week picker -->
+                <div class="flex items-center gap-3">
+                    <button onclick="shiftWeek(-1)" class="text-gray-400 hover:text-white px-2 py-1 rounded hover:bg-gray-700">
+                        &larr; Prev
+                    </button>
+                    <input type="date" id="week-picker"
+                           class="bg-gray-700 text-white border border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500">
+                    <button onclick="shiftWeek(1)" class="text-gray-400 hover:text-white px-2 py-1 rounded hover:bg-gray-700">
+                        Next &rarr;
+                    </button>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openSettingsDrawer()" class="bg-gray-600 hover:bg-gray-500 text-white px-3 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1.5" title="Adjust scheduling variables">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Settings
+                    </button>
+                    <button onclick="loadSchedule()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                        Generate Schedule
+                    </button>
+                    <button onclick="pushToSling()" id="push-btn"
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                        Push to Sling
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-6">
+        <div class="flex gap-6">
+
+            <!-- Schedule grid -->
+            <div class="flex-1" id="schedule-container">
+                <!-- Loading state -->
+                <div id="loading-state" class="hidden flex flex-col items-center justify-center py-24">
+                    <div class="loading-spinner mb-4"></div>
+                    <p class="text-gray-500 text-sm">Generating schedule...</p>
+                </div>
+
+                <!-- Empty state -->
+                <div id="empty-state" class="flex flex-col items-center justify-center py-24 text-center">
+                    <svg class="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <h3 class="text-gray-500 text-lg font-medium mb-1">No schedule loaded</h3>
+                    <p class="text-gray-400 text-sm">Select a week and click "Generate Schedule" to get started.</p>
+                </div>
+
+                <!-- Schedule grid -->
+                <div id="schedule-grid" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <!-- Week header -->
+                    <div id="week-header" class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                        <h2 id="week-label" class="font-semibold text-gray-800"></h2>
+                        <div id="week-stats" class="text-sm text-gray-500"></div>
+                    </div>
+
+                    <!-- Grid -->
+                    <div class="grid grid-cols-7" id="grid-headers"></div>
+                    <div class="grid grid-cols-7" id="grid-body"></div>
+                </div>
+
+                <!-- Algorithm panel (below schedule grid) -->
+                <div id="algorithm-panel" class="hidden mt-6 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <!-- Toggle header -->
+                    <button onclick="toggleAlgorithmPanel()" class="w-full px-5 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition border-b border-gray-200">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            <span class="font-semibold text-gray-800 text-sm">How This Schedule Was Built</span>
+                        </div>
+                        <svg id="algo-chevron" class="w-4 h-4 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <!-- Expandable content -->
+                    <div id="algo-content" class="algo-section collapsed">
+                        <!-- Big picture explanation -->
+                        <div class="px-5 py-4 bg-indigo-50 border-b border-indigo-100">
+                            <p class="text-sm text-indigo-900 leading-relaxed">
+                                This schedule is built from historical data. For each day of the week, we look at your
+                                actual sales volume by hour (from Toast) and how you've historically staffed those hours
+                                (from Sling). The system matches staffing levels to sales patterns -- busier hours get
+                                more people.
+                            </p>
+                        </div>
+
+                        <!-- Data source summary -->
+                        <div id="algo-summary-bar" class="px-5 py-3 bg-gray-50 border-b border-gray-200 flex flex-wrap gap-4 text-xs text-gray-500"></div>
+
+                        <!-- Day tabs -->
+                        <div class="px-5 py-3 border-b border-gray-200">
+                            <div id="algo-day-tabs" class="flex flex-wrap gap-2"></div>
+                        </div>
+
+                        <!-- Selected day content -->
+                        <div id="algo-day-content" class="px-5 py-4">
+                            <p class="text-sm text-gray-400 text-center py-8">Select a day above to see the hourly breakdown.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="w-80 flex-shrink-0 space-y-4">
+
+                <!-- Employees panel -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                        <h3 class="font-semibold text-gray-800 text-sm">Employees</h3>
+                        <span id="emp-count" class="text-xs text-gray-400"></span>
+                    </div>
+                    <div id="employee-list" class="max-h-80 overflow-y-auto">
+                        <div class="px-4 py-6 text-center text-gray-400 text-sm">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- Fairness panel -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="px-4 py-3 border-b border-gray-200">
+                        <h3 class="font-semibold text-gray-800 text-sm">Lead Rotation Fairness</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">Lead-eligible employees only</p>
+                    </div>
+                    <div id="fairness-panel" class="max-h-72 overflow-y-auto">
+                        <div class="px-4 py-6 text-center text-gray-400 text-sm">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- Schedule summary -->
+                <div id="summary-panel" class="hidden bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="px-4 py-3 border-b border-gray-200">
+                        <h3 class="font-semibold text-gray-800 text-sm">Weekly Summary</h3>
+                    </div>
+                    <div id="summary-content" class="p-4"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Edit shift modal -->
+    <div id="edit-modal" class="modal-overlay hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Edit Shift</h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="edit-modal-date" class="text-sm text-gray-500 mb-4"></div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Employee</label>
+                    <select id="edit-employee" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                    <select id="edit-role" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Lead">Lead</option>
+                        <option value="Cashier">Cashier</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                        <input type="time" id="edit-start" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                        <input type="time" id="edit-end" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeEditModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                    Cancel
+                </button>
+                <button onclick="saveShiftEdit()" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /page-schedule -->
+
+    <!-- ========== AVAILABILITY PAGE ========== -->
+    <div id="page-availability" class="hidden">
+        <div class="max-w-screen-xl mx-auto px-6 py-6">
+
+            <!-- Page header -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Employee Availability</h2>
+                <p class="text-sm text-gray-500 mt-1">Pulled from Sling. To update availability, make changes in
+                    <a href="https://app.getsling.com" target="_blank" class="text-indigo-600 underline hover:text-indigo-800">Sling</a>,
+                    then refresh this page.
+                </p>
+            </div>
+
+            <!-- Status banner -->
+            <div id="avail-status" class="mb-6"></div>
+
+            <!-- Employee roster with availability -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Employee</th>
+                            <th class="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Role</th>
+                            <th class="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Locations</th>
+                            <th class="px-3 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Hours Cap</th>
+                            <th class="px-3 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Availability Status</th>
+                            <th class="px-3 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Recent Shifts</th>
+                            <th class="px-3 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Last Worked</th>
+                        </tr>
+                    </thead>
+                    <tbody id="availability-body">
+                        <tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 text-xs text-gray-400">
+                Availability data is read-only and sourced from Sling. The scheduler uses this data when generating schedules.
+                Employees without availability set in Sling are assumed available all days.
+            </div>
+        </div>
+    </div>
+
+    <!-- Push confirmation modal -->
+    <div id="push-modal" class="modal-overlay hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Push to Sling?</h3>
+                    <p class="text-sm text-gray-500">This will create shifts in Sling as drafts.</p>
+                </div>
+            </div>
+
+            <div id="push-summary" class="bg-gray-50 rounded-lg p-4 mb-4 text-sm text-gray-600"></div>
+
+            <div class="flex gap-3">
+                <button onclick="closePushModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                    Cancel
+                </button>
+                <button onclick="confirmPush()" id="confirm-push-btn" class="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition">
+                    Confirm Push
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings drawer backdrop -->
+    <div id="settings-backdrop" class="settings-backdrop" onclick="closeSettingsDrawer()"></div>
+
+    <!-- Settings drawer -->
+    <div id="settings-drawer" class="settings-drawer">
+        <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+            <div>
+                <h3 class="font-semibold text-gray-900 text-base">Scheduling Variables</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Adjust these to change how schedules are generated</p>
+            </div>
+            <button onclick="closeSettingsDrawer()" class="text-gray-400 hover:text-gray-600 p-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="setting-row">
+            <div class="setting-label">Max Weekly Hours</div>
+            <div class="setting-desc">Maximum hours any single employee can work in one week</div>
+            <div class="flex items-center gap-3">
+                <input type="range" id="setting-max-weekly" min="15" max="40" value="30" step="1"
+                       class="flex-1" oninput="document.getElementById('setting-max-weekly-val').textContent = this.value">
+                <span id="setting-max-weekly-val" class="text-sm font-semibold text-gray-700 w-8 text-right">30</span>
+                <span class="text-xs text-gray-400">hrs</span>
+            </div>
+        </div>
+
+        <div class="setting-row">
+            <div class="setting-label">Max Shift Duration</div>
+            <div class="setting-desc">Maximum length of any single shift</div>
+            <div class="flex items-center gap-3">
+                <input type="range" id="setting-max-shift" min="4" max="12" value="8" step="0.5"
+                       class="flex-1" oninput="document.getElementById('setting-max-shift-val').textContent = this.value">
+                <span id="setting-max-shift-val" class="text-sm font-semibold text-gray-700 w-8 text-right">8</span>
+                <span class="text-xs text-gray-400">hrs</span>
+            </div>
+        </div>
+
+        <div class="setting-row">
+            <div class="setting-label">Min Shift Duration</div>
+            <div class="setting-desc">Minimum length of any single shift</div>
+            <div class="flex items-center gap-3">
+                <input type="range" id="setting-min-shift" min="2" max="6" value="4" step="0.5"
+                       class="flex-1" oninput="document.getElementById('setting-min-shift-val').textContent = this.value">
+                <span id="setting-min-shift-val" class="text-sm font-semibold text-gray-700 w-8 text-right">4</span>
+                <span class="text-xs text-gray-400">hrs</span>
+            </div>
+        </div>
+
+        <div class="setting-row">
+            <div class="setting-label">Staff Buffer</div>
+            <div class="setting-desc">Extra staff above historical average (0 = match history exactly)</div>
+            <div class="flex items-center gap-3">
+                <input type="range" id="setting-staff-buffer" min="-1" max="3" value="0" step="1"
+                       class="flex-1" oninput="document.getElementById('setting-staff-buffer-val').textContent = (this.value > 0 ? '+' : '') + this.value">
+                <span id="setting-staff-buffer-val" class="text-sm font-semibold text-gray-700 w-8 text-right">0</span>
+                <span class="text-xs text-gray-400">ppl</span>
+            </div>
+        </div>
+
+        <div class="setting-row">
+            <div class="setting-label">Min Staff Per Hour</div>
+            <div class="setting-desc">Minimum number of people on the floor during any open hour</div>
+            <div class="flex items-center gap-3">
+                <input type="number" id="setting-min-staff" min="1" max="5" value="1"
+                       class="setting-input w-20">
+            </div>
+        </div>
+
+        <div class="px-5 py-4 border-t border-gray-200 mt-2">
+            <button onclick="applySettingsAndRegenerate()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition">
+                Apply & Regenerate Schedule
+            </button>
+            <button onclick="resetSettings()" class="w-full mt-2 text-gray-500 hover:text-gray-700 px-4 py-2 text-sm font-medium transition">
+                Reset to Defaults
+            </button>
+        </div>
+    </div>
+
+
+<script>
+// ── State ───────────────────────────────────────────────────────────────
+
+let currentLocation = 'Bentonville';
+let currentWeekStart = null;
+let currentSchedule = null;
+let allEmployees = [];
+let algorithmData = null;
+let algoExpanded = false;
+let selectedAlgoDay = null;
+
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+
+// ── Init ────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Set default week to next Monday
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const daysUntilMonday = dayOfWeek === 0 ? 1 : (8 - dayOfWeek);
+    const nextMonday = new Date(today);
+    nextMonday.setDate(today.getDate() + daysUntilMonday);
+    currentWeekStart = formatDate(nextMonday);
+    document.getElementById('week-picker').value = currentWeekStart;
+
+    // Load employees and fairness
+    loadEmployees();
+    loadFairness();
+});
+
+
+// ── Location & Week ─────────────────────────────────────────────────────
+
+function switchLocation(location) {
+    currentLocation = location;
+
+    // Update tab styles
+    document.getElementById('tab-bentonville').className =
+        'tab-btn ' + (location === 'Bentonville' ? 'tab-active' : 'tab-inactive');
+    document.getElementById('tab-rogers').className =
+        'tab-btn ' + (location === 'Rogers' ? 'tab-active' : 'tab-inactive');
+
+    // Reload data
+    loadEmployees();
+    loadFairness();
+
+    // Reset algorithm state
+    algorithmData = null;
+    selectedAlgoDay = null;
+    document.getElementById('algorithm-panel').classList.add('hidden');
+
+    if (currentSchedule) {
+        loadSchedule();
+    }
+}
+
+function shiftWeek(direction) {
+    const picker = document.getElementById('week-picker');
+    const d = new Date(picker.value + 'T00:00:00');
+    d.setDate(d.getDate() + (direction * 7));
+    currentWeekStart = formatDate(d);
+    picker.value = currentWeekStart;
+
+    if (currentSchedule) {
+        loadSchedule();
+    }
+}
+
+
+// ── API calls ───────────────────────────────────────────────────────────
+
+async function loadSchedule() {
+    const weekStart = document.getElementById('week-picker').value;
+    currentWeekStart = weekStart;
+
+    showLoading(true);
+
+    try {
+        const settingsParams = getSettingsParams();
+        const resp = await fetch(`/sling-api/schedule?week_start=${weekStart}&location=${currentLocation}${settingsParams}`);
+        if (!resp.ok) {
+            const err = await resp.json();
+            throw new Error(err.detail || 'Failed to generate schedule');
+        }
+
+        currentSchedule = await resp.json();
+        renderScheduleGrid(currentSchedule);
+        renderSummary(currentSchedule);
+        document.getElementById('push-btn').disabled = false;
+        showToast('Schedule generated', 'success');
+
+        // Load algorithm explanation data
+        loadAlgorithmData();
+    } catch (e) {
+        showToast('Error: ' + e.message, 'error');
+        showLoading(false);
+    }
+}
+
+async function loadEmployees() {
+    try {
+        const resp = await fetch(`/sling-api/employees?location=${currentLocation}`);
+        const data = await resp.json();
+        allEmployees = data.employees;
+        renderEmployeeList(data.employees);
+        document.getElementById('emp-count').textContent = `${data.count} active`;
+    } catch (e) {
+        document.getElementById('employee-list').innerHTML =
+            '<div class="px-4 py-6 text-center text-red-400 text-sm">Failed to load employees</div>';
+    }
+}
+
+async function loadFairness() {
+    try {
+        const resp = await fetch(`/sling-api/fairness?location=${currentLocation}`);
+        const data = await resp.json();
+        renderFairnessPanel(data);
+    } catch (e) {
+        document.getElementById('fairness-panel').innerHTML =
+            '<div class="px-4 py-6 text-center text-red-400 text-sm">Failed to load fairness data</div>';
+    }
+}
+
+
+// ── Render: Schedule Grid ───────────────────────────────────────────────
+
+function renderScheduleGrid(data) {
+    showLoading(false);
+
+    const gridEl = document.getElementById('schedule-grid');
+    const emptyEl = document.getElementById('empty-state');
+    gridEl.classList.remove('hidden');
+    emptyEl.classList.add('hidden');
+
+    // Week header
+    const startDate = new Date(data.week_start + 'T00:00:00');
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 6);
+    document.getElementById('week-label').textContent =
+        `${formatDisplayDate(startDate)} - ${formatDisplayDate(endDate)}`;
+    document.getElementById('week-stats').textContent =
+        `${data.total_shifts} shifts | ${data.total_hours} hours`;
+
+    // Column headers (days)
+    const headersEl = document.getElementById('grid-headers');
+    headersEl.innerHTML = '';
+    DAYS.forEach((day, i) => {
+        const dayDate = new Date(startDate);
+        dayDate.setDate(dayDate.getDate() + i);
+        const dateStr = dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        const cell = document.createElement('div');
+        cell.className = 'grid-header';
+        cell.innerHTML = `<div>${day}</div><div class="text-xs font-normal text-gray-400 mt-0.5">${dateStr}</div>`;
+        headersEl.appendChild(cell);
+    });
+
+    // Group shifts by day
+    const shiftsByDay = {};
+    DAYS.forEach(d => shiftsByDay[d] = []);
+    data.shifts.forEach(shift => {
+        if (shiftsByDay[shift.day]) {
+            shiftsByDay[shift.day].push(shift);
+        }
+    });
+
+    // Grid body
+    const bodyEl = document.getElementById('grid-body');
+    bodyEl.innerHTML = '';
+
+    DAYS.forEach(day => {
+        const cell = document.createElement('div');
+        cell.className = 'grid-cell';
+
+        const dayShifts = shiftsByDay[day].sort((a, b) => {
+            // Leads first, then by start time
+            if (a.position !== b.position) return a.position === 'Lead' ? -1 : 1;
+            return a.start_hour - b.start_hour || a.start_min - b.start_min;
+        });
+
+        dayShifts.forEach((shift, idx) => {
+            const block = document.createElement('div');
+            const isLead = shift.position === 'Lead';
+            block.className = `shift-block ${isLead ? 'shift-lead' : 'shift-cashier'}`;
+            block.onclick = () => openEditModal(shift, idx);
+
+            block.innerHTML = `
+                <div class="font-semibold" style="font-size: 11px;">${shift.employee}</div>
+                <div style="font-size: 10px; opacity: 0.8;">${shift.start_time} - ${shift.end_time}</div>
+                <div class="flex items-center justify-between" style="font-size: 10px; margin-top: 2px;">
+                    <span class="font-medium">${shift.position}</span>
+                    <span style="opacity: 0.7;">${shift.shift_hours}h</span>
+                </div>
+            `;
+
+            cell.appendChild(block);
+        });
+
+        if (dayShifts.length === 0) {
+            cell.innerHTML = '<div class="text-center text-gray-300 text-xs pt-8">No shifts</div>';
+        }
+
+        bodyEl.appendChild(cell);
+    });
+}
+
+
+// ── Render: Employee List ───────────────────────────────────────────────
+
+function renderEmployeeList(employees) {
+    const listEl = document.getElementById('employee-list');
+
+    if (!employees.length) {
+        listEl.innerHTML = '<div class="px-4 py-6 text-center text-gray-400 text-sm">No employees found</div>';
+        return;
+    }
+
+    listEl.innerHTML = '';
+
+    employees.forEach(emp => {
+        const div = document.createElement('div');
+        div.className = 'sidebar-employee';
+
+        let badgeClass = 'badge-cashier-only';
+        let badgeLabel = 'Cashier';
+        if (emp.role === 'LEAD_ONLY') {
+            badgeClass = 'badge-lead-only';
+            badgeLabel = 'Lead Only';
+        } else if (emp.role === 'LEAD_ELIGIBLE') {
+            badgeClass = 'badge-lead-eligible';
+            badgeLabel = 'Lead + Cash';
+        }
+
+        // Find this employee's hours in current schedule
+        let weekHours = '';
+        let schedInfo = '';
+        if (currentSchedule) {
+            const empShifts = currentSchedule.shifts.filter(s => s.employee === emp.user_name);
+            if (empShifts.length > 0) {
+                const hours = empShifts.reduce((sum, s) => sum + s.shift_hours, 0);
+                const leads = empShifts.filter(s => s.position === 'Lead').length;
+                const cashiers = empShifts.filter(s => s.position === 'Cashier').length;
+                schedInfo = `<div class="text-xs text-gray-500 mt-1">${hours.toFixed(1)}h this week | ${leads}L ${cashiers}C</div>`;
+            }
+        }
+
+        div.innerHTML = `
+            <div class="flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-800">${emp.user_name}</span>
+                <span class="badge ${badgeClass}">${badgeLabel}</span>
+            </div>
+            <div class="text-xs text-gray-400 mt-1">${emp.total_shifts} total shifts | ${emp.locations.join(', ')}</div>
+            ${schedInfo}
+        `;
+
+        listEl.appendChild(div);
+    });
+}
+
+
+// ── Render: Fairness Panel ──────────────────────────────────────────────
+
+function renderFairnessPanel(data) {
+    const panelEl = document.getElementById('fairness-panel');
+
+    if (!data.employees || !data.employees.length) {
+        panelEl.innerHTML = '<div class="px-4 py-6 text-center text-gray-400 text-sm">No lead-eligible employees</div>';
+        return;
+    }
+
+    let html = `
+        <div class="px-4 py-2 bg-gray-50 border-b border-gray-100 text-xs text-gray-500">
+            Group avg: <strong>${data.group_average_lead_pct}%</strong> lead shifts
+        </div>
+    `;
+
+    data.employees.forEach(emp => {
+        let priorityBadge = '';
+        if (emp.priority === 'HIGH') {
+            priorityBadge = '<span class="badge" style="background: #FEE2E2; color: #991B1B; font-size: 9px;">HIGH</span>';
+        } else if (emp.priority === 'MED') {
+            priorityBadge = '<span class="badge" style="background: #FEF3C7; color: #92400E; font-size: 9px;">MED</span>';
+        } else if (emp.priority === 'LOW') {
+            priorityBadge = '<span class="badge" style="background: #E0E7FF; color: #3730A3; font-size: 9px;">LOW</span>';
+        }
+
+        // Bar color based on fairness
+        let barColor = '#6366F1';
+        if (emp.fairness_score < -10) barColor = '#DC2626';
+        else if (emp.fairness_score < -5) barColor = '#F59E0B';
+        else if (emp.fairness_score < 0) barColor = '#6366F1';
+        else barColor = '#10B981';
+
+        html += `
+            <div class="px-4 py-2.5 border-b border-gray-50">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">${emp.user_name}</span>
+                    ${priorityBadge}
+                </div>
+                <div class="fairness-bar mb-1">
+                    <div class="fairness-fill" style="width: ${Math.min(emp.lead_percentage, 100)}%; background: ${barColor};"></div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>${emp.lead_shifts}L / ${emp.cashier_shifts}C</span>
+                    <span>${emp.lead_percentage}% lead (${emp.fairness_score > 0 ? '+' : ''}${emp.fairness_score})</span>
+                </div>
+            </div>
+        `;
+    });
+
+    panelEl.innerHTML = html;
+}
+
+
+// ── Render: Summary ─────────────────────────────────────────────────────
+
+function renderSummary(data) {
+    const panel = document.getElementById('summary-panel');
+    const content = document.getElementById('summary-content');
+    panel.classList.remove('hidden');
+
+    let html = '<div class="space-y-2">';
+    data.summary.forEach(emp => {
+        html += `
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-700">${emp.employee}</span>
+                <span class="text-gray-500">${emp.total_hours}h | ${emp.lead_shifts}L ${emp.cashier_shifts}C | ${emp.days_scheduled}d</span>
+            </div>
+        `;
+    });
+    html += '</div>';
+    html += `
+        <div class="mt-4 pt-3 border-t border-gray-200 text-sm text-gray-600">
+            <strong>${data.total_shifts}</strong> shifts | <strong>${data.total_hours}</strong> total hours
+        </div>
+    `;
+
+    content.innerHTML = html;
+
+    // Refresh employee list with schedule data
+    if (allEmployees.length) {
+        renderEmployeeList(allEmployees);
+    }
+}
+
+
+// ── Edit Modal ──────────────────────────────────────────────────────────
+
+let editingShift = null;
+let editingIndex = null;
+
+function openEditModal(shift, index) {
+    editingShift = { ...shift };
+    editingIndex = index;
+
+    document.getElementById('edit-modal-date').textContent =
+        `${shift.day}, ${shift.date}`;
+
+    // Populate employee dropdown
+    const empSelect = document.getElementById('edit-employee');
+    empSelect.innerHTML = '';
+    allEmployees.forEach(emp => {
+        const opt = document.createElement('option');
+        opt.value = emp.user_name;
+        opt.textContent = `${emp.user_name} (${emp.role.replace('_', ' ').toLowerCase()})`;
+        if (emp.user_name === shift.employee) opt.selected = true;
+        empSelect.appendChild(opt);
+    });
+
+    // Set role
+    document.getElementById('edit-role').value = shift.position;
+
+    // Set times
+    document.getElementById('edit-start').value =
+        `${String(shift.start_hour).padStart(2, '0')}:${String(shift.start_min).padStart(2, '0')}`;
+    document.getElementById('edit-end').value =
+        `${String(shift.end_hour).padStart(2, '0')}:${String(shift.end_min).padStart(2, '0')}`;
+
+    document.getElementById('edit-modal').classList.remove('hidden');
+}
+
+function closeEditModal() {
+    document.getElementById('edit-modal').classList.add('hidden');
+    editingShift = null;
+    editingIndex = null;
+}
+
+function saveShiftEdit() {
+    if (!editingShift || !currentSchedule) return;
+
+    const newEmployee = document.getElementById('edit-employee').value;
+    const newRole = document.getElementById('edit-role').value;
+    const startParts = document.getElementById('edit-start').value.split(':');
+    const endParts = document.getElementById('edit-end').value.split(':');
+
+    const startH = parseInt(startParts[0]);
+    const startM = parseInt(startParts[1]);
+    const endH = parseInt(endParts[0]);
+    const endM = parseInt(endParts[1]);
+
+    // Find the shift in the current schedule
+    const shiftDate = editingShift.date;
+    const shiftIdx = currentSchedule.shifts.findIndex(s =>
+        s.date === shiftDate &&
+        s.employee === editingShift.employee &&
+        s.start_hour === editingShift.start_hour &&
+        s.start_min === editingShift.start_min
+    );
+
+    if (shiftIdx === -1) {
+        showToast('Shift not found', 'error');
+        closeEditModal();
+        return;
+    }
+
+    // Find the employee data to get user_id
+    const empData = allEmployees.find(e => e.user_name === newEmployee);
+    const prefix = currentLocation === 'Bentonville' ? 'DTB' : 'DTR';
+
+    // Update the shift in our local data
+    const shift = currentSchedule.shifts[shiftIdx];
+    shift.employee = newEmployee;
+    shift.user_id = empData ? empData.user_id : shift.user_id;
+    shift.position = newRole;
+    shift.sling_position = `${prefix}-${newRole === 'Lead' ? 'Shift Leader' : 'Cashier'}`;
+    shift.start_hour = startH;
+    shift.start_min = startM;
+    shift.end_hour = endH;
+    shift.end_min = endM;
+    shift.start_time = formatTimeDisplay(startH, startM);
+    shift.end_time = formatTimeDisplay(endH, endM);
+    shift.shift_hours = (endH + endM / 60) - (startH + startM / 60);
+
+    // Recalculate summary
+    recalcSummary();
+
+    // Re-render
+    renderScheduleGrid(currentSchedule);
+    renderSummary(currentSchedule);
+
+    closeEditModal();
+    showToast('Shift updated', 'info');
+}
+
+function recalcSummary() {
+    if (!currentSchedule) return;
+
+    const empHours = {};
+    const empLead = {};
+    const empCashier = {};
+    const empDays = {};
+
+    currentSchedule.shifts.forEach(s => {
+        if (!empHours[s.employee]) empHours[s.employee] = 0;
+        if (!empLead[s.employee]) empLead[s.employee] = 0;
+        if (!empCashier[s.employee]) empCashier[s.employee] = 0;
+        if (!empDays[s.employee]) empDays[s.employee] = new Set();
+
+        empHours[s.employee] += s.shift_hours;
+        empDays[s.employee].add(s.day);
+        if (s.position === 'Lead') empLead[s.employee]++;
+        else empCashier[s.employee]++;
+    });
+
+    currentSchedule.summary = Object.keys(empHours).sort().map(name => ({
+        employee: name,
+        total_hours: Math.round(empHours[name] * 10) / 10,
+        days_scheduled: empDays[name].size,
+        lead_shifts: empLead[name],
+        cashier_shifts: empCashier[name],
+    }));
+
+    currentSchedule.total_shifts = currentSchedule.shifts.length;
+    currentSchedule.total_hours = Math.round(
+        currentSchedule.shifts.reduce((sum, s) => sum + s.shift_hours, 0) * 10
+    ) / 10;
+}
+
+
+// ── Push to Sling ───────────────────────────────────────────────────────
+
+function pushToSling() {
+    if (!currentSchedule || !currentSchedule.shifts.length) {
+        showToast('No schedule to push', 'error');
+        return;
+    }
+
+    const summary = document.getElementById('push-summary');
+    summary.innerHTML = `
+        <div><strong>${currentSchedule.total_shifts}</strong> shifts for <strong>${currentLocation}</strong></div>
+        <div class="mt-1">Week of ${currentSchedule.week_start}</div>
+        <div class="mt-1">${currentSchedule.total_hours} total hours</div>
+        <div class="mt-2 text-xs text-gray-400">Shifts will be created as drafts in Sling.</div>
+    `;
+
+    document.getElementById('push-modal').classList.remove('hidden');
+}
+
+function closePushModal() {
+    document.getElementById('push-modal').classList.add('hidden');
+}
+
+async function confirmPush() {
+    const btn = document.getElementById('confirm-push-btn');
+    btn.textContent = 'Pushing...';
+    btn.disabled = true;
+
+    try {
+        const resp = await fetch('/sling-api/schedule/push', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                shifts: currentSchedule.shifts,
+                location: currentLocation,
+            }),
+        });
+
+        const result = await resp.json();
+
+        if (!resp.ok) {
+            throw new Error(result.detail || 'Push failed');
+        }
+
+        closePushModal();
+
+        if (result.errors > 0) {
+            showToast(`${result.created} created, ${result.errors} failed`, 'error');
+        } else {
+            showToast(`${result.created} shifts pushed to Sling`, 'success');
+        }
+
+    } catch (e) {
+        showToast('Push failed: ' + e.message, 'error');
+    } finally {
+        btn.textContent = 'Confirm Push';
+        btn.disabled = false;
+    }
+}
+
+
+// ── Utilities ───────────────────────────────────────────────────────────
+
+function formatDate(d) {
+    return d.toISOString().split('T')[0];
+}
+
+function formatDisplayDate(d) {
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function formatTimeDisplay(h, m) {
+    if (h === 0 || h === 24) return `12:${String(m).padStart(2, '0')} AM`;
+    if (h < 12) return `${h}:${String(m).padStart(2, '0')} AM`;
+    if (h === 12) return `12:${String(m).padStart(2, '0')} PM`;
+    return `${h - 12}:${String(m).padStart(2, '0')} PM`;
+}
+
+function showLoading(show) {
+    document.getElementById('loading-state').classList.toggle('hidden', !show);
+    document.getElementById('empty-state').classList.add('hidden');
+    if (show) document.getElementById('schedule-grid').classList.add('hidden');
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+}
+
+
+// ── Algorithm Panel ────────────────────────────────────────────────────
+
+async function loadAlgorithmData() {
+    const weekStart = document.getElementById('week-picker').value;
+    try {
+        const resp = await fetch(`/sling-api/explain?week_start=${weekStart}&location=${currentLocation}`);
+        if (!resp.ok) return;
+        algorithmData = await resp.json();
+        document.getElementById('algorithm-panel').classList.remove('hidden');
+        renderAlgorithmSummary();
+        renderAlgoDayTabs();
+        // Auto-select Monday
+        if (!selectedAlgoDay) selectedAlgoDay = 'Monday';
+        renderAlgoDayContent(selectedAlgoDay);
+    } catch (e) {
+        console.error('Failed to load algorithm data:', e);
+    }
+}
+
+function toggleAlgorithmPanel() {
+    const content = document.getElementById('algo-content');
+    const chevron = document.getElementById('algo-chevron');
+    algoExpanded = !algoExpanded;
+
+    if (algoExpanded) {
+        content.classList.remove('collapsed');
+        content.classList.add('expanded');
+        chevron.style.transform = 'rotate(180deg)';
+    } else {
+        content.classList.remove('expanded');
+        content.classList.add('collapsed');
+        chevron.style.transform = 'rotate(0)';
+    }
+}
+
+function renderAlgorithmSummary() {
+    if (!algorithmData) return;
+    const bar = document.getElementById('algo-summary-bar');
+    const s = algorithmData.algorithm_summary;
+
+    bar.innerHTML = `
+        <div><strong>Data:</strong> ${s.data_source}</div>
+        <div><strong>Sales:</strong> ${s.sales_source}</div>
+        <div><strong>Staffing:</strong> ${s.staffing_source}</div>
+    `;
+}
+
+function renderAlgoDayTabs() {
+    if (!algorithmData) return;
+    const container = document.getElementById('algo-day-tabs');
+    container.innerHTML = '';
+
+    DAYS.forEach(day => {
+        if (!algorithmData.days[day]) return;
+        const btn = document.createElement('button');
+        btn.className = `algo-day-tab ${day === selectedAlgoDay ? 'active' : ''}`;
+        btn.textContent = day.substring(0, 3);
+        btn.onclick = () => {
+            selectedAlgoDay = day;
+            renderAlgoDayTabs();
+            renderAlgoDayContent(day);
+        };
+        container.appendChild(btn);
+    });
+}
+
+function renderAlgoDayContent(day) {
+    if (!algorithmData || !algorithmData.days[day]) return;
+    const container = document.getElementById('algo-day-content');
+    const dayData = algorithmData.days[day];
+
+    // Find max transaction for scaling bars
+    let maxTxn = 0;
+    dayData.hourly_breakdown.forEach(h => {
+        if (h.avg_historical_transactions > maxTxn) maxTxn = h.avg_historical_transactions;
+    });
+    if (maxTxn === 0) maxTxn = 1;
+
+    let html = '';
+
+    // --- Hourly Breakdown ---
+    html += `
+        <div class="mb-6">
+            <h4 class="font-semibold text-gray-800 text-sm mb-3">Hourly Breakdown - ${day}, ${dayData.date}</h4>
+
+            <!-- Chart legend -->
+            <div class="flex items-center gap-4 mb-3 text-xs text-gray-500">
+                <div class="flex items-center gap-1.5">
+                    <div class="w-3 h-3 rounded" style="background: #6366F1;"></div>
+                    Avg Transactions
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <div class="w-3 h-3 rounded" style="background: #A5B4FC;"></div>
+                    Historical Staff
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <div class="w-3 h-3 rounded border-2 border-indigo-400" style="background: white;"></div>
+                    Recommended
+                </div>
+            </div>
+
+            <!-- Header row -->
+            <div class="algo-row" style="font-weight: 600; color: #64748B; border-bottom: 2px solid #E2E8F0;">
+                <div>Hour</div>
+                <div>Sales Volume</div>
+                <div style="text-align: center;">Staff</div>
+                <div style="text-align: center;">Rec.</div>
+            </div>
+    `;
+
+    dayData.hourly_breakdown.forEach(h => {
+        const isPeak = dayData.peak_hour && h.hour === dayData.peak_hour.hour;
+        const barWidth = maxTxn > 0 ? (h.avg_historical_transactions / maxTxn * 100) : 0;
+
+        // Staffing status color
+        let staffClass = 'staffing-adequate';
+        if (h.recommended_total <= 1 && h.avg_historical_transactions > 0) {
+            staffClass = 'staffing-minimum';
+        }
+        if (h.recommended_total === 0 && h.avg_historical_transactions > 2) {
+            staffClass = 'staffing-understaffed';
+        }
+
+        html += `
+            <div class="algo-row ${isPeak ? 'peak-row' : ''}" title="${h.reasoning}">
+                <div class="text-gray-600 font-medium">${h.display}</div>
+                <div class="flex items-center gap-2">
+                    <div style="flex: 1; position: relative; height: 20px;">
+                        <div class="algo-bar algo-bar-txn" style="width: ${barWidth}%; position: absolute; top: 0; left: 0;"></div>
+                    </div>
+                    <span class="text-xs text-gray-400" style="width: 30px; text-align: right;">${h.avg_historical_transactions.toFixed(1)}</span>
+                </div>
+                <div style="text-align: center;" class="text-xs text-gray-500">${h.avg_historical_staff.toFixed(1)}</div>
+                <div style="text-align: center;" class="text-sm font-semibold ${staffClass}">
+                    ${h.recommended_total}
+                    ${isPeak ? '<span class="text-xs ml-0.5" style="color: #D97706;">peak</span>' : ''}
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+
+    // --- Shift Slots ---
+    html += `
+        <div class="mb-6">
+            <h4 class="font-semibold text-gray-800 text-sm mb-3">Shift Slots</h4>
+            <p class="text-xs text-gray-500 mb-3">How the day's staffing breaks down into actual shifts:</p>
+    `;
+
+    dayData.shift_slots.forEach(slot => {
+        const isLead = slot.role === 'lead';
+        html += `
+            <div class="shift-slot-card ${isLead ? 'slot-lead' : 'slot-cashier'}">
+                <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                        <span class="badge ${isLead ? 'badge-lead-only' : 'badge-cashier-only'}" style="font-size: 10px;">
+                            ${slot.type.toUpperCase()}
+                        </span>
+                        <span class="text-sm font-semibold text-gray-800">${isLead ? 'Lead' : 'Cashier'}</span>
+                    </div>
+                    <span class="text-xs text-gray-500">${slot.hours}h</span>
+                </div>
+                <div class="text-xs text-gray-600 mb-1">${slot.start} - ${slot.end}</div>
+                <div class="text-xs text-gray-400 italic">${slot.reasoning}</div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+
+    // --- Day Totals ---
+    html += `
+        <div class="bg-gray-50 rounded-lg p-3 flex items-center justify-between text-sm">
+            <div class="text-gray-600">
+                <strong>${dayData.total_staff_needed}</strong> total shifts needed
+                (<span class="font-medium" style="color: var(--lead-text);">${dayData.total_leads} lead</span> +
+                 <span class="font-medium" style="color: var(--cashier-text);">${dayData.total_cashiers} cashier</span>)
+            </div>
+            ${dayData.peak_hour ? `<div class="text-xs text-gray-400">Peak: ${dayData.peak_hour.display} (${dayData.peak_hour.avg_transactions} txn/hr)</div>` : ''}
+        </div>
+    `;
+
+    // --- Hour-by-hour reasoning (expandable) ---
+    html += `
+        <details class="mt-4">
+            <summary class="text-xs text-indigo-600 cursor-pointer font-medium hover:text-indigo-800">Show hour-by-hour reasoning</summary>
+            <div class="mt-2 space-y-1">
+    `;
+
+    dayData.hourly_breakdown.forEach(h => {
+        html += `
+            <div class="text-xs text-gray-500 py-1 border-b border-gray-50">
+                <span class="font-medium text-gray-700">${h.display}:</span> ${h.reasoning}
+            </div>
+        `;
+    });
+
+    html += '</div></details>';
+
+    container.innerHTML = html;
+}
+
+
+// ── Settings Drawer ───────────────────────────────────────────────────
+
+function openSettingsDrawer() {
+    document.getElementById('settings-drawer').classList.add('open');
+    document.getElementById('settings-backdrop').classList.add('open');
+}
+
+function closeSettingsDrawer() {
+    document.getElementById('settings-drawer').classList.remove('open');
+    document.getElementById('settings-backdrop').classList.remove('open');
+}
+
+function resetSettings() {
+    document.getElementById('setting-max-weekly').value = 30;
+    document.getElementById('setting-max-weekly-val').textContent = '30';
+    document.getElementById('setting-max-shift').value = 8;
+    document.getElementById('setting-max-shift-val').textContent = '8';
+    document.getElementById('setting-min-shift').value = 4;
+    document.getElementById('setting-min-shift-val').textContent = '4';
+    document.getElementById('setting-staff-buffer').value = 0;
+    document.getElementById('setting-staff-buffer-val').textContent = '0';
+    document.getElementById('setting-min-staff').value = 1;
+    showToast('Settings reset to defaults', 'info');
+}
+
+function applySettingsAndRegenerate() {
+    closeSettingsDrawer();
+    // Settings are read when loadSchedule runs -- they'll appear in the URL
+    loadSchedule();
+    showToast('Regenerating schedule with new settings...', 'info');
+}
+
+// ── Page Navigation ──────────────────────────────────────────────────
+
+function switchPage(page) {
+    const schedPage = document.getElementById('page-schedule');
+    const availPage = document.getElementById('page-availability');
+    const navSched = document.getElementById('nav-schedule');
+    const navAvail = document.getElementById('nav-availability');
+
+    if (page === 'schedule') {
+        schedPage.classList.remove('hidden');
+        availPage.classList.add('hidden');
+        navSched.className = 'px-4 py-1.5 rounded-md text-sm font-medium transition bg-gray-700 text-white';
+        navAvail.className = 'px-4 py-1.5 rounded-md text-sm font-medium transition text-gray-400 hover:text-white';
+    } else if (page === 'availability') {
+        schedPage.classList.add('hidden');
+        availPage.classList.remove('hidden');
+        navSched.className = 'px-4 py-1.5 rounded-md text-sm font-medium transition text-gray-400 hover:text-white';
+        navAvail.className = 'px-4 py-1.5 rounded-md text-sm font-medium transition bg-gray-700 text-white';
+        loadAvailability();
+    }
+}
+
+
+// ── Availability (Read-Only from Sling) ─────────────────────────────────
+
+async function loadAvailability() {
+    try {
+        const resp = await fetch('/sling-api/availability');
+        const data = await resp.json();
+        const employees = data.availability || [];
+        renderAvailabilityTable(employees);
+    } catch (err) {
+        console.error('Failed to load availability:', err);
+        document.getElementById('availability-body').innerHTML =
+            '<tr><td colspan="7" class="px-4 py-8 text-center text-red-400">Failed to load data from Sling</td></tr>';
+    }
+}
+
+function renderAvailabilityTable(employees) {
+    const tbody = document.getElementById('availability-body');
+    const statusEl = document.getElementById('avail-status');
+
+    if (!employees.length) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">No employees found</td></tr>';
+        return;
+    }
+
+    // Check how many have availability set
+    const withAvail = employees.filter(e => e.has_custom_availability);
+
+    if (withAvail.length === 0) {
+        statusEl.innerHTML = `
+            <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="text-sm font-medium text-amber-800">No availability set in Sling</p>
+                    <p class="text-xs text-amber-600 mt-0.5">
+                        Employees need to set their availability in
+                        <a href="https://app.getsling.com" target="_blank" class="underline font-medium">Sling</a>.
+                        Until then, the scheduler assumes everyone is available all days. The table below shows each employee's current status and recent activity.
+                    </p>
+                </div>
+            </div>`;
+    } else {
+        statusEl.innerHTML = `
+            <div class="bg-green-50 border border-green-200 rounded-lg px-4 py-3 text-sm text-green-800">
+                ${withAvail.length} of ${employees.length} employees have availability set in Sling.
+            </div>`;
+    }
+
+    const roleClasses = {
+        'LEAD_ONLY': 'badge-lead-only',
+        'LEAD_ELIGIBLE': 'badge-lead-eligible',
+        'CASHIER_ONLY': 'badge-cashier-only',
+    };
+    const roleLabels = {
+        'LEAD_ONLY': 'Lead Only',
+        'LEAD_ELIGIBLE': 'Lead + Cashier',
+        'CASHIER_ONLY': 'Cashier',
+    };
+
+    tbody.innerHTML = employees.map(emp => {
+        const roleCls = roleClasses[emp.role] || 'badge-cashier-only';
+        const roleLabel = roleLabels[emp.role] || emp.role;
+        const locs = (emp.locations || []).join(', ');
+        const hoursCap = emp.hours_cap || 0;
+        const hoursCapDisplay = hoursCap > 0 ? `${hoursCap} hrs` : '<span class="text-gray-300">Not set</span>';
+
+        const hasAvail = emp.has_custom_availability;
+        const availStatus = hasAvail
+            ? '<span class="inline-flex items-center gap-1 text-green-700 text-xs font-medium"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Set in Sling</span>'
+            : '<span class="text-amber-500 text-xs font-medium">Not set</span>';
+
+        const totalShifts = emp.total_shifts || 0;
+        const lastDate = emp.last_shift_date || 'N/A';
+
+        return `<tr class="border-b border-gray-100 hover:bg-gray-50">
+            <td class="px-4 py-3">
+                <div class="font-medium text-sm text-gray-900">${emp.employee_name}</div>
+            </td>
+            <td class="px-3 py-3">
+                <span class="badge ${roleCls}">${roleLabel}</span>
+            </td>
+            <td class="px-3 py-3 text-sm text-gray-600">${locs}</td>
+            <td class="px-3 py-3 text-sm text-center">${hoursCapDisplay}</td>
+            <td class="px-3 py-3 text-center">${availStatus}</td>
+            <td class="px-3 py-3 text-sm text-gray-600 text-center">${totalShifts} shifts</td>
+            <td class="px-3 py-3 text-sm text-gray-500 text-center">${lastDate}</td>
+        </tr>`;
+    }).join('');
+}
+
+
+function getSettingsParams() {
+    const maxWeekly = document.getElementById('setting-max-weekly').value;
+    const maxShift = document.getElementById('setting-max-shift').value;
+    const minShift = document.getElementById('setting-min-shift').value;
+    const staffBuffer = document.getElementById('setting-staff-buffer').value;
+    const minStaff = document.getElementById('setting-min-staff').value;
+
+    let params = '';
+    if (maxWeekly != 30) params += `&max_weekly_hours=${maxWeekly}`;
+    if (maxShift != 8) params += `&max_shift_hours=${maxShift}`;
+    if (minShift != 4) params += `&min_shift_hours=${minShift}`;
+    if (staffBuffer != 0) params += `&staff_buffer=${staffBuffer}`;
+    if (minStaff != 1) params += `&min_staff_per_hour=${minStaff}`;
+    return params;
+}
+</script>
+
+</body>
+</html>

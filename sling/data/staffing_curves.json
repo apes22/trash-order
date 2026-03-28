@@ -1,0 +1,2890 @@
+{
+  "Bentonville": {
+    "Monday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 2.0,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.88,
+          "avg_transactions": 1.0,
+          "txn_per_staff": 0.5,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "18": {
+          "avg_staff": 2.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 1.25,
+          "avg_transactions": 2.25,
+          "txn_per_staff": 1.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "19": {
+          "avg_staff": 2.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 1.25,
+          "avg_transactions": 3.0,
+          "txn_per_staff": 1.33,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "20": {
+          "avg_staff": 2.12,
+          "avg_leads": 1.0,
+          "avg_cashiers": 1.12,
+          "avg_transactions": 4.0,
+          "txn_per_staff": 1.89,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "21": {
+          "avg_staff": 2.12,
+          "avg_leads": 1.0,
+          "avg_cashiers": 1.12,
+          "avg_transactions": 6.0,
+          "txn_per_staff": 2.83,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.12,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 7.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 9.88,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.38,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:33",
+          "avg_end": "17:03",
+          "typical_role": "Lead",
+          "count": 8
+        },
+        "bridge": {
+          "avg_start": "14:45",
+          "avg_end": "19:45",
+          "typical_role": "Lead",
+          "count": 2
+        },
+        "closer": {
+          "avg_start": "17:21",
+          "avg_end": "21:22",
+          "typical_role": "Mixed",
+          "count": 17
+        }
+      },
+      "total_staff_avg": 1.57,
+      "weeks_of_data": 8
+    },
+    "Tuesday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.75,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 0.38,
+          "txn_per_staff": 0.22,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "18": {
+          "avg_staff": 2.38,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 1.0,
+          "txn_per_staff": 0.42,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "19": {
+          "avg_staff": 2.38,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 2.88,
+          "txn_per_staff": 1.21,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "20": {
+          "avg_staff": 2.38,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 3.12,
+          "txn_per_staff": 1.31,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "21": {
+          "avg_staff": 2.25,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 3.88,
+          "txn_per_staff": 1.72,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 9.62,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 10.12,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:34",
+          "avg_end": "17:04",
+          "typical_role": "Lead",
+          "count": 7
+        },
+        "bridge": {
+          "avg_start": "16:27",
+          "avg_end": "21:25",
+          "typical_role": "Mixed",
+          "count": 13
+        },
+        "closer": {
+          "avg_start": "18:00",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 6
+        }
+      },
+      "total_staff_avg": 1.58,
+      "weeks_of_data": 8
+    },
+    "Wednesday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.62,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 2.0,
+          "avg_leads": 1.5,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 0.12,
+          "txn_per_staff": 0.06,
+          "recommended_total": 2,
+          "recommended_leads": 2,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 2.12,
+          "avg_leads": 1.5,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 0.75,
+          "txn_per_staff": 0.35,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "18": {
+          "avg_staff": 2.62,
+          "avg_leads": 1.75,
+          "avg_cashiers": 0.88,
+          "avg_transactions": 2.12,
+          "txn_per_staff": 0.81,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "19": {
+          "avg_staff": 2.62,
+          "avg_leads": 1.75,
+          "avg_cashiers": 0.88,
+          "avg_transactions": 3.25,
+          "txn_per_staff": 1.24,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "20": {
+          "avg_staff": 2.5,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.88,
+          "avg_transactions": 5.25,
+          "txn_per_staff": 2.1,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "21": {
+          "avg_staff": 2.25,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 5.12,
+          "txn_per_staff": 2.28,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.25,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 12.38,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 11.5,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.12,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:33",
+          "avg_end": "19:07",
+          "typical_role": "Lead",
+          "count": 8
+        },
+        "bridge": {
+          "avg_start": "14:00",
+          "avg_end": "20:30",
+          "typical_role": "Cashier",
+          "count": 1
+        },
+        "closer": {
+          "avg_start": "16:38",
+          "avg_end": "20:50",
+          "typical_role": "Mixed",
+          "count": 18
+        }
+      },
+      "total_staff_avg": 1.79,
+      "weeks_of_data": 8
+    },
+    "Thursday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.11,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.11,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.22,
+          "avg_leads": 1.11,
+          "avg_cashiers": 0.11,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.11,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.11,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.33,
+          "avg_leads": 1.22,
+          "avg_cashiers": 0.11,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.56,
+          "avg_leads": 1.44,
+          "avg_cashiers": 0.11,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.78,
+          "avg_leads": 1.44,
+          "avg_cashiers": 0.33,
+          "avg_transactions": 1.33,
+          "txn_per_staff": 0.75,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 2.67,
+          "avg_leads": 2.11,
+          "avg_cashiers": 0.56,
+          "avg_transactions": 3.22,
+          "txn_per_staff": 1.21,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "19": {
+          "avg_staff": 2.67,
+          "avg_leads": 2.11,
+          "avg_cashiers": 0.56,
+          "avg_transactions": 5.0,
+          "txn_per_staff": 1.87,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "20": {
+          "avg_staff": 2.67,
+          "avg_leads": 2.11,
+          "avg_cashiers": 0.56,
+          "avg_transactions": 5.22,
+          "txn_per_staff": 1.96,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "21": {
+          "avg_staff": 2.67,
+          "avg_leads": 2.11,
+          "avg_cashiers": 0.56,
+          "avg_transactions": 5.22,
+          "txn_per_staff": 1.96,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 5.56,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.44,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 11.56,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 17.33,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 11.89,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:33",
+          "avg_end": "17:00",
+          "typical_role": "Lead",
+          "count": 10
+        },
+        "bridge": {
+          "avg_start": "13:45",
+          "avg_end": "13:45",
+          "typical_role": "Lead",
+          "count": 1
+        },
+        "closer": {
+          "avg_start": "17:04",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 24
+        }
+      },
+      "total_staff_avg": 1.8,
+      "weeks_of_data": 9
+    },
+    "Friday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.25,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.88,
+          "avg_leads": 1.62,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 2,
+          "recommended_leads": 2,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 2.75,
+          "avg_leads": 1.12,
+          "avg_cashiers": 1.62,
+          "avg_transactions": 1.12,
+          "txn_per_staff": 0.41,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "18": {
+          "avg_staff": 3.12,
+          "avg_leads": 1.25,
+          "avg_cashiers": 1.88,
+          "avg_transactions": 2.88,
+          "txn_per_staff": 0.92,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "19": {
+          "avg_staff": 3.12,
+          "avg_leads": 1.25,
+          "avg_cashiers": 1.88,
+          "avg_transactions": 4.0,
+          "txn_per_staff": 1.28,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "20": {
+          "avg_staff": 3.12,
+          "avg_leads": 1.25,
+          "avg_cashiers": 1.88,
+          "avg_transactions": 5.5,
+          "txn_per_staff": 1.76,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "21": {
+          "avg_staff": 2.38,
+          "avg_leads": 1.0,
+          "avg_cashiers": 1.38,
+          "avg_transactions": 7.38,
+          "txn_per_staff": 3.1,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 7.5,
+          "txn_per_staff": 10.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 7.62,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 19.5,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 22.5,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 17.25,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.25,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:29",
+          "avg_end": "16:22",
+          "typical_role": "Lead",
+          "count": 9
+        },
+        "bridge": {
+          "avg_start": "13:54",
+          "avg_end": "13:54",
+          "typical_role": "Cashier",
+          "count": 1
+        },
+        "closer": {
+          "avg_start": "16:48",
+          "avg_end": "21:31",
+          "typical_role": "Mixed",
+          "count": 25
+        }
+      },
+      "total_staff_avg": 1.91,
+      "weeks_of_data": 8
+    },
+    "Saturday": {
+      "hours": {
+        "10": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 2.25,
+          "avg_leads": 2.0,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 2,
+          "recommended_leads": 2,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.38,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.5,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "15": {
+          "avg_staff": 2.5,
+          "avg_leads": 1.75,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "16": {
+          "avg_staff": 2.5,
+          "avg_leads": 1.5,
+          "avg_cashiers": 1.0,
+          "avg_transactions": 0.12,
+          "txn_per_staff": 0.05,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "17": {
+          "avg_staff": 3.25,
+          "avg_leads": 1.62,
+          "avg_cashiers": 1.62,
+          "avg_transactions": 1.62,
+          "txn_per_staff": 0.5,
+          "recommended_total": 4,
+          "recommended_leads": 2,
+          "recommended_cashiers": 2
+        },
+        "18": {
+          "avg_staff": 3.38,
+          "avg_leads": 1.62,
+          "avg_cashiers": 1.75,
+          "avg_transactions": 5.62,
+          "txn_per_staff": 1.66,
+          "recommended_total": 4,
+          "recommended_leads": 2,
+          "recommended_cashiers": 2
+        },
+        "19": {
+          "avg_staff": 3.25,
+          "avg_leads": 1.62,
+          "avg_cashiers": 1.62,
+          "avg_transactions": 10.88,
+          "txn_per_staff": 3.35,
+          "recommended_total": 4,
+          "recommended_leads": 2,
+          "recommended_cashiers": 2
+        },
+        "20": {
+          "avg_staff": 3.25,
+          "avg_leads": 1.62,
+          "avg_cashiers": 1.62,
+          "avg_transactions": 12.88,
+          "txn_per_staff": 3.96,
+          "recommended_total": 4,
+          "recommended_leads": 2,
+          "recommended_cashiers": 2
+        },
+        "21": {
+          "avg_staff": 2.75,
+          "avg_leads": 1.38,
+          "avg_cashiers": 1.38,
+          "avg_transactions": 12.62,
+          "txn_per_staff": 4.59,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.25,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 12.0,
+          "txn_per_staff": 16.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 13.38,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 15.62,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 13.25,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.25,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "10:49",
+          "avg_end": "14:12",
+          "typical_role": "Lead",
+          "count": 19
+        },
+        "bridge": {
+          "avg_start": "13:45",
+          "avg_end": "19:30",
+          "typical_role": "Cashier",
+          "count": 2
+        },
+        "closer": {
+          "avg_start": "16:20",
+          "avg_end": "21:23",
+          "typical_role": "Mixed",
+          "count": 26
+        }
+      },
+      "total_staff_avg": 2.23,
+      "weeks_of_data": 8
+    },
+    "Sunday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.75,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.75,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "14": {
+          "avg_staff": 1.88,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.88,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "15": {
+          "avg_staff": 3.0,
+          "avg_leads": 1.75,
+          "avg_cashiers": 1.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 3,
+          "recommended_leads": 2,
+          "recommended_cashiers": 1
+        },
+        "16": {
+          "avg_staff": 3.5,
+          "avg_leads": 1.88,
+          "avg_cashiers": 1.62,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 4,
+          "recommended_leads": 2,
+          "recommended_cashiers": 2
+        },
+        "17": {
+          "avg_staff": 3.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 2.25,
+          "avg_transactions": 1.5,
+          "txn_per_staff": 0.46,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "18": {
+          "avg_staff": 2.62,
+          "avg_leads": 0.88,
+          "avg_cashiers": 1.75,
+          "avg_transactions": 4.62,
+          "txn_per_staff": 1.76,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "19": {
+          "avg_staff": 2.75,
+          "avg_leads": 0.88,
+          "avg_cashiers": 1.88,
+          "avg_transactions": 4.88,
+          "txn_per_staff": 1.77,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "20": {
+          "avg_staff": 2.75,
+          "avg_leads": 0.88,
+          "avg_cashiers": 1.88,
+          "avg_transactions": 7.5,
+          "txn_per_staff": 2.73,
+          "recommended_total": 3,
+          "recommended_leads": 1,
+          "recommended_cashiers": 2
+        },
+        "21": {
+          "avg_staff": 2.0,
+          "avg_leads": 0.75,
+          "avg_cashiers": 1.25,
+          "avg_transactions": 8.88,
+          "txn_per_staff": 4.44,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 10.75,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 5.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.62,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "13:16",
+          "avg_end": "18:36",
+          "typical_role": "Mixed",
+          "count": 24
+        },
+        "bridge": {
+          "avg_start": "17:00",
+          "avg_end": "21:22",
+          "typical_role": "Cashier",
+          "count": 12
+        },
+        "closer": {
+          "avg_start": "19:00",
+          "avg_end": "21:30",
+          "typical_role": "Cashier",
+          "count": 1
+        }
+      },
+      "total_staff_avg": 2.34,
+      "weeks_of_data": 8
+    }
+  },
+  "Rogers": {
+    "Monday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.38,
+          "txn_per_staff": 0.34,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.75,
+          "txn_per_staff": 0.67,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.38,
+          "txn_per_staff": 0.34,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 3.75,
+          "txn_per_staff": 3.35,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.12,
+          "txn_per_staff": 3.55,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:30",
+          "avg_end": "18:30",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "13:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 4
+        },
+        "closer": {
+          "avg_start": "16:22",
+          "avg_end": "21:15",
+          "typical_role": "Mixed",
+          "count": 4
+        }
+      },
+      "total_staff_avg": 0.92,
+      "weeks_of_data": 8
+    },
+    "Tuesday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 0.5,
+          "avg_leads": 0.5,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 0.25,
+          "txn_per_staff": 0.25,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "18": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 0.88,
+          "txn_per_staff": 0.88,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "19": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.62,
+          "avg_transactions": 0.62,
+          "txn_per_staff": 0.62,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "20": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 1.88,
+          "txn_per_staff": 2.14,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.5,
+          "txn_per_staff": 6.58,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:30",
+          "avg_end": "17:00",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "15:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 1
+        },
+        "closer": {
+          "avg_start": "16:58",
+          "avg_end": "20:24",
+          "typical_role": "Cashier",
+          "count": 8
+        }
+      },
+      "total_staff_avg": 0.64,
+      "weeks_of_data": 8
+    },
+    "Wednesday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.12,
+          "txn_per_staff": 0.32,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.38,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 0.88,
+          "txn_per_staff": 0.59,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 1.0,
+          "txn_per_staff": 0.67,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.5,
+          "avg_transactions": 1.25,
+          "txn_per_staff": 0.83,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 2.75,
+          "txn_per_staff": 1.99,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 1.12,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 1.62,
+          "txn_per_staff": 1.45,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.25,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 5.38,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.12,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "13:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 5
+        },
+        "closer": {
+          "avg_start": "16:15",
+          "avg_end": "19:51",
+          "typical_role": "Cashier",
+          "count": 5
+        }
+      },
+      "total_staff_avg": 1.14,
+      "weeks_of_data": 8
+    },
+    "Thursday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.33,
+          "avg_leads": 0.33,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.33,
+          "avg_leads": 0.33,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.11,
+          "avg_leads": 1.11,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.11,
+          "avg_leads": 1.11,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.44,
+          "avg_leads": 0.89,
+          "avg_cashiers": 0.56,
+          "avg_transactions": 0.44,
+          "txn_per_staff": 0.31,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "18": {
+          "avg_staff": 1.22,
+          "avg_leads": 0.89,
+          "avg_cashiers": 0.33,
+          "avg_transactions": 1.0,
+          "txn_per_staff": 0.82,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 1.22,
+          "avg_leads": 0.89,
+          "avg_cashiers": 0.33,
+          "avg_transactions": 1.78,
+          "txn_per_staff": 1.46,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 1.22,
+          "avg_leads": 0.89,
+          "avg_cashiers": 0.33,
+          "avg_transactions": 3.78,
+          "txn_per_staff": 3.1,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 0.89,
+          "avg_leads": 0.89,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.22,
+          "txn_per_staff": 3.62,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.56,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.11,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.22,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.22,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.56,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.22,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:30",
+          "avg_end": "18:30",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "13:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 6
+        },
+        "closer": {
+          "avg_start": "16:55",
+          "avg_end": "19:50",
+          "typical_role": "Cashier",
+          "count": 6
+        }
+      },
+      "total_staff_avg": 0.99,
+      "weeks_of_data": 9
+    },
+    "Friday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.12,
+          "avg_leads": 0.12,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.25,
+          "avg_leads": 0.25,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.25,
+          "avg_leads": 0.25,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.38,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.75,
+          "txn_per_staff": 0.6,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 1.25,
+          "txn_per_staff": 1.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.88,
+          "txn_per_staff": 0.7,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 2.88,
+          "txn_per_staff": 2.57,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 1.12,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 6.5,
+          "txn_per_staff": 5.8,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.12,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 7.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 8.75,
+          "txn_per_staff": null,
+          "recommended_total": 2,
+          "recommended_leads": 1,
+          "recommended_cashiers": 1
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:18",
+          "avg_end": "14:58",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "14:18",
+          "avg_end": "18:21",
+          "typical_role": "Lead",
+          "count": 10
+        },
+        "closer": {
+          "avg_start": "17:10",
+          "avg_end": "21:30",
+          "typical_role": "Mixed",
+          "count": 6
+        }
+      },
+      "total_staff_avg": 0.94,
+      "weeks_of_data": 8
+    },
+    "Saturday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 1.0,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 1.25,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 1.5,
+          "avg_leads": 1.12,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 1.38,
+          "avg_leads": 1.0,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 1.12,
+          "txn_per_staff": 0.81,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 3.75,
+          "txn_per_staff": 3.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 4.12,
+          "txn_per_staff": 3.3,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 1.25,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.38,
+          "avg_transactions": 6.25,
+          "txn_per_staff": 5.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 1.0,
+          "avg_leads": 0.88,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 8.0,
+          "txn_per_staff": 8.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 5.0,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 6.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.12,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 1.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.12,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "11:46",
+          "avg_end": "16:21",
+          "typical_role": "Lead",
+          "count": 11
+        },
+        "bridge": {
+          "avg_start": "15:30",
+          "avg_end": "21:30",
+          "typical_role": "Lead",
+          "count": 1
+        },
+        "closer": {
+          "avg_start": "17:00",
+          "avg_end": "21:19",
+          "typical_role": "Lead",
+          "count": 9
+        }
+      },
+      "total_staff_avg": 1.25,
+      "weeks_of_data": 8
+    },
+    "Sunday": {
+      "hours": {
+        "10": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "11": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "12": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.12,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "13": {
+          "avg_staff": 0.25,
+          "avg_leads": 0.25,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        },
+        "14": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.5,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "15": {
+          "avg_staff": 0.62,
+          "avg_leads": 0.5,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "16": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.75,
+          "avg_cashiers": 0.12,
+          "avg_transactions": 0.0,
+          "txn_per_staff": 0.0,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "17": {
+          "avg_staff": 0.88,
+          "avg_leads": 0.62,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.62,
+          "txn_per_staff": 0.7,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "18": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.5,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 0.62,
+          "txn_per_staff": 0.83,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "19": {
+          "avg_staff": 0.75,
+          "avg_leads": 0.5,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 2.0,
+          "txn_per_staff": 2.67,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "20": {
+          "avg_staff": 0.62,
+          "avg_leads": 0.38,
+          "avg_cashiers": 0.25,
+          "avg_transactions": 6.0,
+          "txn_per_staff": 9.68,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "21": {
+          "avg_staff": 0.25,
+          "avg_leads": 0.25,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 4.62,
+          "txn_per_staff": 18.48,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "22": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.88,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "23": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.12,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "0": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 3.5,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "1": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 2.62,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "2": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.75,
+          "txn_per_staff": null,
+          "recommended_total": 1,
+          "recommended_leads": 1,
+          "recommended_cashiers": 0
+        },
+        "3": {
+          "avg_staff": 0.0,
+          "avg_leads": 0.0,
+          "avg_cashiers": 0.0,
+          "avg_transactions": 0.0,
+          "txn_per_staff": null,
+          "recommended_total": 0,
+          "recommended_leads": 0,
+          "recommended_cashiers": 0
+        }
+      },
+      "shift_patterns": {
+        "opener": {
+          "avg_start": "13:39",
+          "avg_end": "19:40",
+          "typical_role": "Lead",
+          "count": 3
+        },
+        "bridge": {
+          "avg_start": "14:33",
+          "avg_end": "18:53",
+          "typical_role": "Cashier",
+          "count": 3
+        },
+        "closer": {
+          "avg_start": "16:52",
+          "avg_end": "19:11",
+          "typical_role": "Lead",
+          "count": 3
+        }
+      },
+      "total_staff_avg": 0.64,
+      "weeks_of_data": 8
+    }
+  }
+}

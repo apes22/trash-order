@@ -102,6 +102,13 @@ header h1 {
   gap: 12px;
 }
 
+.btn-back {
+  padding: 4px 10px;
+  font-size: 18px;
+  line-height: 1;
+  border-color: #d1d5db;
+}
+
 .store-select {
   padding: 6px 10px;
   border: 2px solid #2563eb;
@@ -168,6 +175,104 @@ header h1 {
 
 .col-toggles input[type="checkbox"] {
   cursor: pointer;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f5f5f5;
+}
+
+.dashboard h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.dashboard-sub {
+  color: #6b7280;
+  margin-bottom: 32px;
+  font-size: 16px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 560px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.dashboard-card {
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: inherit;
+}
+
+.dashboard-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+}
+
+.dashboard-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  background: #2563eb;
+}
+
+.dashboard-card:nth-child(2) .dashboard-card-icon {
+  background: #7c3aed;
+}
+
+.dashboard-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.dashboard-card-desc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.dashboard-logout {
+  color: #6b7280;
+  border-color: #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard h1 {
+    font-size: 22px;
+  }
 }
 
 /* ===== ROLE-BASED VISIBILITY ===== */
