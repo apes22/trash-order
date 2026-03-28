@@ -62,8 +62,18 @@ app.post('/api/items', auth, async (req, res) => {
 
 app.put('/api/items/:id', auth, async (req, res) => {
   const { id, inventory, ...data } = req.body;
+  const itemId = parseInt(req.params.id);
+
+  // If price is changing, save the old price as lastPricePerPkg
+  if (data.pricePerPkg !== undefined) {
+    const current = await prisma.item.findUnique({ where: { id: itemId } });
+    if (current && current.pricePerPkg !== data.pricePerPkg) {
+      data.lastPricePerPkg = current.pricePerPkg;
+    }
+  }
+
   const item = await prisma.item.update({
-    where: { id: parseInt(req.params.id) },
+    where: { id: itemId },
     data,
   });
   res.json(item);

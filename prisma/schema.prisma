@@ -16,7 +16,8 @@ model Item {
   item          String
   unit          String           @default("each")
   totalWeightOz Float            @default(0)
-  pricePerPkg   Float            @default(0)
+  pricePerPkg     Float            @default(0)
+  lastPricePerPkg Float            @default(0)
   perLbPint     Float            @default(0)
   perOzUnit     Float            @default(0)
   notes         String           @default("")

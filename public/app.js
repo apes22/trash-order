@@ -82,8 +82,10 @@ const COLUMNS = [
   { key: 'packSize',    label: 'Pack Size', cls: 'col-pack' },
   { key: 'brand',       label: 'Brand',     cls: 'col-brand' },
   { key: 'unit',        label: 'Unit',      cls: 'col-unit' },
-  { key: 'pricePerPkg', label: 'Price/Pkg', cls: 'col-price' },
-  { key: 'par',         label: 'PAR',       cls: 'col-par' },
+  { key: 'pricePerPkg',     label: 'Price/Pkg',  cls: 'col-price' },
+  { key: 'lastPricePerPkg', label: 'Last Price', cls: 'col-lastprice desktop-only' },
+  { key: 'priceChange',     label: 'Change',     cls: 'col-pricechange desktop-only' },
+  { key: 'par',              label: 'PAR',        cls: 'col-par' },
   { key: 'onHand',      label: 'On Hand',   cls: 'col-onhand' },
   { key: 'order',       label: 'Order',     cls: 'col-order' },
 ];
@@ -166,7 +168,8 @@ function sortItems(list) {
     let av, bv;
     if (sortCol === 'order') { av = getOrder(a); bv = getOrder(b); }
     else if (sortCol === 'par' || sortCol === 'onHand') { av = getStoreVal(a.id, sortCol); bv = getStoreVal(b.id, sortCol); }
-    else if (sortCol === 'pricePerPkg') { av = a[sortCol] || 0; bv = b[sortCol] || 0; }
+    else if (sortCol === 'priceChange') { av = (a.pricePerPkg||0) - (a.lastPricePerPkg||0); bv = (b.pricePerPkg||0) - (b.lastPricePerPkg||0); }
+    else if (sortCol === 'pricePerPkg' || sortCol === 'lastPricePerPkg') { av = a[sortCol] || 0; bv = b[sortCol] || 0; }
     else { av = (a[sortCol] || '').toString().toLowerCase(); bv = (b[sortCol] || '').toString().toLowerCase(); }
     if (av < bv) return -1 * dir;
     if (av > bv) return 1 * dir;
@@ -278,6 +281,22 @@ function renderRow(item) {
   html += textCell('col-brand', item.id, 'brand', item.brand);
   html += textCell('col-unit', item.id, 'unit', item.unit);
   html += `<td class="col-price"><input type="number" class="inline-input inline-text inline-price" data-id="${item.id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`;
+
+  // Last Price
+  const lastPrice = item.lastPricePerPkg || 0;
+  html += `<td class="col-lastprice desktop-only">${lastPrice ? '$' + lastPrice.toFixed(2) : '-'}</td>`;
+
+  // Price Change
+  const change = (item.pricePerPkg || 0) - lastPrice;
+  let changeHtml = '-';
+  let changeCls = 'col-pricechange desktop-only';
+  if (lastPrice > 0 && change !== 0) {
+    const sign = change > 0 ? '+' : '';
+    changeHtml = sign + '$' + change.toFixed(2);
+    changeCls += change > 0 ? ' price-up' : ' price-down';
+  }
+  html += `<td class="${changeCls}">${changeHtml}</td>`;
+
   html += `<td class="col-par"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`;
   html += `<td class="col-onhand"><input type="number" class="inline-input input-onhand" data-id="${item.id}" data-field="onHand" data-store="1" value="${onHand || ''}" min="0" step="1" placeholder="0"></td>`;
   html += `<td class="col-order ${par > 0 ? (order > 0 ? 'order-positive' : 'order-zero') : 'order-zero'}">${par > 0 ? order : '-'}</td>`;
@@ -305,7 +324,14 @@ function attachInlineListeners() {
         if (next) next.focus();
       } else {
         const item = items.find(i => i.id === id);
-        if (item) { item[field] = value; api(`/api/items/${id}`, { method: 'PUT', body: JSON.stringify({ [field]: value }) }); }
+        if (item) {
+          if (field === 'pricePerPkg' && item.pricePerPkg !== value) {
+            item.lastPricePerPkg = item.pricePerPkg;
+          }
+          item[field] = value;
+          api(`/api/items/${id}`, { method: 'PUT', body: JSON.stringify({ [field]: value }) })
+            .then(updated => { if (updated) Object.assign(item, updated); render(); });
+        }
       }
     });
     input.addEventListener('keydown', (e) => {

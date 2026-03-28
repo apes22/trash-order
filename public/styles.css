@@ -323,8 +323,13 @@ main {
 .order-table .col-brand { min-width: 80px; }
 .order-table .col-unit { min-width: 50px; }
 .order-table .col-price { min-width: 65px; text-align: right; }
+.order-table .col-lastprice { min-width: 65px; text-align: right; color: #6b7280; font-size: 11px; }
+.order-table .col-pricechange { min-width: 60px; text-align: right; font-weight: 600; font-size: 11px; }
 .order-table .col-per-oz { min-width: 55px; text-align: right; }
 .order-table .col-notes { min-width: 80px; color: #6b7280; font-size: 11px; }
+
+.price-up { color: #dc2626; }
+.price-down { color: #16a34a; }
 
 .col-par, .col-onhand, .col-order {
   min-width: 70px;
@@ -565,7 +570,8 @@ main {
   /* Hide non-essential columns on mobile */
   .col-vendor,
   .col-unit,
-  .col-price {
+  .col-price,
+  .desktop-only {
     display: none !important;
   }
 
@@ -711,8 +717,9 @@ main {
     background: none !important;
   }
 
-  .row-actions {
-    display: none;
+  .row-actions,
+  .desktop-only {
+    display: none !important;
   }
 
   .order-positive {
