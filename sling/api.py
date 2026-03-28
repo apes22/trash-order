@@ -19,7 +19,7 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -121,7 +121,7 @@ async def root():
 
 # ── API endpoints ────────────────────────────────────────────────────────
 
-@app.get("/sling-api/schedule")
+@app.get("/schedule")
 async def api_schedule(week_start: str = None, location: str = "Bentonville",
                        max_weekly_hours: int = None, max_shift_hours: int = None,
                        min_shift_hours: int = None, staff_buffer: int = None,
@@ -202,7 +202,7 @@ async def api_schedule(week_start: str = None, location: str = "Bentonville",
         raise HTTPException(status_code=500, detail=f"Schedule generation failed: {str(e)}")
 
 
-@app.get("/sling-api/employees")
+@app.get("/employees")
 async def api_employees(location: str = None):
     """Return active employees with roles.
 
@@ -236,7 +236,7 @@ async def api_employees(location: str = None):
         raise HTTPException(status_code=500, detail=f"Failed to load employees: {str(e)}")
 
 
-@app.get("/sling-api/hours")
+@app.get("/hours")
 async def api_hours():
     """Return operating hours config for all locations."""
     result = {}
@@ -257,7 +257,7 @@ async def api_hours():
     return {"hours": result}
 
 
-@app.get("/sling-api/fairness")
+@app.get("/fairness")
 async def api_fairness(location: str = "Bentonville"):
     """Return fairness analysis for lead-eligible employees.
 
@@ -305,7 +305,7 @@ async def api_fairness(location: str = "Bentonville"):
         raise HTTPException(status_code=500, detail=f"Fairness analysis failed: {str(e)}")
 
 
-@app.get("/sling-api/explain")
+@app.get("/explain")
 async def api_explain(week_start: str = None, location: str = "Bentonville"):
     """Return detailed algorithm explanation showing how the schedule was built.
 
@@ -691,7 +691,7 @@ def _fmt_time_hm(h, m):
         return f"{h - 12}:{m:02d} PM"
 
 
-@app.post("/sling-api/schedule/push")
+@app.post("/schedule/push")
 async def api_push_schedule(req: PushRequest):
     """Push the schedule to Sling by creating shifts via the API.
 
@@ -768,7 +768,7 @@ async def api_push_schedule(req: PushRequest):
         raise HTTPException(status_code=500, detail=f"Push to Sling failed: {str(e)}")
 
 
-@app.put("/sling-api/schedule/shift")
+@app.put("/schedule/shift")
 async def api_update_shift(update: ShiftUpdate):
     """Update a single shift in the current proposed schedule.
 
@@ -791,7 +791,7 @@ async def api_update_shift(update: ShiftUpdate):
 
 # ── Availability (Read-Only from Sling) ──────────────────────────────────
 
-@app.get("/sling-api/availability")
+@app.get("/availability")
 async def api_get_availability():
     """Get employee availability — pulled from Sling (read-only).
 

@@ -7,3 +7,8 @@ __pycache__
 decisions.md
 parking_lot.md
 whiteboard.md
+package.json
+package-lock.json
+prisma/
+seed.js
+server.js
