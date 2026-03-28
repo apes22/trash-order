@@ -1,5 +1,8 @@
 // ===== AUTH =====
 let token = localStorage.getItem('tic-token');
+let userRole = localStorage.getItem('tic-role') || 'crew';
+
+function isManager() { return userRole === 'manager'; }
 
 async function api(path, options = {}) {
   const res = await fetch(path, {
@@ -42,7 +45,9 @@ async function login() {
     const data = await res.json();
     if (res.ok) {
       token = data.token;
+      userRole = data.role;
       localStorage.setItem('tic-token', token);
+      localStorage.setItem('tic-role', userRole);
       hideLogin();
       await loadData();
       bindEvents();
@@ -57,7 +62,9 @@ async function login() {
 
 function logout() {
   token = null;
+  userRole = 'crew';
   localStorage.removeItem('tic-token');
+  localStorage.removeItem('tic-role');
   showLogin();
 }
 
@@ -225,6 +232,8 @@ function bindEvents() {
 // ===== RENDER =====
 function render() {
   const container = document.getElementById('table-container');
+  document.body.classList.toggle('role-manager', isManager());
+  document.body.classList.toggle('role-crew', !isManager());
   if (items.length === 0) { container.innerHTML = '<div class="empty-state"><p>Loading...</p></div>'; return; }
 
   let html = '';
@@ -266,7 +275,10 @@ function renderCategory(category) {
 }
 
 function textCell(cls, id, field, value) {
-  return `<td class="${cls}"><input type="text" class="inline-input inline-text" data-id="${id}" data-field="${field}" value="${esc(value)}"></td>`;
+  if (isManager()) {
+    return `<td class="${cls}"><input type="text" class="inline-input inline-text" data-id="${id}" data-field="${field}" value="${esc(value)}"></td>`;
+  }
+  return `<td class="${cls}">${esc(value)}</td>`;
 }
 
 function renderRow(item) {
@@ -280,7 +292,11 @@ function renderRow(item) {
   html += textCell('col-pack', item.id, 'packSize', item.packSize);
   html += textCell('col-brand', item.id, 'brand', item.brand);
   html += textCell('col-unit', item.id, 'unit', item.unit);
-  html += `<td class="col-price"><input type="number" class="inline-input inline-text inline-price" data-id="${item.id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`;
+  if (isManager()) {
+    html += `<td class="col-price"><input type="number" class="inline-input inline-text inline-price" data-id="${item.id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`;
+  } else {
+    html += `<td class="col-price">${item.pricePerPkg ? '$' + item.pricePerPkg.toFixed(2) : ''}</td>`;
+  }
 
   // Last Price
   const lastPrice = item.lastPricePerPkg || 0;
@@ -297,10 +313,23 @@ function renderRow(item) {
   }
   html += `<td class="${changeCls}">${changeHtml}</td>`;
 
-  html += `<td class="col-par"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`;
+  // PAR -- manager can edit, crew sees read-only
+  if (isManager()) {
+    html += `<td class="col-par"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`;
+  } else {
+    html += `<td class="col-par">${par || '-'}</td>`;
+  }
+
+  // On Hand -- always editable
   html += `<td class="col-onhand"><input type="number" class="inline-input input-onhand" data-id="${item.id}" data-field="onHand" data-store="1" value="${onHand || ''}" min="0" step="1" placeholder="0"></td>`;
   html += `<td class="col-order ${par > 0 ? (order > 0 ? 'order-positive' : 'order-zero') : 'order-zero'}">${par > 0 ? order : '-'}</td>`;
-  html += `<td class="row-actions no-print"><button class="delete-btn" onclick="deleteItem(${item.id})" title="Delete">X</button></td>`;
+
+  // Delete -- manager only
+  if (isManager()) {
+    html += `<td class="row-actions no-print"><button class="delete-btn" onclick="deleteItem(${item.id})" title="Delete">X</button></td>`;
+  } else {
+    html += `<td class="row-actions no-print"></td>`;
+  }
   html += '</tr>';
   return html;
 }

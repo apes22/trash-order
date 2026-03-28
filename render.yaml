@@ -19,5 +19,7 @@ services:
         value: "22"
       - key: JWT_SECRET
         generateValue: true
-      - key: APP_PIN
+      - key: MANAGER_PIN
         value: "1234"
+      - key: CREW_PIN
+        value: "0000"

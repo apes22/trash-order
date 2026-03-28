@@ -7,7 +7,8 @@ const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production';
-const APP_PIN = process.env.APP_PIN || '1234';
+const MANAGER_PIN = process.env.MANAGER_PIN || '1234';
+const CREW_PIN = process.env.CREW_PIN || '0000';
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -17,17 +18,27 @@ function auth(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'Not authenticated' });
   try {
-    jwt.verify(token, JWT_SECRET);
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.role = payload.role || 'crew';
     next();
   } catch {
     res.status(401).json({ error: 'Invalid token' });
   }
 }
 
+function managerOnly(req, res, next) {
+  if (req.role !== 'manager') return res.status(403).json({ error: 'Manager access required' });
+  next();
+}
+
 app.post('/api/login', (req, res) => {
-  if (req.body.pin === APP_PIN) {
-    const token = jwt.sign({ auth: true }, JWT_SECRET, { expiresIn: '90d' });
-    res.json({ token });
+  let role = null;
+  if (req.body.pin === MANAGER_PIN) role = 'manager';
+  else if (req.body.pin === CREW_PIN) role = 'crew';
+
+  if (role) {
+    const token = jwt.sign({ role }, JWT_SECRET, { expiresIn: '90d' });
+    res.json({ token, role });
   } else {
     res.status(401).json({ error: 'Wrong PIN' });
   }
@@ -39,7 +50,7 @@ app.get('/api/stores', auth, async (req, res) => {
   res.json(stores.map(s => s.name));
 });
 
-app.post('/api/stores', auth, async (req, res) => {
+app.post('/api/stores', auth, managerOnly, async (req, res) => {
   const store = await prisma.store.upsert({
     where: { name: req.body.name },
     create: { name: req.body.name },
@@ -54,13 +65,13 @@ app.get('/api/items', auth, async (req, res) => {
   res.json(items);
 });
 
-app.post('/api/items', auth, async (req, res) => {
+app.post('/api/items', auth, managerOnly, async (req, res) => {
   const { id, ...data } = req.body;
   const item = await prisma.item.create({ data });
   res.json(item);
 });
 
-app.put('/api/items/:id', auth, async (req, res) => {
+app.put('/api/items/:id', auth, managerOnly, async (req, res) => {
   const { id, inventory, ...data } = req.body;
   const itemId = parseInt(req.params.id);
 
@@ -79,7 +90,7 @@ app.put('/api/items/:id', auth, async (req, res) => {
   res.json(item);
 });
 
-app.delete('/api/items/:id', auth, async (req, res) => {
+app.delete('/api/items/:id', auth, managerOnly, async (req, res) => {
   await prisma.item.delete({ where: { id: parseInt(req.params.id) } });
   res.json({ ok: true });
 });
@@ -97,16 +108,25 @@ app.get('/api/inventory/:store', auth, async (req, res) => {
 app.put('/api/inventory/:store/:itemId', auth, async (req, res) => {
   const storeId = req.params.store;
   const itemId = parseInt(req.params.itemId);
+
+  // Crew can only update onHand, not par
+  let updateData = req.body;
+  if (req.role !== 'manager') {
+    const { onHand } = req.body;
+    if (onHand === undefined) return res.status(403).json({ error: 'Crew can only update on-hand counts' });
+    updateData = { onHand };
+  }
+
   const row = await prisma.storeInventory.upsert({
     where: { storeId_itemId: { storeId, itemId } },
-    create: { storeId, itemId, ...req.body },
-    update: req.body,
+    create: { storeId, itemId, ...updateData },
+    update: updateData,
   });
   res.json(row);
 });
 
 // ===== SEED =====
-app.post('/api/seed', auth, async (req, res) => {
+app.post('/api/seed', auth, managerOnly, async (req, res) => {
   const { items: seedItems, stores: seedStores } = req.body;
 
   for (const name of seedStores) {
@@ -126,7 +146,7 @@ app.post('/api/seed', auth, async (req, res) => {
 });
 
 // ===== RESET =====
-app.post('/api/reset', auth, async (req, res) => {
+app.post('/api/reset', auth, managerOnly, async (req, res) => {
   await prisma.storeInventory.deleteMany();
   await prisma.item.deleteMany();
   await prisma.store.deleteMany();

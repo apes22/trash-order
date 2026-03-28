@@ -170,6 +170,14 @@ header h1 {
   cursor: pointer;
 }
 
+/* ===== ROLE-BASED VISIBILITY ===== */
+.role-crew #add-item-btn,
+.role-crew #reset-btn,
+.role-crew .add-to-cat,
+.role-crew .col-toggles {
+  display: none !important;
+}
+
 /* ===== BUTTONS ===== */
 .btn {
   padding: 8px 16px;
