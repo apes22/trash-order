@@ -5,21 +5,28 @@ let userRole = localStorage.getItem('tic-role') || 'crew';
 function isManager() { return userRole === 'manager'; }
 
 async function api(path, options = {}) {
-  const res = await fetch(path, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-      ...options.headers,
-    },
-  });
-  if (res.status === 401) {
-    token = null;
-    localStorage.removeItem('tic-token');
-    showLogin();
+  try {
+    const res = await fetch(path, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        ...options.headers,
+      },
+    });
+    if (res.status === 401) {
+      token = null;
+      userRole = 'crew';
+      localStorage.removeItem('tic-token');
+      localStorage.removeItem('tic-role');
+      showLogin();
+      return null;
+    }
+    return res.json();
+  } catch (err) {
+    console.warn('API error:', err);
     return null;
   }
-  return res.json();
 }
 
 function showLogin() {
@@ -106,9 +113,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (token) {
     hideLogin();
-    await loadData();
-    bindEvents();
-    render();
+    try {
+      await loadData();
+      bindEvents();
+      render();
+    } catch (err) {
+      console.warn('Load error:', err);
+      // Token is still valid, just couldn't reach server
+      document.getElementById('table-container').innerHTML =
+        '<div class="empty-state"><p>Could not connect to server. Pull to refresh.</p></div>';
+    }
   } else {
     showLogin();
   }
