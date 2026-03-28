@@ -10,8 +10,8 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Install Node dependencies (including devDependencies for prisma CLI)
-COPY package.json package-lock.json ./
-RUN npm install
+COPY package.json ./
+RUN npm install --no-package-lock
 
 # Install Prisma and generate client
 COPY prisma/ ./prisma/
