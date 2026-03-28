@@ -1,30 +1,29 @@
-# Multi-runtime: Node 22 + Python 3.11
-FROM node:22
+FROM python:3.11-slim
 
-# Install Python
+# Install Node 22
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip python3-venv && \
-    rm -rf /var/lib/apt/lists/* && \
-    ln -sf /usr/bin/python3 /usr/bin/python
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install Node dependencies (including devDependencies for prisma CLI)
-COPY package.json ./
-RUN npm install --no-package-lock --loglevel verbose 2>&1 || (echo "=== NPM ERROR LOG ===" && cat /root/.npm/_logs/*.log 2>/dev/null && exit 1)
+# Install Python dependencies first
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Prisma and generate client
+# Copy package.json and install Node dependencies
+COPY package.json ./
+RUN npm install --no-package-lock
+
+# Copy Prisma schema and generate client
 COPY prisma/ ./prisma/
 RUN npx prisma generate
-
-# Install Python dependencies
-COPY requirements.txt ./
-RUN python -m pip install --break-system-packages --no-cache-dir -r requirements.txt
 
 # Copy all source files
 COPY . .
 
-# Make start script executable
 RUN chmod +x start.sh
 
 EXPOSE 3000
