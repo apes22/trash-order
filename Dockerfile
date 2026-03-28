@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Install Node dependencies (including devDependencies for prisma CLI)
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Install Prisma and generate client
 COPY prisma/ ./prisma/
