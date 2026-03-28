@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 
+import time
 from backend.database import create_tables
 from backend.auth import verify_pin, create_token
 from backend.ordering import router as ordering_router
@@ -17,7 +18,16 @@ app = FastAPI(title="TIC Management", version="1.0.0")
 # Create database tables on startup
 @app.on_event("startup")
 def startup():
-    create_tables()
+    for attempt in range(5):
+        try:
+            create_tables()
+            print("Database connected and tables created.")
+            return
+        except Exception as e:
+            print(f"DB connection attempt {attempt + 1}/5 failed: {e}")
+            if attempt < 4:
+                time.sleep(3)
+    print("WARNING: Could not connect to database on startup. Will retry on first request.")
 
 # ===== AUTH =====
 
