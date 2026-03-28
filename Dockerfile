@@ -1,9 +1,9 @@
 # Multi-runtime: Node 22 + Python 3.11
-FROM node:22-slim
+FROM node:22
 
-# Install Python + bash
+# Install Python
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip python3-venv bash && \
+    apt-get install -y python3 python3-pip python3-venv && \
     rm -rf /var/lib/apt/lists/* && \
     ln -sf /usr/bin/python3 /usr/bin/python
 
