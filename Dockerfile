@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Install Node dependencies (including devDependencies for prisma CLI)
 COPY package.json ./
-RUN npm install --no-package-lock
+RUN npm install --no-package-lock --loglevel verbose 2>&1 || (echo "=== NPM ERROR LOG ===" && cat /root/.npm/_logs/*.log 2>/dev/null && exit 1)
 
 # Install Prisma and generate client
 COPY prisma/ ./prisma/
