@@ -1,0 +1,23 @@
+databases:
+  - name: tic-ordering-db
+    plan: basic-256mb
+    databaseName: tic_ordering
+
+services:
+  - type: web
+    name: tic-ordering-guide
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npx prisma migrate deploy && npx prisma db seed
+    startCommand: node server.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tic-ordering-db
+          property: connectionString
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_PIN
+        value: "1234"

@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Item {
+  id            Int              @id @default(autoincrement())
+  category      String
+  vendor        String           @default("")
+  packSize      String           @default("")
+  brand         String           @default("")
+  item          String
+  unit          String           @default("each")
+  totalWeightOz Float            @default(0)
+  pricePerPkg   Float            @default(0)
+  perLbPint     Float            @default(0)
+  perOzUnit     Float            @default(0)
+  notes         String           @default("")
+  inventory     StoreInventory[]
+}
+
+model Store {
+  name      String             @id
+  inventory StoreInventory[]
+}
+
+model StoreInventory {
+  id      Int    @id @default(autoincrement())
+  storeId String
+  itemId  Int
+  par     Int    @default(0)
+  onHand  Int    @default(0)
+  store   Store  @relation(fields: [storeId], references: [name], onDelete: Cascade)
+  item    Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, itemId])
+}
