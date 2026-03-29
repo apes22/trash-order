@@ -134,8 +134,10 @@ let stores = [];
 let currentStore = '';
 let editingItemId = null;
 let searchQuery = '';
-let sortCol = 'item';
-let sortDir = 'asc';
+let catSort = {};  // { category: { col: 'item', dir: 'asc' } }
+
+function getSortCol(cat) { return (catSort[cat] || {}).col || 'item'; }
+function getSortDir(cat) { return (catSort[cat] || {}).dir || 'asc'; }
 let collapsedCats = new Set();
 let eventsBound = false;
 
@@ -254,24 +256,26 @@ function filterItems(list) {
   );
 }
 
-function sortItems(list) {
-  const dir = sortDir === 'asc' ? 1 : -1;
+function sortItems(list, category) {
+  const sc = getSortCol(category);
+  const dir = getSortDir(category) === 'asc' ? 1 : -1;
   return [...list].sort((a, b) => {
     let av, bv;
-    if (sortCol === 'order') { av = getOrder(a); bv = getOrder(b); }
-    else if (sortCol === 'par' || sortCol === 'onHand') { av = getStoreVal(a.id, sortCol); bv = getStoreVal(b.id, sortCol); }
-    else if (sortCol === 'priceChange') { av = (a.pricePerPkg||0) - (a.lastPricePerPkg||0); bv = (b.pricePerPkg||0) - (b.lastPricePerPkg||0); }
-    else if (['pricePerPkg', 'lastPricePerPkg', 'unitsPerPack', 'pricePerBuyingUnit', 'costingUnitsPerPack', 'pricePerCostingUnit'].includes(sortCol)) { av = a[sortCol] || 0; bv = b[sortCol] || 0; }
-    else { av = (a[sortCol] || '').toString().toLowerCase(); bv = (b[sortCol] || '').toString().toLowerCase(); }
+    if (sc === 'order') { av = getOrder(a); bv = getOrder(b); }
+    else if (sc === 'par' || sc === 'onHand') { av = getStoreVal(a.id, sc); bv = getStoreVal(b.id, sc); }
+    else if (sc === 'priceChange') { av = (a.pricePerPkg||0) - (a.lastPricePerPkg||0); bv = (b.pricePerPkg||0) - (b.lastPricePerPkg||0); }
+    else if (['pricePerPkg', 'lastPricePerPkg', 'unitsPerPack', 'pricePerBuyingUnit', 'costingUnitsPerPack', 'pricePerCostingUnit'].includes(sc)) { av = a[sc] || 0; bv = b[sc] || 0; }
+    else { av = (a[sc] || '').toString().toLowerCase(); bv = (b[sc] || '').toString().toLowerCase(); }
     if (av < bv) return -1 * dir;
     if (av > bv) return 1 * dir;
     return 0;
   });
 }
 
-function toggleSort(col) {
-  if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
-  else { sortCol = col; sortDir = 'asc'; }
+function toggleSort(cat, col) {
+  if (!catSort[cat]) catSort[cat] = { col: 'item', dir: 'asc' };
+  if (catSort[cat].col === col) { catSort[cat].dir = catSort[cat].dir === 'asc' ? 'desc' : 'asc'; }
+  else { catSort[cat] = { col: col, dir: 'asc' }; }
   render();
 }
 
@@ -395,7 +399,7 @@ function toggleCategory(category) {
 }
 
 function renderCategory(category) {
-  const catItems = sortItems(filterItems(items.filter(i => i.category === category)));
+  const catItems = sortItems(filterItems(items.filter(i => i.category === category)), category);
   if (catItems.length === 0) return '';
   const cssClass = category.replace(/\s+/g, '_');
   const collapsed = collapsedCats.has(category);
@@ -406,11 +410,13 @@ function renderCategory(category) {
   </div>`;
   if (!collapsed) {
     html += '<table class="order-table"><thead><tr>';
+    const sc = getSortCol(category);
+    const sd = getSortDir(category);
     for (let ci = 0; ci < COLUMNS.length; ci++) {
       const col = COLUMNS[ci];
-      const active = sortCol === col.key;
+      const active = sc === col.key;
       const colId = col.cls.split(' ')[0];
-      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" draggable="true" data-col-idx="${ci}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}<div class="col-resize-handle" data-col="${colId}"></div></th>`;
+      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" draggable="true" data-col-idx="${ci}" onclick="event.stopPropagation(); toggleSort('${category}', '${col.key}')">${col.label}${active ? (sd === 'asc' ? ' ▲' : ' ▼') : ''}<div class="col-resize-handle" data-col="${colId}"></div></th>`;
     }
     html += '<th class="row-actions no-print"></th></tr></thead><tbody>';
     for (const item of catItems) html += renderRow(item);
