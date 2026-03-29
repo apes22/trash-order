@@ -64,9 +64,11 @@
     .recipe-table td { padding: 6px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
     .recipe-table tr:hover { background: #f8fafc; }
     .recipe-table .col-cat { width: 100px; }
-    .recipe-table .col-item { min-width: 180px; }
-    .recipe-table .col-qty { width: 70px; text-align: center; }
-    .recipe-table .col-cost { width: 80px; text-align: right; font-weight: 600; }
+    .recipe-table .col-item { min-width: 160px; }
+    .recipe-table .col-unit { width: 55px; text-align: center; color: #6b7280; font-size: 11px; }
+    .recipe-table .col-unitcost { width: 70px; text-align: right; color: #2563eb; font-weight: 600; font-size: 11px; }
+    .recipe-table .col-qty { width: 65px; text-align: center; }
+    .recipe-table .col-cost { width: 70px; text-align: right; font-weight: 600; }
     .recipe-table .col-actions { width: 40px; text-align: center; }
     .qty-input { width: 55px; padding: 4px; border: 1px solid #d1d5db; border-radius: 4px; text-align: center; font-size: 12px; font-family: inherit; }
     .qty-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
@@ -166,7 +168,15 @@ const token = localStorage.getItem('tic-token');
 const SIZES = ['tiny', 'small', 'regular', 'shake'];
 const SIZE_LABELS = { tiny: 'Tiny', small: 'Small', regular: 'Regular', shake: 'Shake' };
 const CUP_LABELS = { tiny: '3.3 oz cup', small: '5.5 oz cup', regular: '8 oz', shake: '16 oz cup' };
-const CATEGORIES = ['creamy base', 'toppings', 'packaging', 'liquid modifier'];
+const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
+function getCategories() {
+  const cats = [...new Set(orderItems.map(i => i.category))];
+  return cats.sort((a, b) => {
+    const ia = CATEGORY_ORDER.indexOf(a);
+    const ib = CATEGORY_ORDER.indexOf(b);
+    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+  });
+}
 
 let menuItems = [];
 let orderItems = [];
@@ -251,6 +261,8 @@ function renderMenuItem(m) {
         <thead><tr>
           <th class="col-cat">Category</th>
           <th class="col-item">Raw Material</th>
+          <th class="col-unit">Unit</th>
+          <th class="col-unitcost">$/Unit</th>
           <th class="col-qty">Tiny</th>
           <th class="col-qty">Small</th>
           <th class="col-qty">Regular</th>
@@ -265,22 +277,29 @@ function renderMenuItem(m) {
 
   // Recipe lines
   const lines = m.recipeLines || [];
+  const categories = getCategories();
   for (const line of lines) {
+    const selectedItem = orderItems.find(i => i.id === line.itemId);
+    const costingUnit = selectedItem?.costingUnit || '';
+    const filteredItems = orderItems.filter(i => i.category === line.category);
     html += `<tr>
       <td class="col-cat">
         <select class="cat-select" onchange="updateLine(${line.id}, 'category', this.value)" ${isManager ? '' : 'disabled'}>
-          ${CATEGORIES.map(c => `<option value="${c}" ${c === line.category ? 'selected' : ''}>${c}</option>`).join('')}
+          ${categories.map(c => `<option value="${c}" ${c === line.category ? 'selected' : ''}>${c}</option>`).join('')}
         </select>
       </td>
       <td class="col-item">
         <select class="item-select" onchange="updateLine(${line.id}, 'itemId', parseInt(this.value))" ${isManager ? '' : 'disabled'}>
           <option value="">-- select --</option>
-          ${orderItems.map(i => `<option value="${i.id}" ${i.id === line.itemId ? 'selected' : ''}>${esc(i.item)}</option>`).join('')}
+          ${filteredItems.map(i => `<option value="${i.id}" ${i.id === line.itemId ? 'selected' : ''}>${esc(i.item)}</option>`).join('')}
         </select>
       </td>
+      <td class="col-unit">${esc(costingUnit) || '-'}</td>
+      <td class="col-unitcost">${line.unitCost ? '$' + line.unitCost.toFixed(4) : '-'}</td>
       ${SIZES.map(s => {
         const qtyKey = 'qty' + s.charAt(0).toUpperCase() + s.slice(1);
         return `<td class="col-qty"><input type="number" class="qty-input" value="${line[qtyKey] || ''}" step="0.1" min="0"
+          placeholder="${costingUnit || '0'}"
           onchange="updateLine(${line.id}, '${qtyKey}', parseFloat(this.value)||0)" ${isManager ? '' : 'disabled'}></td>`;
       }).join('')}
       <td class="col-cost">$${(line.costTiny || 0).toFixed(2)}</td>
@@ -293,7 +312,7 @@ function renderMenuItem(m) {
 
   // Add line row (manager only)
   if (isManager) {
-    html += `<tr class="add-line-row"><td colspan="11" style="text-align:center;padding:8px;">
+    html += `<tr class="add-line-row"><td colspan="13" style="text-align:center;padding:8px;">
       <button class="btn btn-sm btn-primary" onclick="addLine(${m.id})">+ Add Raw Material</button>
     </td></tr>`;
   }
@@ -301,7 +320,7 @@ function renderMenuItem(m) {
   // Totals
   html += `
       <tr class="totals-row">
-        <td colspan="2"><b>COGS</b></td>
+        <td colspan="4"><b>COGS</b></td>
         <td colspan="4"></td>
         <td class="col-cost">$${(m.cogs?.tiny || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.cogs?.small || 0).toFixed(2)}</td>
@@ -310,7 +329,7 @@ function renderMenuItem(m) {
         ${isManager ? '<td></td>' : ''}
       </tr>
       <tr class="profit-row">
-        <td colspan="2"><b>Profit</b></td>
+        <td colspan="4"><b>Profit</b></td>
         <td colspan="4"></td>
         <td class="col-cost">$${(m.profit?.tiny || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.profit?.small || 0).toFixed(2)}</td>
@@ -319,7 +338,7 @@ function renderMenuItem(m) {
         ${isManager ? '<td></td>' : ''}
       </tr>
       <tr class="margin-row">
-        <td colspan="2"><b>Margin</b></td>
+        <td colspan="4"><b>Margin</b></td>
         <td colspan="4"></td>
         <td class="col-cost ${marginClass(m.margin?.tiny)}">${(m.margin?.tiny || 0).toFixed(1)}%</td>
         <td class="col-cost ${marginClass(m.margin?.small)}">${(m.margin?.small || 0).toFixed(1)}%</td>
@@ -370,9 +389,13 @@ async function deleteMenuItem(id) {
 
 async function addLine(menuItemId) {
   if (orderItems.length === 0) return;
+  const cats = getCategories();
+  const defaultCat = cats[0] || 'ICE CREAM';
+  const catItems = orderItems.filter(i => i.category === defaultCat);
+  const defaultItem = catItems.length > 0 ? catItems[0] : orderItems[0];
   const result = await api(`/api/pricing/menu-items/${menuItemId}/lines`, {
     method: 'POST',
-    body: JSON.stringify({ itemId: orderItems[0].id, category: 'toppings' }),
+    body: JSON.stringify({ itemId: defaultItem.id, category: defaultCat }),
   });
   if (result && !result.error) {
     const idx = menuItems.findIndex(m => m.id === menuItemId);
