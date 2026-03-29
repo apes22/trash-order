@@ -38,7 +38,37 @@ class Item(Base):
 
     inventory = relationship("StoreInventory", back_populates="item", cascade="all, delete-orphan")
 
+    # Conversion factors: how many oz in one unit
+    UNIT_TO_OZ = {
+        "oz": 1,
+        "lb": 16,
+        "pint": 16,
+        "gallon": 128,
+        "gal": 128,
+    }
+
+    def _auto_costing_units(self):
+        """Auto-calculate costing units per pack from buying unit → costing unit conversion."""
+        # If manually set, use that
+        if self.costing_units_per_pack and self.costing_units_per_pack > 0:
+            return self.costing_units_per_pack
+        # Need buying unit, units per pack, and costing unit to convert
+        if not self.unit or not self.costing_unit or not self.units_per_pack:
+            return 0
+        buy = self.unit.lower().strip()
+        cost = self.costing_unit.lower().strip()
+        if buy == cost:
+            return self.units_per_pack
+        # Convert: buying units → oz → costing units
+        buy_oz = self.UNIT_TO_OZ.get(buy)
+        cost_oz = self.UNIT_TO_OZ.get(cost)
+        if buy_oz and cost_oz:
+            total_oz = self.units_per_pack * buy_oz
+            return round(total_oz / cost_oz, 2)
+        return 0
+
     def to_dict(self):
+        costing_units = self._auto_costing_units()
         return {
             "id": self.id,
             "category": self.category,
@@ -54,8 +84,8 @@ class Item(Base):
             "pricePerBuyingUnit": round(self.price_per_pkg / self.units_per_pack, 4) if self.units_per_pack else 0,
             "lastPricePerPkg": self.last_price_per_pkg,
             "costingUnit": self.costing_unit,
-            "costingUnitsPerPack": self.costing_units_per_pack,
-            "pricePerCostingUnit": round(self.price_per_pkg / self.costing_units_per_pack, 4) if self.costing_units_per_pack else 0,
+            "costingUnitsPerPack": costing_units,
+            "pricePerCostingUnit": round(self.price_per_pkg / costing_units, 4) if costing_units else 0,
             "perLbPint": self.per_lb_pint,
             "perOzUnit": self.per_oz_unit,
             "notes": self.notes,
