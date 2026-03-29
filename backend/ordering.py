@@ -48,6 +48,7 @@ def create_item(data: dict, role: str = Depends(require_manager), db: Session = 
         item=data.get("item", ""),
         unit=data.get("unit", "each"),
         total_weight_oz=data.get("totalWeightOz", 0),
+        units_per_pack=data.get("unitsPerPack", 0),
         price_per_pkg=data.get("pricePerPkg", 0),
         last_price_per_pkg=data.get("lastPricePerPkg", 0),
         per_lb_pint=data.get("perLbPint", 0),
@@ -73,7 +74,8 @@ def update_item(item_id: int, data: dict, role: str = Depends(require_manager), 
     field_map = {
         "category": "category", "vendor": "vendor", "packSize": "pack_size",
         "brand": "brand", "item": "item", "unit": "unit",
-        "totalWeightOz": "total_weight_oz", "pricePerPkg": "price_per_pkg",
+        "totalWeightOz": "total_weight_oz", "unitsPerPack": "units_per_pack",
+        "pricePerPkg": "price_per_pkg",
         "perLbPint": "per_lb_pint", "perOzUnit": "per_oz_unit", "notes": "notes",
     }
     for js_key, py_key in field_map.items():
@@ -155,6 +157,7 @@ def seed_data(data: dict, role: str = Depends(require_manager), db: Session = De
             item=raw.get("item", ""),
             unit=raw.get("unit", "each"),
             total_weight_oz=raw.get("totalWeightOz", 0),
+            units_per_pack=raw.get("unitsPerPack", 0),
             price_per_pkg=raw.get("pricePerPkg", 0),
             per_lb_pint=raw.get("perLbPint", 0),
             per_oz_unit=raw.get("perOzUnit", 0),

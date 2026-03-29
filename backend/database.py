@@ -26,6 +26,7 @@ class Item(Base):
     item = Column(String, nullable=False)
     unit = Column(String, default="each")
     total_weight_oz = Column(Float, default=0)
+    units_per_pack = Column(Float, default=0)
     price_per_pkg = Column(Float, default=0)
     last_price_per_pkg = Column(Float, default=0)
     per_lb_pint = Column(Float, default=0)
@@ -44,7 +45,9 @@ class Item(Base):
             "item": self.item,
             "unit": self.unit,
             "totalWeightOz": self.total_weight_oz,
+            "unitsPerPack": self.units_per_pack,
             "pricePerPkg": self.price_per_pkg,
+            "pricePerUnit": round(self.price_per_pkg / self.units_per_pack, 4) if self.units_per_pack else 0,
             "lastPricePerPkg": self.last_price_per_pkg,
             "perLbPint": self.per_lb_pint,
             "perOzUnit": self.per_oz_unit,
