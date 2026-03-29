@@ -31,17 +31,11 @@ async function api(path, options = {}) {
 
 function updateRoleBanner() {
   const banner = document.getElementById('role-banner');
-  const badge = document.getElementById('order-role-badge');
   if (token) {
     banner.style.display = '';
     banner.textContent = 'Logged in as: ' + (isManager() ? 'Manager' : 'Crew');
-    if (badge) {
-      badge.textContent = isManager() ? 'Manager' : 'Crew';
-      badge.style.background = isManager() ? '#7c3aed' : '#6b7280';
-    }
   } else {
     banner.style.display = 'none';
-    if (badge) badge.textContent = '';
   }
 }
 
@@ -67,7 +61,6 @@ async function openTool(tool) {
   if (tool === 'order') {
     document.getElementById('dashboard-screen').style.display = 'none';
     document.getElementById('app-container').style.display = '';
-    document.getElementById('role-banner').style.display = 'none';
     try {
       await loadData();
       bindEvents();

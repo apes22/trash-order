@@ -336,6 +336,8 @@
 </head>
 <body>
 
+    <div id="role-banner" style="background:#6b7280; color:#fff; text-align:center; padding:5px 0; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;"></div>
+
     <!-- Header -->
     <header class="bg-gray-900 text-white shadow-lg">
         <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -362,7 +364,6 @@
                     <span class="inline-block w-3 h-3 rounded ml-2" style="background: var(--cashier-border);"></span>
                     Cashier
                 </div>
-                <span id="role-badge" style="padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:#fff;"></span>
             </div>
         </div>
     </header>
@@ -769,12 +770,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadEmployees();
     loadFairness();
 
-    // Role badge
+    // Role banner
     const role = (localStorage.getItem('tic-role') || 'crew');
-    const badge = document.getElementById('role-badge');
-    if (badge) {
-        badge.textContent = role === 'manager' ? 'Manager' : 'Crew';
-        badge.style.background = role === 'manager' ? '#7c3aed' : '#6b7280';
+    const banner = document.getElementById('role-banner');
+    if (banner) {
+        banner.textContent = 'Logged in as: ' + (role === 'manager' ? 'Manager' : 'Crew');
     }
 });
 
