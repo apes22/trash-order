@@ -261,8 +261,8 @@ function renderMenuItem(m) {
         <thead><tr>
           <th class="col-cat">Category</th>
           <th class="col-item">Raw Material</th>
-          <th class="col-unit">Unit</th>
-          <th class="col-unitcost">$/Unit</th>
+          <th class="col-unit">Costing Unit</th>
+          <th class="col-unitcost">Price/Costing Unit</th>
           <th class="col-qty">Tiny</th>
           <th class="col-qty">Small</th>
           <th class="col-qty">Regular</th>
@@ -294,8 +294,8 @@ function renderMenuItem(m) {
           ${filteredItems.map(i => `<option value="${i.id}" ${i.id === line.itemId ? 'selected' : ''}>${esc(i.item)}</option>`).join('')}
         </select>
       </td>
-      <td class="col-unit">${esc(costingUnit) || '-'}</td>
-      <td class="col-unitcost">${line.unitCost ? '$' + line.unitCost.toFixed(4) : '-'}</td>
+      <td class="col-unit">${esc(selectedItem?.costingUnit) || '-'}</td>
+      <td class="col-unitcost">${selectedItem?.pricePerCostingUnit ? '$' + selectedItem.pricePerCostingUnit.toFixed(4) : '-'}</td>
       ${SIZES.map(s => {
         const qtyKey = 'qty' + s.charAt(0).toUpperCase() + s.slice(1);
         return `<td class="col-qty"><input type="number" class="qty-input" value="${line[qtyKey] || ''}" step="0.1" min="0"
