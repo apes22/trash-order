@@ -72,6 +72,8 @@ async function openTool(tool) {
     }
   } else if (tool === 'schedule') {
     window.location.href = '/schedule/';
+  } else if (tool === 'pricing') {
+    window.location.href = '/pricing/';
   }
 }
 

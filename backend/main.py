@@ -9,6 +9,7 @@ import time
 from backend.database import create_tables
 from backend.auth import verify_pin, create_token
 from backend.ordering import router as ordering_router
+from backend.pricing import router as pricing_router
 
 # Import sling scheduler routes
 from sling.api import app as sling_app
@@ -42,6 +43,7 @@ async def login(data: dict):
 
 # ===== ORDERING GUIDE ROUTES =====
 app.include_router(ordering_router)
+app.include_router(pricing_router)
 
 # ===== SLING SCHEDULER ROUTES =====
 # Mount the sling FastAPI app at /sling-api
@@ -61,6 +63,11 @@ async def root():
 @app.get("/schedule/{path:path}")
 async def schedule_page(path: str = ""):
     return FileResponse(os.path.join(STATIC_DIR, "schedule", "index.html"))
+
+
+@app.get("/pricing/{path:path}")
+async def pricing_page(path: str = ""):
+    return FileResponse(os.path.join(STATIC_DIR, "pricing", "index.html"))
 
 
 @app.get("/{path:path}")

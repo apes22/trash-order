@@ -215,9 +215,9 @@ header h1 {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 560px;
+  max-width: 780px;
   width: 100%;
   margin-bottom: 32px;
 }
@@ -258,6 +258,10 @@ header h1 {
 
 .dashboard-card:nth-child(2) .dashboard-card-icon {
   background: #7c3aed;
+}
+
+.dashboard-card:nth-child(3) .dashboard-card-icon {
+  background: #0891b2;
 }
 
 .dashboard-card-title {

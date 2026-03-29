@@ -74,6 +74,70 @@ class StoreInventory(Base):
     __table_args__ = (UniqueConstraint("store_id", "item_id"),)
 
 
+class MenuItem(Base):
+    __tablename__ = "menu_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    menu_type = Column(String, default="special")  # "special" or "cyo"
+    price_tiny = Column(Float, default=0)
+    price_small = Column(Float, default=0)
+    price_regular = Column(Float, default=0)
+    price_shake = Column(Float, default=0)
+    # CYO fields
+    cyo_base_tiny = Column(Float, default=0)
+    cyo_base_small = Column(Float, default=0)
+    cyo_base_regular = Column(Float, default=0)
+    cyo_base_shake = Column(Float, default=0)
+    cyo_per_topping = Column(Float, default=1.0)
+
+    recipe_lines = relationship("RecipeLine", back_populates="menu_item", cascade="all, delete-orphan")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "menuType": self.menu_type,
+            "priceTiny": self.price_tiny,
+            "priceSmall": self.price_small,
+            "priceRegular": self.price_regular,
+            "priceShake": self.price_shake,
+            "cyoBaseTiny": self.cyo_base_tiny,
+            "cyoBaseSmall": self.cyo_base_small,
+            "cyoBaseRegular": self.cyo_base_regular,
+            "cyoBaseShake": self.cyo_base_shake,
+            "cyoPerTopping": self.cyo_per_topping,
+        }
+
+
+class RecipeLine(Base):
+    __tablename__ = "recipe_lines"
+
+    id = Column(Integer, primary_key=True, index=True)
+    menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False)
+    item_id = Column(Integer, ForeignKey("items.id", ondelete="CASCADE"), nullable=False)
+    category = Column(String, default="toppings")  # creamy base, toppings, packaging, liquid modifier
+    qty_tiny = Column(Float, default=0)
+    qty_small = Column(Float, default=0)
+    qty_regular = Column(Float, default=0)
+    qty_shake = Column(Float, default=0)
+
+    menu_item = relationship("MenuItem", back_populates="recipe_lines")
+    item = relationship("Item")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "menuItemId": self.menu_item_id,
+            "itemId": self.item_id,
+            "category": self.category,
+            "qtyTiny": self.qty_tiny,
+            "qtySmall": self.qty_small,
+            "qtyRegular": self.qty_regular,
+            "qtyShake": self.qty_shake,
+        }
+
+
 def get_db():
     db = SessionLocal()
     try:
