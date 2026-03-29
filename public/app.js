@@ -302,11 +302,7 @@ function bindEvents() {
     }
   });
 
-  document.querySelectorAll('.col-toggles input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      document.querySelectorAll('.' + cb.dataset.col).forEach(el => { el.style.display = cb.checked ? '' : 'none'; });
-    });
-  });
+  buildColumnToggles();
 
   document.getElementById('modal-cancel').addEventListener('click', closeModal);
   document.querySelector('.modal-overlay').addEventListener('click', closeModal);
@@ -390,7 +386,7 @@ function render() {
 
   container.innerHTML = html;
   attachInlineListeners();
-  applyColumnToggles();
+  buildColumnToggles();
 }
 
 function toggleCategory(category) {
@@ -638,8 +634,41 @@ function printWithMode(cls, label) {
   if (saved.size > 0) { collapsedCats = saved; render(); }
 }
 
+function buildColumnToggles() {
+  const container = document.getElementById('col-toggles');
+  if (!container) return;
+  // Load saved visibility
+  let savedVis = {};
+  try { savedVis = JSON.parse(localStorage.getItem('tic-col-vis') || '{}'); } catch {}
+
+  let html = '<span class="col-toggles-label">Columns:</span>';
+  for (const col of COLUMNS) {
+    const colId = col.cls.split(' ')[0];
+    const isItem = col.key === 'item';
+    const checked = isItem ? true : (savedVis[colId] !== false);
+    html += `<label><input type="checkbox" data-col="${colId}" ${checked ? 'checked' : ''} ${isItem ? 'disabled' : ''}> ${col.label}</label>`;
+  }
+  container.innerHTML = html;
+
+  // Bind events
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const colId = cb.dataset.col;
+      document.querySelectorAll('.' + colId).forEach(el => { el.style.display = cb.checked ? '' : 'none'; });
+      // Save visibility
+      const vis = {};
+      container.querySelectorAll('input[type="checkbox"]').forEach(c => { vis[c.dataset.col] = c.checked; });
+      localStorage.setItem('tic-col-vis', JSON.stringify(vis));
+    });
+  });
+
+  applyColumnToggles();
+}
+
 function applyColumnToggles() {
-  document.querySelectorAll('.col-toggles input[type="checkbox"]').forEach(cb => {
+  const container = document.getElementById('col-toggles');
+  if (!container) return;
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
     document.querySelectorAll('.' + cb.dataset.col).forEach(el => { el.style.display = cb.checked ? '' : 'none'; });
   });
 }
