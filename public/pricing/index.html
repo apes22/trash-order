@@ -67,6 +67,7 @@
     .recipe-table td { padding: 6px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
     .recipe-table tr:hover { background: #f8fafc; }
     .recipe-table .col-cat { width: 100px; }
+    .recipe-table .col-subcat { width: 100px; }
     .recipe-table .col-item { min-width: 160px; }
     .recipe-table .col-unit { width: 55px; text-align: center; color: #6b7280; font-size: 11px; }
     .recipe-table .col-unitcost { width: 70px; text-align: right; color: #2563eb; font-weight: 600; font-size: 11px; }
@@ -184,6 +185,7 @@ function getCategories() {
 let menuItems = [];
 let orderItems = [];
 let selectedId = null;
+const lineSubCats = {};  // local sub-category filter state per recipe line
 
 // API helper
 async function api(path, options = {}) {
@@ -292,12 +294,13 @@ function renderMenuItem(m) {
     <!-- Recipe -->
     <div class="recipe-section">
       <div class="recipe-header">
-        <h2>Recipe / Bill of Materials</h2>
+        <h2>Recipe / Bill of Items</h2>
       </div>
       <table class="recipe-table">
         <thead><tr>
           <th class="col-cat">Category</th>
-          <th class="col-item">Raw Material</th>
+          <th class="col-subcat">Sub-Category</th>
+          <th class="col-item">Item</th>
           <th class="col-unit">Costing Unit</th>
           <th class="col-unitcost">Price/Costing Unit</th>
           <th class="col-qty">Tiny</th>
@@ -318,11 +321,20 @@ function renderMenuItem(m) {
   for (const line of lines) {
     const selectedItem = orderItems.find(i => i.id === line.itemId);
     const costingUnit = selectedItem?.costingUnit || '';
-    const filteredItems = orderItems.filter(i => i.category === line.category);
+    const filteredByCat = orderItems.filter(i => i.category === line.category);
+    const subCats = [...new Set(filteredByCat.map(i => i.subCategory).filter(Boolean))].sort();
+    const curSubCat = lineSubCats[line.id] !== undefined ? lineSubCats[line.id] : (selectedItem?.subCategory || '');
+    const filteredItems = curSubCat ? filteredByCat.filter(i => i.subCategory === curSubCat) : filteredByCat;
     html += `<tr>
       <td class="col-cat">
-        <select class="cat-select" onchange="updateLine(${line.id}, 'category', this.value)" ${isManager ? '' : 'disabled'}>
+        <select class="cat-select" onchange="onCatChange(${line.id}, this.value)" ${isManager ? '' : 'disabled'}>
           ${categories.map(c => `<option value="${c}" ${c === line.category ? 'selected' : ''}>${c}</option>`).join('')}
+        </select>
+      </td>
+      <td class="col-subcat">
+        <select class="subcat-select" onchange="onSubCatChange(${line.id}, this.value, ${m.id})" ${isManager ? '' : 'disabled'}>
+          <option value="">All</option>
+          ${subCats.map(sc => `<option value="${sc}" ${sc === curSubCat ? 'selected' : ''}>${esc(sc)}</option>`).join('')}
         </select>
       </td>
       <td class="col-item">
@@ -349,16 +361,16 @@ function renderMenuItem(m) {
 
   // Add line row (manager only)
   if (isManager) {
-    html += `<tr class="add-line-row"><td colspan="13" style="text-align:center;padding:8px;">
-      <button class="btn btn-sm btn-primary" onclick="addLine(${m.id})">+ Add Raw Material</button>
+    html += `<tr class="add-line-row"><td colspan="14" style="text-align:center;padding:8px;">
+      <button class="btn btn-sm btn-primary" onclick="addLine(${m.id})">+ Add Item</button>
     </td></tr>`;
   }
 
   // Totals
   html += `
       <tr class="totals-row">
-        <td colspan="4"><b>COGS</b></td>
-        <td colspan="4"></td>
+        <td colspan="5"><b>COGS</b></td>
+        <td colspan="4" style="padding:0"></td>
         <td class="col-cost">$${(m.cogs?.tiny || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.cogs?.small || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.cogs?.regular || 0).toFixed(2)}</td>
@@ -366,8 +378,8 @@ function renderMenuItem(m) {
         ${isManager ? '<td></td>' : ''}
       </tr>
       <tr class="profit-row">
-        <td colspan="4"><b>Profit</b></td>
-        <td colspan="4"></td>
+        <td colspan="5"><b>Profit</b></td>
+        <td colspan="4" style="padding:0"></td>
         <td class="col-cost">$${(m.profit?.tiny || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.profit?.small || 0).toFixed(2)}</td>
         <td class="col-cost">$${(m.profit?.regular || 0).toFixed(2)}</td>
@@ -375,8 +387,8 @@ function renderMenuItem(m) {
         ${isManager ? '<td></td>' : ''}
       </tr>
       <tr class="margin-row">
-        <td colspan="4"><b>Margin</b></td>
-        <td colspan="4"></td>
+        <td colspan="5"><b>Margin</b></td>
+        <td colspan="4" style="padding:0"></td>
         <td class="col-cost ${marginClass(m.margin?.tiny)}">${(m.margin?.tiny || 0).toFixed(1)}%</td>
         <td class="col-cost ${marginClass(m.margin?.small)}">${(m.margin?.small || 0).toFixed(1)}%</td>
         <td class="col-cost ${marginClass(m.margin?.regular)}">${(m.margin?.regular || 0).toFixed(1)}%</td>
@@ -439,6 +451,17 @@ async function addLine(menuItemId) {
     if (idx >= 0) menuItems[idx] = result;
     renderMenuItem(result);
   }
+}
+
+function onCatChange(lineId, value) {
+  delete lineSubCats[lineId];
+  updateLine(lineId, 'category', value);
+}
+
+function onSubCatChange(lineId, subCat, menuItemId) {
+  lineSubCats[lineId] = subCat;
+  const m = menuItems.find(i => i.id === menuItemId);
+  if (m) renderMenuItem(m);
 }
 
 async function updateLine(lineId, field, value) {
