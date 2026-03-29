@@ -151,3 +151,28 @@ def get_db():
 
 def create_tables():
     Base.metadata.create_all(bind=engine)
+    _run_migrations()
+
+
+def _run_migrations():
+    """Add columns that don't exist yet (SQLAlchemy create_all doesn't alter existing tables)."""
+    from sqlalchemy import text, inspect
+    insp = inspect(engine)
+
+    migrations = [
+        ("items", "units_per_pack", "ALTER TABLE items ADD COLUMN units_per_pack FLOAT DEFAULT 0"),
+        ("menu_items", "id", None),  # Just trigger table creation check
+        ("recipe_lines", "id", None),
+    ]
+
+    existing_tables = insp.get_table_names()
+    for table, column, sql in migrations:
+        if table not in existing_tables:
+            continue
+        if sql is None:
+            continue
+        cols = [c["name"] for c in insp.get_columns(table)]
+        if column not in cols:
+            with engine.begin() as conn:
+                conn.execute(text(sql))
+                print(f"Migration: added {column} to {table}")
