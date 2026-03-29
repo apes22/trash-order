@@ -1,8 +1,16 @@
 // ===== AUTH =====
 let token = localStorage.getItem('tic-token');
-let userRole = localStorage.getItem('tic-role') || 'crew';
+let userRole = localStorage.getItem('tic-role') || _roleFromToken() || 'crew';
 
 function isManager() { return userRole === 'manager'; }
+
+function _roleFromToken() {
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.role || null;
+  } catch { return null; }
+}
 
 async function api(path, options = {}) {
   try {
