@@ -130,6 +130,7 @@ class MenuItem(Base):
     cyo_base_regular = Column(Float, default=0)
     cyo_base_shake = Column(Float, default=0)
     cyo_per_topping = Column(Float, default=1.0)
+    sort_order = Column(Integer, default=0)
 
     recipe_lines = relationship("RecipeLine", back_populates="menu_item", cascade="all, delete-orphan")
 
@@ -138,6 +139,7 @@ class MenuItem(Base):
             "id": self.id,
             "name": self.name,
             "menuType": self.menu_type,
+            "sortOrder": self.sort_order,
             "priceTiny": self.price_tiny,
             "priceSmall": self.price_small,
             "priceRegular": self.price_regular,
@@ -201,6 +203,7 @@ def _run_migrations():
         ("items", "costing_unit", "ALTER TABLE items ADD COLUMN costing_unit VARCHAR DEFAULT ''"),
         ("items", "costing_units_per_pack", "ALTER TABLE items ADD COLUMN costing_units_per_pack FLOAT DEFAULT 0"),
         ("items", "sub_category", "ALTER TABLE items ADD COLUMN sub_category VARCHAR DEFAULT ''"),
+        ("menu_items", "sort_order", "ALTER TABLE menu_items ADD COLUMN sort_order INTEGER DEFAULT 0"),
         ("menu_items", "id", None),
         ("recipe_lines", "id", None),
     ]

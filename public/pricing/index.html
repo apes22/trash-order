@@ -22,6 +22,9 @@
     .menu-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
     .menu-item-btn { display: block; width: 100%; text-align: left; padding: 8px 12px; margin-bottom: 2px; border: none; background: none; color: #cbd5e1; font-size: 13px; border-radius: 6px; cursor: pointer; font-family: inherit; }
     .menu-item-btn:hover { background: #334155; color: #fff; }
+    .menu-item-btn[draggable] { cursor: grab; }
+    .menu-item-btn[draggable]:active { cursor: grabbing; }
+    .drag-handle { color: #4b5563; margin-right: 4px; font-size: 10px; }
     .menu-item-btn.active { background: #2563eb; color: #fff; }
     .menu-item-btn .type-badge { font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-left: 6px; }
     .type-special { background: #7c3aed; }
@@ -204,11 +207,45 @@ async function init() {
 function renderSidebar() {
   const list = document.getElementById('menu-list');
   list.innerHTML = menuItems.map(m => `
-    <button class="menu-item-btn ${m.id === selectedId ? 'active' : ''}" onclick="selectItem(${m.id})">
+    <button class="menu-item-btn ${m.id === selectedId ? 'active' : ''}"
+      draggable="true" data-id="${m.id}"
+      ondragstart="onDragStart(event, ${m.id})"
+      ondragover="onDragOver(event)"
+      ondrop="onDrop(event, ${m.id})"
+      onclick="selectItem(${m.id})">
+      <span class="drag-handle">⠿</span>
       ${esc(m.name)}
       <span class="type-badge type-${m.menuType}">${m.menuType === 'cyo' ? 'CYO' : 'Special'}</span>
     </button>
   `).join('');
+}
+
+// Drag-and-drop reorder
+let dragId = null;
+function onDragStart(e, id) {
+  dragId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.target.style.opacity = '0.4';
+}
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+async function onDrop(e, targetId) {
+  e.preventDefault();
+  document.querySelectorAll('.menu-item-btn').forEach(el => el.style.opacity = '');
+  if (dragId === null || dragId === targetId) return;
+  const fromIdx = menuItems.findIndex(m => m.id === dragId);
+  const toIdx = menuItems.findIndex(m => m.id === targetId);
+  if (fromIdx < 0 || toIdx < 0) return;
+  const [moved] = menuItems.splice(fromIdx, 1);
+  menuItems.splice(toIdx, 0, moved);
+  renderSidebar();
+  await api('/api/pricing/menu-items/reorder', {
+    method: 'PUT',
+    body: JSON.stringify({ order: menuItems.map(m => m.id) }),
+  });
+  dragId = null;
 }
 
 // Select menu item

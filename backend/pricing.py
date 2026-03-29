@@ -86,8 +86,19 @@ def _build_menu_item_response(menu_item: MenuItem, db: Session) -> dict:
 
 @router.get("/menu-items")
 def list_menu_items(role: str = Depends(get_current_role), db: Session = Depends(get_db)):
-    items = db.query(MenuItem).order_by(MenuItem.name).all()
+    items = db.query(MenuItem).order_by(MenuItem.sort_order, MenuItem.name).all()
     return [_build_menu_item_response(m, db) for m in items]
+
+
+@router.put("/menu-items/reorder")
+def reorder_menu_items(data: dict, role: str = Depends(require_manager), db: Session = Depends(get_db)):
+    order = data.get("order", [])  # list of menu item IDs in desired order
+    for i, item_id in enumerate(order):
+        m = db.query(MenuItem).filter(MenuItem.id == item_id).first()
+        if m:
+            m.sort_order = i
+    db.commit()
+    return {"ok": True}
 
 
 @router.get("/menu-items/{item_id}")
