@@ -137,7 +137,7 @@ const COLUMNS = [
   { key: 'packSize',    label: 'Pack Size', cls: 'col-pack' },
   { key: 'brand',       label: 'Brand',     cls: 'col-brand' },
   { key: 'unit',        label: 'Buying Unit', cls: 'col-unit' },
-  { key: 'unitsPerPack',    label: 'Units/Pack', cls: 'col-units desktop-only' },
+  { key: 'unitsPerPack',    label: 'Buying Units/Pack', cls: 'col-units desktop-only' },
   { key: 'pricePerPkg',     label: 'Price/Pkg',  cls: 'col-price' },
   { key: 'pricePerBuyingUnit', label: 'Price/Buy Unit', cls: 'col-perunit desktop-only' },
   { key: 'costingUnit',           label: 'Costing Unit',    cls: 'col-costunit desktop-only' },
@@ -393,7 +393,7 @@ function renderRow(item) {
 
   // Costing unit (editable)
   if (isManager()) {
-    html += textCell('col-costunit desktop-only', item.id, 'costingUnit', item.costingUnit);
+    html += `<td class="col-costunit desktop-only"><input type="text" class="inline-input inline-text" data-id="${item.id}" data-field="costingUnit" value="${esc(item.costingUnit)}" placeholder="e.g. oz"></td>`;
   } else {
     html += `<td class="col-costunit desktop-only">${esc(item.costingUnit) || '-'}</td>`;
   }
