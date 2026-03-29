@@ -117,6 +117,14 @@ Pricing Matrix Recipe Line
 - Added Buying Unit / Costing Unit distinction for accurate recipe costing
 - Auto-migration system for database schema changes
 
+### Session 3 (2026-03-29) — UI Consistency & Polish
+- Standardized ← Dashboard button across all three tools (identical dark pill style)
+- Standardized "LOGGED IN AS: MANAGER/CREW" full-width banner across all tools (matches dashboard)
+- Added draggable column resizing to ordering guide table headers
+- Renamed "Units/Pack" → "Buying Units/Pack" for clarity
+- Added placeholder text to Costing Unit input for discoverability
+- Split work: this terminal for pricing matrix, separate terminal for ordering guide
+
 ## Active URLs
 - **Production:** https://tic-management.onrender.com
 - **GitHub:** https://github.com/apes22/trash-order

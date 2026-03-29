@@ -17,6 +17,9 @@ Deferred features and future ideas. Things we're explicitly NOT doing right now 
 - [x] Summary view with color-coded margins
 - [x] Buying Unit / Costing Unit distinction
 - [x] Auto-migration for database schema changes
+- [x] Consistent ← Dashboard navigation across all tools
+- [x] Consistent Manager/Crew role banner across all tools
+- [x] Resizable columns in ordering guide
 - [x] Move from localStorage to a backend (database)
 - [x] User authentication (manager vs. crew access)
 - [x] Real-time sync across devices

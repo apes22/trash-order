@@ -6,7 +6,7 @@ Working notes, ideas in progress, and open questions.
 
 ## Current State (2026-03-29)
 
-Production platform live at https://tic-management.onrender.com. Three tools behind a unified dashboard with PIN auth.
+Production platform live at https://tic-management.onrender.com. Three tools behind a unified dashboard with PIN auth. UI consistency pass done — all tools now share identical navigation and role indicator patterns. Columns are resizable in the ordering guide. Next focus: pricing matrix (this terminal) and ordering guide (separate terminal).
 
 ### What's Built
 ```
