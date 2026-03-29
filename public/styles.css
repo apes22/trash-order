@@ -453,7 +453,10 @@ main {
 .order-table .col-unit { min-width: 50px; }
 .order-table .col-price { min-width: 65px; text-align: right; }
 .order-table .col-units { min-width: 65px; text-align: center; }
-.order-table .col-perunit { min-width: 65px; text-align: right; color: #16a34a; font-weight: 600; font-size: 11px; }
+.order-table .col-perunit { min-width: 80px; text-align: right; font-size: 11px; }
+.order-table .col-costunit { min-width: 70px; }
+.order-table .col-costqty { min-width: 75px; text-align: center; }
+.order-table .col-percost { min-width: 85px; text-align: right; color: #2563eb; font-weight: 700; font-size: 11px; }
 .order-table .col-lastprice { min-width: 65px; text-align: right; color: #6b7280; font-size: 11px; }
 .order-table .col-pricechange { min-width: 60px; text-align: right; font-weight: 600; font-size: 11px; }
 .order-table .col-per-oz { min-width: 55px; text-align: right; }

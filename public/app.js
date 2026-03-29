@@ -147,8 +147,9 @@ const COLUMNS = [
   { key: 'unitsPerPack',    label: 'Units/Pack', cls: 'col-units desktop-only' },
   { key: 'pricePerPkg',     label: 'Price/Pkg',  cls: 'col-price' },
   { key: 'pricePerBuyingUnit', label: 'Price/Buy Unit', cls: 'col-perunit desktop-only' },
-  { key: 'costingUnit',        label: 'Costing Unit',   cls: 'col-costunit desktop-only' },
-  { key: 'pricePerCostingUnit', label: 'Price/Cost Unit', cls: 'col-percost desktop-only' },
+  { key: 'costingUnit',           label: 'Costing Unit',    cls: 'col-costunit desktop-only' },
+  { key: 'costingUnitsPerPack',  label: 'Cost Units/Pack', cls: 'col-costqty desktop-only' },
+  { key: 'pricePerCostingUnit',  label: 'Price/Cost Unit', cls: 'col-percost desktop-only' },
   { key: 'lastPricePerPkg', label: 'Last Price', cls: 'col-lastprice desktop-only' },
   { key: 'priceChange',     label: 'Change',     cls: 'col-pricechange desktop-only' },
   { key: 'par',              label: 'PAR',        cls: 'col-par' },
@@ -232,7 +233,7 @@ function sortItems(list) {
     if (sortCol === 'order') { av = getOrder(a); bv = getOrder(b); }
     else if (sortCol === 'par' || sortCol === 'onHand') { av = getStoreVal(a.id, sortCol); bv = getStoreVal(b.id, sortCol); }
     else if (sortCol === 'priceChange') { av = (a.pricePerPkg||0) - (a.lastPricePerPkg||0); bv = (b.pricePerPkg||0) - (b.lastPricePerPkg||0); }
-    else if (['pricePerPkg', 'lastPricePerPkg', 'unitsPerPack', 'pricePerUnit'].includes(sortCol)) { av = a[sortCol] || 0; bv = b[sortCol] || 0; }
+    else if (['pricePerPkg', 'lastPricePerPkg', 'unitsPerPack', 'pricePerBuyingUnit', 'costingUnitsPerPack', 'pricePerCostingUnit'].includes(sortCol)) { av = a[sortCol] || 0; bv = b[sortCol] || 0; }
     else { av = (a[sortCol] || '').toString().toLowerCase(); bv = (b[sortCol] || '').toString().toLowerCase(); }
     if (av < bv) return -1 * dir;
     if (av > bv) return 1 * dir;
@@ -362,9 +363,27 @@ function renderRow(item) {
     html += `<td class="col-price">${item.pricePerPkg ? '$' + item.pricePerPkg.toFixed(2) : ''}</td>`;
   }
 
-  // Price per unit (calculated, read-only)
-  const pricePerUnit = item.pricePerUnit || 0;
-  html += `<td class="col-perunit desktop-only">${pricePerUnit ? '$' + pricePerUnit.toFixed(2) : '-'}</td>`;
+  // Price per buying unit (calculated, read-only)
+  const pricePerBuyingUnit = item.pricePerBuyingUnit || 0;
+  html += `<td class="col-perunit desktop-only">${pricePerBuyingUnit ? '$' + pricePerBuyingUnit.toFixed(2) : '-'}</td>`;
+
+  // Costing unit (editable)
+  if (isManager()) {
+    html += textCell('col-costunit desktop-only', item.id, 'costingUnit', item.costingUnit);
+  } else {
+    html += `<td class="col-costunit desktop-only">${esc(item.costingUnit) || '-'}</td>`;
+  }
+
+  // Costing units per pack (editable)
+  if (isManager()) {
+    html += `<td class="col-costqty desktop-only"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="costingUnitsPerPack" value="${item.costingUnitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`;
+  } else {
+    html += `<td class="col-costqty desktop-only">${item.costingUnitsPerPack || '-'}</td>`;
+  }
+
+  // Price per costing unit (calculated, read-only)
+  const pricePerCostingUnit = item.pricePerCostingUnit || 0;
+  html += `<td class="col-percost desktop-only">${pricePerCostingUnit ? '$' + pricePerCostingUnit.toFixed(4) : '-'}</td>`;
 
   // Last Price
   const lastPrice = item.lastPricePerPkg || 0;
@@ -404,7 +423,7 @@ function renderRow(item) {
 
 // ===== INLINE EDITING =====
 function attachInlineListeners() {
-  const numericFields = new Set(['par', 'onHand', 'pricePerPkg', 'unitsPerPack']);
+  const numericFields = new Set(['par', 'onHand', 'pricePerPkg', 'unitsPerPack', 'costingUnitsPerPack']);
   document.querySelectorAll('.inline-input').forEach(input => {
     input.addEventListener('change', (e) => {
       const id = parseInt(e.target.dataset.id);
