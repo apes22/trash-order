@@ -399,6 +399,10 @@ main {
 }
 
 /* ===== TABLE ===== */
+#table-container {
+  overflow-x: auto;
+}
+
 .order-table {
   width: 100%;
   border-collapse: collapse;
@@ -415,6 +419,23 @@ main {
   color: #6b7280;
   border-bottom: 2px solid #e5e7eb;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.col-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 1;
+}
+
+.col-resize-handle:hover,
+.col-resize-handle.active {
+  background: #2563eb;
 }
 
 .order-table th.sortable {

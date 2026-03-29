@@ -284,6 +284,36 @@ function bindEvents() {
   document.querySelector('.modal-overlay').addEventListener('click', closeModal);
   document.getElementById('item-form').addEventListener('submit', (e) => { e.preventDefault(); saveItemFromForm(); });
   document.getElementById('modal-delete').addEventListener('click', () => { if (editingItemId) deleteItem(editingItemId, true); });
+
+  // Column resize
+  let resizeCol = null, resizeStartX = 0, resizeStartW = 0;
+  document.addEventListener('mousedown', (e) => {
+    if (!e.target.classList.contains('col-resize-handle')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    resizeCol = e.target.dataset.col;
+    resizeStartX = e.pageX;
+    resizeStartW = e.target.parentElement.offsetWidth;
+    e.target.classList.add('active');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!resizeCol) return;
+    const w = Math.max(40, resizeStartW + e.pageX - resizeStartX);
+    document.querySelectorAll('.' + resizeCol).forEach(el => {
+      el.style.width = w + 'px';
+      el.style.minWidth = w + 'px';
+      el.style.maxWidth = w + 'px';
+    });
+  });
+  document.addEventListener('mouseup', () => {
+    if (!resizeCol) return;
+    document.querySelectorAll('.col-resize-handle.active').forEach(el => el.classList.remove('active'));
+    resizeCol = null;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
 }
 
 // ===== RENDER =====
@@ -321,7 +351,8 @@ function renderCategory(category) {
     html += '<table class="order-table"><thead><tr>';
     for (const col of COLUMNS) {
       const active = sortCol === col.key;
-      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}</th>`;
+      const colId = col.cls.split(' ')[0];
+      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}<div class="col-resize-handle" data-col="${colId}"></div></th>`;
     }
     html += '<th class="row-actions no-print"></th></tr></thead><tbody>';
     for (const item of catItems) html += renderRow(item);
