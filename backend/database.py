@@ -29,6 +29,8 @@ class Item(Base):
     units_per_pack = Column(Float, default=0)
     price_per_pkg = Column(Float, default=0)
     last_price_per_pkg = Column(Float, default=0)
+    costing_unit = Column(String, default="")
+    costing_units_per_pack = Column(Float, default=0)
     per_lb_pint = Column(Float, default=0)
     per_oz_unit = Column(Float, default=0)
     notes = Column(String, default="")
@@ -47,8 +49,11 @@ class Item(Base):
             "totalWeightOz": self.total_weight_oz,
             "unitsPerPack": self.units_per_pack,
             "pricePerPkg": self.price_per_pkg,
-            "pricePerUnit": round(self.price_per_pkg / self.units_per_pack, 4) if self.units_per_pack else 0,
+            "pricePerBuyingUnit": round(self.price_per_pkg / self.units_per_pack, 4) if self.units_per_pack else 0,
             "lastPricePerPkg": self.last_price_per_pkg,
+            "costingUnit": self.costing_unit,
+            "costingUnitsPerPack": self.costing_units_per_pack,
+            "pricePerCostingUnit": round(self.price_per_pkg / self.costing_units_per_pack, 4) if self.costing_units_per_pack else 0,
             "perLbPint": self.per_lb_pint,
             "perOzUnit": self.per_oz_unit,
             "notes": self.notes,
@@ -161,7 +166,9 @@ def _run_migrations():
 
     migrations = [
         ("items", "units_per_pack", "ALTER TABLE items ADD COLUMN units_per_pack FLOAT DEFAULT 0"),
-        ("menu_items", "id", None),  # Just trigger table creation check
+        ("items", "costing_unit", "ALTER TABLE items ADD COLUMN costing_unit VARCHAR DEFAULT ''"),
+        ("items", "costing_units_per_pack", "ALTER TABLE items ADD COLUMN costing_units_per_pack FLOAT DEFAULT 0"),
+        ("menu_items", "id", None),
         ("recipe_lines", "id", None),
     ]
 

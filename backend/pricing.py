@@ -10,7 +10,12 @@ router = APIRouter(prefix="/api/pricing", tags=["pricing"])
 
 
 def _calc_unit_cost(item: Item) -> float:
-    """Calculate cost per unit (oz or each) from ordering guide data."""
+    """Calculate cost per costing unit from ordering guide data.
+
+    Priority: pricePerCostingUnit > perOzUnit > calculated from weight > price.
+    """
+    if item.costing_units_per_pack and item.costing_units_per_pack > 0 and item.price_per_pkg > 0:
+        return item.price_per_pkg / item.costing_units_per_pack
     if item.per_oz_unit and item.per_oz_unit > 0:
         return item.per_oz_unit
     if item.total_weight_oz and item.total_weight_oz > 0 and item.price_per_pkg > 0:

@@ -54,7 +54,7 @@
     <header class="no-print">
       <div class="header-top">
         <div class="header-left">
-          <button class="btn btn-back" onclick="backToDashboard()">&larr;</button>
+          <button onclick="backToDashboard()" style="background:#374151; color:#d1d5db; padding:5px 14px; border-radius:6px; font-size:13px; font-weight:500; border:none; cursor:pointer; font-family:inherit; line-height:1.4;" onmouseover="this.style.background='#4b5563';this.style.color='#fff'" onmouseout="this.style.background='#374151';this.style.color='#d1d5db'">&larr; Dashboard</button>
           <h1>TIC Ordering Guide</h1>
           <select id="store-select" class="store-select"></select>
         </div>
@@ -63,6 +63,7 @@
           <button id="print-par-btn" class="btn">Print PAR Sheet</button>
           <button id="print-order-btn" class="btn">Print Order Sheet</button>
           <button id="reset-btn" class="btn btn-danger">Reset Data</button>
+          <span id="order-role-badge" style="padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:#fff;"></span>
           <button id="logout-btn" class="btn">Log Out</button>
         </div>
       </div>

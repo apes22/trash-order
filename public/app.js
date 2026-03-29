@@ -31,11 +31,17 @@ async function api(path, options = {}) {
 
 function updateRoleBanner() {
   const banner = document.getElementById('role-banner');
+  const badge = document.getElementById('order-role-badge');
   if (token) {
     banner.style.display = '';
     banner.textContent = 'Logged in as: ' + (isManager() ? 'Manager' : 'Crew');
+    if (badge) {
+      badge.textContent = isManager() ? 'Manager' : 'Crew';
+      badge.style.background = isManager() ? '#7c3aed' : '#6b7280';
+    }
   } else {
     banner.style.display = 'none';
+    if (badge) badge.textContent = '';
   }
 }
 
@@ -61,6 +67,7 @@ async function openTool(tool) {
   if (tool === 'order') {
     document.getElementById('dashboard-screen').style.display = 'none';
     document.getElementById('app-container').style.display = '';
+    document.getElementById('role-banner').style.display = 'none';
     try {
       await loadData();
       bindEvents();
@@ -80,6 +87,7 @@ async function openTool(tool) {
 function backToDashboard() {
   document.getElementById('app-container').style.display = 'none';
   document.getElementById('dashboard-screen').style.display = '';
+  updateRoleBanner();
 }
 
 async function login() {
@@ -135,10 +143,12 @@ const COLUMNS = [
   { key: 'item',        label: 'Item',      cls: 'col-item' },
   { key: 'packSize',    label: 'Pack Size', cls: 'col-pack' },
   { key: 'brand',       label: 'Brand',     cls: 'col-brand' },
-  { key: 'unit',        label: 'Unit',      cls: 'col-unit' },
+  { key: 'unit',        label: 'Buying Unit', cls: 'col-unit' },
   { key: 'unitsPerPack',    label: 'Units/Pack', cls: 'col-units desktop-only' },
   { key: 'pricePerPkg',     label: 'Price/Pkg',  cls: 'col-price' },
-  { key: 'pricePerUnit',    label: 'Price/Unit', cls: 'col-perunit desktop-only' },
+  { key: 'pricePerBuyingUnit', label: 'Price/Buy Unit', cls: 'col-perunit desktop-only' },
+  { key: 'costingUnit',        label: 'Costing Unit',   cls: 'col-costunit desktop-only' },
+  { key: 'pricePerCostingUnit', label: 'Price/Cost Unit', cls: 'col-percost desktop-only' },
   { key: 'lastPricePerPkg', label: 'Last Price', cls: 'col-lastprice desktop-only' },
   { key: 'priceChange',     label: 'Change',     cls: 'col-pricechange desktop-only' },
   { key: 'par',              label: 'PAR',        cls: 'col-par' },

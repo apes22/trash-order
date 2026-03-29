@@ -127,9 +127,12 @@
 <div class="app">
   <!-- Sidebar: Menu Item List -->
   <div class="sidebar">
-    <div class="sidebar-header">
+    <div class="sidebar-header" style="flex-direction:column; align-items:stretch;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+        <a href="/" style="background:#374151; color:#d1d5db; padding:5px 14px; border-radius:6px; font-size:13px; font-weight:500; text-decoration:none; font-family:inherit; line-height:1.4;" onmouseover="this.style.background='#4b5563';this.style.color='#fff'" onmouseout="this.style.background='#374151';this.style.color='#d1d5db'">&larr; Dashboard</a>
+        <span id="role-badge" style="padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:#fff;"></span>
+      </div>
       <h2>Pricing Matrix</h2>
-      <a href="/" class="sidebar-back">&larr; Dashboard</a>
     </div>
     <button class="menu-item-btn summary-btn" id="summary-btn" onclick="showSummary()">All Items Summary</button>
     <div class="sidebar-section">Menu Items</div>
@@ -151,6 +154,17 @@
 
 <script>
 const token = localStorage.getItem('tic-token');
+
+// Role badge
+(function() {
+  const role = (localStorage.getItem('tic-role') || 'crew');
+  const badge = document.getElementById('role-badge');
+  if (badge) {
+    badge.textContent = role === 'manager' ? 'Manager' : 'Crew';
+    badge.style.background = role === 'manager' ? '#7c3aed' : '#6b7280';
+  }
+})();
+
 const SIZES = ['tiny', 'small', 'regular', 'shake'];
 const SIZE_LABELS = { tiny: 'Tiny', small: 'Small', regular: 'Regular', shake: 'Shake' };
 const CUP_LABELS = { tiny: '3.3 oz cup', small: '5.5 oz cup', regular: '8 oz', shake: '16 oz cup' };
