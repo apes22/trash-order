@@ -413,16 +413,27 @@ function renderRow(item) {
     html += `<td class="col-price">${item.pricePerPkg ? '$' + item.pricePerPkg.toFixed(2) : ''}</td>`;
   }
 
+  // Last Price (right after Price/Pkg)
+  const lastPrice = item.lastPricePerPkg || 0;
+  html += `<td class="col-lastprice desktop-only">${lastPrice ? '$' + lastPrice.toFixed(2) : '-'}</td>`;
+
+  // Price Change (right after Last Price)
+  const change = (item.pricePerPkg || 0) - lastPrice;
+  let changeHtml = '-';
+  let changeCls = 'col-pricechange desktop-only';
+  if (lastPrice > 0 && change !== 0) {
+    const sign = change > 0 ? '+' : '';
+    changeHtml = sign + '$' + change.toFixed(2);
+    changeCls += change > 0 ? ' price-up' : ' price-down';
+  }
+  html += `<td class="${changeCls}">${changeHtml}</td>`;
+
   // Price per buying unit (calculated, read-only)
   const pricePerBuyingUnit = item.pricePerBuyingUnit || 0;
   html += `<td class="col-perunit desktop-only">${pricePerBuyingUnit ? '$' + pricePerBuyingUnit.toFixed(2) : '-'}</td>`;
 
-  // Costing unit (editable)
-  if (isManager()) {
-    html += `<td class="col-costunit desktop-only"><input type="text" class="inline-input inline-text" data-id="${item.id}" data-field="costingUnit" value="${esc(item.costingUnit)}" placeholder="e.g. oz"></td>`;
-  } else {
-    html += `<td class="col-costunit desktop-only">${esc(item.costingUnit) || '-'}</td>`;
-  }
+  // Costing unit (editable dropdown)
+  html += textCell('col-costunit desktop-only', item.id, 'costingUnit', item.costingUnit);
 
   // Costing units per pack (editable)
   if (isManager()) {
@@ -434,21 +445,6 @@ function renderRow(item) {
   // Price per costing unit (calculated, read-only)
   const pricePerCostingUnit = item.pricePerCostingUnit || 0;
   html += `<td class="col-percost desktop-only">${pricePerCostingUnit ? '$' + pricePerCostingUnit.toFixed(4) : '-'}</td>`;
-
-  // Last Price
-  const lastPrice = item.lastPricePerPkg || 0;
-  html += `<td class="col-lastprice desktop-only">${lastPrice ? '$' + lastPrice.toFixed(2) : '-'}</td>`;
-
-  // Price Change
-  const change = (item.pricePerPkg || 0) - lastPrice;
-  let changeHtml = '-';
-  let changeCls = 'col-pricechange desktop-only';
-  if (lastPrice > 0 && change !== 0) {
-    const sign = change > 0 ? '+' : '';
-    changeHtml = sign + '$' + change.toFixed(2);
-    changeCls += change > 0 ? ' price-up' : ' price-down';
-  }
-  html += `<td class="${changeCls}">${changeHtml}</td>`;
 
   // PAR -- manager can edit, crew sees read-only
   if (isManager()) {
