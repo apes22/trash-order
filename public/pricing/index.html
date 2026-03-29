@@ -170,7 +170,7 @@ const token = localStorage.getItem('tic-token');
 })();
 
 const SIZES = ['tiny', 'small', 'regular', 'shake'];
-const SIZE_LABELS = { tiny: 'Tiny', small: 'Small', regular: 'Regular', shake: 'Shake' };
+const SIZE_LABELS = { tiny: 'Tiny', small: 'Regular', regular: 'Large', shake: 'Shake' };
 const CUP_LABELS = { tiny: '3.3 oz cup', small: '5.5 oz cup', regular: '8 oz', shake: '16 oz cup' };
 const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
 function getCategories() {
@@ -304,12 +304,12 @@ function renderMenuItem(m) {
           <th class="col-unit">Costing Unit</th>
           <th class="col-unitcost">Price/Costing Unit</th>
           <th class="col-qty">Tiny</th>
-          <th class="col-qty">Small</th>
           <th class="col-qty">Regular</th>
+          <th class="col-qty">Large</th>
           <th class="col-qty">Shake</th>
           <th class="col-cost">$/Tiny</th>
-          <th class="col-cost">$/SM</th>
           <th class="col-cost">$/REG</th>
+          <th class="col-cost">$/LG</th>
           <th class="col-cost">$/SHK</th>
           ${isManager ? '<th class="col-actions"></th>' : ''}
         </tr></thead>
@@ -504,8 +504,8 @@ function showSummary() {
   document.getElementById('summary-btn').classList.add('active');
 
   const main = document.getElementById('main-content');
-  const sizes = ['tiny', 'regular', 'shake']; // Match the spreadsheet: Tiny, Regular/Large, Shake
-  const sizeLabels = { tiny: 'Tiny', regular: 'Regular', shake: 'Shake' };
+  const sizes = SIZES;
+  const sizeLabels = SIZE_LABELS;
 
   let html = `
     <div class="item-header"><h1>All Items Summary</h1></div>
