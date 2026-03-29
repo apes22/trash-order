@@ -1,6 +1,9 @@
 // ===== AUTH =====
 let token = localStorage.getItem('tic-token');
-let userRole = localStorage.getItem('tic-role') || _roleFromToken() || 'crew';
+let userRole = _roleFromToken() || localStorage.getItem('tic-role') || 'crew';
+
+// Always sync role from token to localStorage
+if (token && userRole) localStorage.setItem('tic-role', userRole);
 
 function isManager() { return userRole === 'manager'; }
 
