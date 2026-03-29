@@ -298,7 +298,7 @@ function renderMenuItem(m) {
       <td class="col-unitcost">${selectedItem?.pricePerCostingUnit ? '$' + selectedItem.pricePerCostingUnit.toFixed(4) : '-'}</td>
       ${SIZES.map(s => {
         const qtyKey = 'qty' + s.charAt(0).toUpperCase() + s.slice(1);
-        return `<td class="col-qty"><input type="number" class="qty-input" value="${line[qtyKey] || ''}" step="0.1" min="0"
+        return `<td class="col-qty"><input type="number" class="qty-input" data-line-id="${line.id}" data-field="${qtyKey}" value="${line[qtyKey] || ''}" step="0.1" min="0"
           placeholder="${costingUnit || '0'}"
           onchange="updateLine(${line.id}, '${qtyKey}', parseFloat(this.value)||0)" ${isManager ? '' : 'disabled'}></td>`;
       }).join('')}
@@ -405,11 +405,26 @@ async function addLine(menuItemId) {
 }
 
 async function updateLine(lineId, field, value) {
+  // Capture focus before async call so we can restore after re-render
+  const focused = document.activeElement;
+  const focusLineId = focused?.dataset?.lineId;
+  const focusField = focused?.dataset?.field;
+  const focusValue = focused?.value;
+
   const result = await api(`/api/pricing/recipe-lines/${lineId}`, { method: 'PUT', body: JSON.stringify({ [field]: value }) });
   if (result && !result.error) {
     const idx = menuItems.findIndex(m => m.id === result.id);
     if (idx >= 0) menuItems[idx] = result;
     renderMenuItem(result);
+
+    // Restore focus to the input the user tabbed/entered into
+    if (focusLineId && focusField) {
+      const target = document.querySelector(`input[data-line-id="${focusLineId}"][data-field="${focusField}"]`);
+      if (target) {
+        target.focus();
+        if (focusValue !== undefined && focusValue !== target.value) target.value = focusValue;
+      }
+    }
   }
 }
 
