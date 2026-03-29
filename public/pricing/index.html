@@ -90,6 +90,30 @@
     .name-input:hover { border-color: #d1d5db; background: #fff; }
     .name-input:focus { outline: none; border-color: #2563eb; background: #fff; }
 
+    /* Summary button */
+    .summary-btn { border-bottom: 1px solid #334155; border-radius: 0; margin: 0; padding: 10px 16px; font-weight: 600; font-size: 13px; color: #e2e8f0; }
+    .summary-btn.active { background: #16a34a; color: #fff; }
+
+    /* Summary table */
+    .summary-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .summary-table th { background: #f9fafb; padding: 10px 14px; text-align: center; font-size: 12px; text-transform: uppercase; color: #6b7280; border-bottom: 2px solid #e5e7eb; }
+    .summary-table th:first-child, .summary-table td:first-child { text-align: left; }
+    .summary-table td { padding: 6px 14px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+    .summary-table .item-name { font-weight: 700; font-size: 14px; padding: 10px 14px 4px; background: #f9fafb; }
+    .summary-table .metric-label { color: #6b7280; font-size: 12px; text-align: left; padding-left: 24px; }
+    .summary-table .cogs-pct-row td { background: #dcfce7; font-weight: 600; font-size: 12px; color: #16a34a; }
+
+    .margin-cell { font-weight: 700; padding: 6px 14px; border-radius: 4px; }
+    .mg-green { background: #dcfce7; color: #16a34a; }
+    .mg-yellow { background: #fef9c3; color: #a16207; }
+    .mg-orange { background: #ffedd5; color: #c2410c; }
+    .mg-red { background: #fee2e2; color: #dc2626; }
+
+    /* Legend */
+    .legend { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+    .legend-swatch { width: 16px; height: 16px; border-radius: 3px; }
+
     /* Mobile */
     @media (max-width: 768px) {
       .sidebar { display: none; }
@@ -107,6 +131,7 @@
       <h2>Pricing Matrix</h2>
       <a href="/" class="sidebar-back">&larr; Dashboard</a>
     </div>
+    <button class="menu-item-btn summary-btn" id="summary-btn" onclick="showSummary()">All Items Summary</button>
     <div class="sidebar-section">Menu Items</div>
     <div class="menu-list" id="menu-list"></div>
     <div class="sidebar-footer">
@@ -360,6 +385,76 @@ async function deleteLine(menuItemId, lineId) {
     if (idx >= 0) menuItems[idx] = result;
     renderMenuItem(result);
   }
+}
+
+// ===== SUMMARY VIEW =====
+function showSummary() {
+  selectedId = null;
+  renderSidebar();
+  document.getElementById('summary-btn').classList.add('active');
+
+  const main = document.getElementById('main-content');
+  const sizes = ['tiny', 'regular', 'shake']; // Match the spreadsheet: Tiny, Regular/Large, Shake
+  const sizeLabels = { tiny: 'Tiny', regular: 'Regular', shake: 'Shake' };
+
+  let html = `
+    <div class="item-header"><h1>All Items Summary</h1></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#dcfce7"></div> Above 80%</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#fef9c3"></div> 70 - 79.9%</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ffedd5"></div> 60 - 69.9%</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#fee2e2"></div> Below 60%</div>
+    </div>
+    <table class="summary-table">
+      <thead><tr>
+        <th style="min-width:160px">Menu Item</th>
+        <th></th>
+        ${sizes.map(s => `<th>${sizeLabels[s]}</th>`).join('')}
+      </tr></thead>
+      <tbody>`;
+
+  for (let i = 0; i < menuItems.length; i++) {
+    const m = menuItems[i];
+    // COGS row
+    html += `<tr>
+      <td class="item-name" rowspan="3">${i + 1}. ${esc(m.name)}</td>
+      <td class="metric-label">COGS</td>
+      ${sizes.map(s => `<td>$${(m.cogs?.[s] || 0).toFixed(2)}</td>`).join('')}
+    </tr>`;
+    // Profit row
+    html += `<tr>
+      <td class="metric-label">Profit</td>
+      ${sizes.map(s => `<td>$${(m.profit?.[s] || 0).toFixed(2)}</td>`).join('')}
+    </tr>`;
+    // Margin row
+    html += `<tr>
+      <td class="metric-label">Margin</td>
+      ${sizes.map(s => {
+        const mg = m.margin?.[s] || 0;
+        return `<td class="margin-cell ${mgCellClass(mg)}">${mg.toFixed(1)}%</td>`;
+      }).join('')}
+    </tr>`;
+    // COGS % separator row
+    if (m.cogs) {
+      const avgCogs = sizes.reduce((sum, s) => sum + (m.cogs[s] || 0), 0) / sizes.length;
+      const avgPrice = sizes.reduce((sum, s) => {
+        const pk = 'price' + s.charAt(0).toUpperCase() + s.slice(1);
+        return sum + (m[pk] || 0);
+      }, 0) / sizes.length;
+      const cogsPct = avgPrice > 0 ? ((avgCogs / avgPrice) * 100).toFixed(1) : '0.0';
+      html += `<tr class="cogs-pct-row"><td colspan="2"></td><td colspan="${sizes.length}">${cogsPct}%</td></tr>`;
+    }
+  }
+
+  html += '</tbody></table>';
+  main.innerHTML = html;
+}
+
+function mgCellClass(pct) {
+  if (pct >= 80) return 'mg-green';
+  if (pct >= 70) return 'mg-yellow';
+  if (pct >= 60) return 'mg-orange';
+  return 'mg-red';
 }
 
 function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
