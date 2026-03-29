@@ -367,8 +367,8 @@ function renderCategory(category) {
 }
 
 const FIELD_OPTIONS = {
-  unit: ['each', 'gallon', 'pint', 'lb', 'oz'],
-  costingUnit: ['each', 'oz', 'lb', 'pint', 'gallon'],
+  unit: ['each', 'gallon', 'pint', 'lb', 'oz', 'jar', 'pack'],
+  costingUnit: ['each', 'oz', 'lb', 'pint', 'gallon', 'jar', 'pack'],
 };
 
 function textCell(cls, id, field, value) {
