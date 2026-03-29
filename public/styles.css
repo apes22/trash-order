@@ -439,8 +439,16 @@ main {
 }
 
 .order-table th.sortable {
-  cursor: pointer;
+  cursor: grab;
   user-select: none;
+}
+
+.order-table th[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.order-table th.sortable.drag-over {
+  border-left: 3px solid #2563eb;
 }
 
 .order-table th.sortable:hover {
@@ -473,6 +481,7 @@ main {
 .order-table .col-brand { min-width: 80px; }
 .order-table .col-unit { min-width: 50px; }
 .order-table .col-price { min-width: 65px; text-align: right; }
+.order-table .col-subcat { min-width: 90px; font-weight: 600; font-size: 11px; text-transform: uppercase; color: #6b7280; }
 .order-table .col-units { min-width: 65px; text-align: center; }
 .order-table .col-perunit { min-width: 80px; text-align: right; font-size: 11px; }
 .order-table .col-costunit { min-width: 70px; }

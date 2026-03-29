@@ -20,6 +20,7 @@ class Item(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     category = Column(String, nullable=False)
+    sub_category = Column(String, default="")
     vendor = Column(String, default="")
     pack_size = Column(String, default="")
     brand = Column(String, default="")
@@ -41,6 +42,7 @@ class Item(Base):
         return {
             "id": self.id,
             "category": self.category,
+            "subCategory": self.sub_category,
             "vendor": self.vendor,
             "packSize": self.pack_size,
             "brand": self.brand,
@@ -168,6 +170,7 @@ def _run_migrations():
         ("items", "units_per_pack", "ALTER TABLE items ADD COLUMN units_per_pack FLOAT DEFAULT 0"),
         ("items", "costing_unit", "ALTER TABLE items ADD COLUMN costing_unit VARCHAR DEFAULT ''"),
         ("items", "costing_units_per_pack", "ALTER TABLE items ADD COLUMN costing_units_per_pack FLOAT DEFAULT 0"),
+        ("items", "sub_category", "ALTER TABLE items ADD COLUMN sub_category VARCHAR DEFAULT ''"),
         ("menu_items", "id", None),
         ("recipe_lines", "id", None),
     ]
@@ -183,3 +186,20 @@ def _run_migrations():
             with engine.begin() as conn:
                 conn.execute(text(sql))
                 print(f"Migration: added {column} to {table}")
+
+    # Data migration: parse sub_category from item names
+    if "items" in existing_tables:
+        with engine.begin() as conn:
+            rows = conn.execute(text("SELECT id, item, sub_category FROM items WHERE sub_category = '' OR sub_category IS NULL")).fetchall()
+            count = 0
+            for row in rows:
+                item_name = row[1]
+                if ',' in item_name:
+                    parts = item_name.split(',', 1)
+                    sub_cat = parts[0].strip()
+                    clean_name = parts[1].strip()
+                    conn.execute(text("UPDATE items SET sub_category = :sub, item = :name WHERE id = :id"),
+                                 {"sub": sub_cat, "name": clean_name, "id": row[0]})
+                    count += 1
+            if count > 0:
+                print(f"Migration: parsed sub_category from {count} item names")

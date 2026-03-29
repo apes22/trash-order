@@ -142,7 +142,8 @@ let eventsBound = false;
 const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
 const DEFAULT_STORES = ['Bentonville', 'Rogers'];
 
-const COLUMNS = [
+const DEFAULT_COLUMNS = [
+  { key: 'subCategory', label: 'Sub-Category', cls: 'col-subcat' },
   { key: 'vendor',      label: 'Vendor',    cls: 'col-vendor' },
   { key: 'item',        label: 'Item',      cls: 'col-item' },
   { key: 'packSize',    label: 'Pack Size', cls: 'col-pack' },
@@ -160,6 +161,29 @@ const COLUMNS = [
   { key: 'onHand',      label: 'On Hand',   cls: 'col-onhand' },
   { key: 'order',       label: 'Order',     cls: 'col-order' },
 ];
+
+// Load saved column order or use default
+function loadColumnOrder() {
+  try {
+    const saved = localStorage.getItem('tic-col-order');
+    if (saved) {
+      const keys = JSON.parse(saved);
+      const byKey = {};
+      DEFAULT_COLUMNS.forEach(c => byKey[c.key] = c);
+      const ordered = keys.filter(k => byKey[k]).map(k => byKey[k]);
+      // Add any new columns not in saved order
+      DEFAULT_COLUMNS.forEach(c => { if (!keys.includes(c.key)) ordered.push(c); });
+      return ordered;
+    }
+  } catch {}
+  return [...DEFAULT_COLUMNS];
+}
+
+let COLUMNS = loadColumnOrder();
+
+function saveColumnOrder() {
+  localStorage.setItem('tic-col-order', JSON.stringify(COLUMNS.map(c => c.key)));
+}
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
@@ -318,6 +342,39 @@ function bindEvents() {
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   });
+
+  // Column drag-to-reorder
+  let dragColIdx = null;
+  document.addEventListener('dragstart', (e) => {
+    const th = e.target.closest('th[data-col-idx]');
+    if (!th || e.target.classList.contains('col-resize-handle')) return;
+    dragColIdx = parseInt(th.dataset.colIdx);
+    th.style.opacity = '0.5';
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  document.addEventListener('dragover', (e) => {
+    const th = e.target.closest('th[data-col-idx]');
+    if (!th || dragColIdx === null) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+  document.addEventListener('drop', (e) => {
+    const th = e.target.closest('th[data-col-idx]');
+    if (!th || dragColIdx === null) return;
+    e.preventDefault();
+    const dropIdx = parseInt(th.dataset.colIdx);
+    if (dragColIdx !== dropIdx) {
+      const moved = COLUMNS.splice(dragColIdx, 1)[0];
+      COLUMNS.splice(dropIdx, 0, moved);
+      saveColumnOrder();
+      render();
+    }
+    dragColIdx = null;
+  });
+  document.addEventListener('dragend', (e) => {
+    document.querySelectorAll('th[data-col-idx]').forEach(el => el.style.opacity = '');
+    dragColIdx = null;
+  });
 }
 
 // ===== RENDER =====
@@ -353,10 +410,11 @@ function renderCategory(category) {
   </div>`;
   if (!collapsed) {
     html += '<table class="order-table"><thead><tr>';
-    for (const col of COLUMNS) {
+    for (let ci = 0; ci < COLUMNS.length; ci++) {
+      const col = COLUMNS[ci];
       const active = sortCol === col.key;
       const colId = col.cls.split(' ')[0];
-      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}<div class="col-resize-handle" data-col="${colId}"></div></th>`;
+      html += `<th class="${col.cls} sortable${active ? ' sort-active' : ''}" draggable="true" data-col-idx="${ci}" onclick="event.stopPropagation(); toggleSort('${col.key}')">${col.label}${active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}<div class="col-resize-handle" data-col="${colId}"></div></th>`;
     }
     html += '<th class="row-actions no-print"></th></tr></thead><tbody>';
     for (const item of catItems) html += renderRow(item);
@@ -388,76 +446,68 @@ function selectCell(cls, id, field, value, options) {
   return `<td class="${cls}"><select class="inline-input inline-text inline-select" data-id="${id}" data-field="${field}"><option value="">--</option>${opts}</select></td>`;
 }
 
+function renderCell(col, item, par, onHand, order) {
+  const id = item.id;
+  const mgr = isManager();
+  switch (col.key) {
+    case 'subCategory': return textCell(col.cls, id, 'subCategory', item.subCategory);
+    case 'vendor': return textCell(col.cls, id, 'vendor', item.vendor);
+    case 'item': return textCell(col.cls, id, 'item', item.item);
+    case 'packSize': return textCell(col.cls, id, 'packSize', item.packSize);
+    case 'brand': return textCell(col.cls, id, 'brand', item.brand);
+    case 'unit': return textCell(col.cls, id, 'unit', item.unit);
+    case 'unitsPerPack':
+      return mgr
+        ? `<td class="${col.cls}"><input type="number" class="inline-input inline-text inline-num" data-id="${id}" data-field="unitsPerPack" value="${item.unitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`
+        : `<td class="${col.cls}">${item.unitsPerPack || '-'}</td>`;
+    case 'pricePerPkg':
+      return mgr
+        ? `<td class="${col.cls}"><input type="number" class="inline-input inline-text inline-price" data-id="${id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`
+        : `<td class="${col.cls}">${item.pricePerPkg ? '$' + item.pricePerPkg.toFixed(2) : ''}</td>`;
+    case 'lastPricePerPkg': {
+      const lp = item.lastPricePerPkg || 0;
+      return `<td class="${col.cls}">${lp ? '$' + lp.toFixed(2) : '-'}</td>`;
+    }
+    case 'priceChange': {
+      const lp = item.lastPricePerPkg || 0;
+      const ch = (item.pricePerPkg || 0) - lp;
+      let html = '-', cls = col.cls;
+      if (lp > 0 && ch !== 0) { html = (ch > 0 ? '+' : '') + '$' + ch.toFixed(2); cls += ch > 0 ? ' price-up' : ' price-down'; }
+      return `<td class="${cls}">${html}</td>`;
+    }
+    case 'pricePerBuyingUnit': {
+      const v = item.pricePerBuyingUnit || 0;
+      return `<td class="${col.cls}">${v ? '$' + v.toFixed(2) : '-'}</td>`;
+    }
+    case 'costingUnit': return textCell(col.cls, id, 'costingUnit', item.costingUnit);
+    case 'costingUnitsPerPack':
+      return mgr
+        ? `<td class="${col.cls}"><input type="number" class="inline-input inline-text inline-num" data-id="${id}" data-field="costingUnitsPerPack" value="${item.costingUnitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`
+        : `<td class="${col.cls}">${item.costingUnitsPerPack || '-'}</td>`;
+    case 'pricePerCostingUnit': {
+      const v = item.pricePerCostingUnit || 0;
+      return `<td class="${col.cls}">${v ? '$' + v.toFixed(4) : '-'}</td>`;
+    }
+    case 'par':
+      return mgr
+        ? `<td class="${col.cls}"><input type="number" class="inline-input inline-text inline-num" data-id="${id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`
+        : `<td class="${col.cls}">${par || '-'}</td>`;
+    case 'onHand':
+      return `<td class="${col.cls}"><input type="number" class="inline-input input-onhand" data-id="${id}" data-field="onHand" data-store="1" value="${onHand || ''}" min="0" step="1" placeholder="0"></td>`;
+    case 'order':
+      return `<td class="${col.cls} ${par > 0 ? (order > 0 ? 'order-positive' : 'order-zero') : 'order-zero'}">${par > 0 ? order : '-'}</td>`;
+    default:
+      return `<td class="${col.cls}">${esc(item[col.key] || '')}</td>`;
+  }
+}
+
 function renderRow(item) {
   const par = getStoreVal(item.id, 'par');
   const onHand = getStoreVal(item.id, 'onHand');
   const order = Math.max(0, par - onHand);
   const needsOrder = par > 0 && order > 0;
   let html = `<tr class="${needsOrder ? 'needs-order' : ''}" data-id="${item.id}">`;
-  html += textCell('col-vendor', item.id, 'vendor', item.vendor);
-  html += textCell('col-item', item.id, 'item', item.item);
-  html += textCell('col-pack', item.id, 'packSize', item.packSize);
-  html += textCell('col-brand', item.id, 'brand', item.brand);
-  html += textCell('col-unit', item.id, 'unit', item.unit);
-  // Units per pack
-  if (isManager()) {
-    html += `<td class="col-units desktop-only"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="unitsPerPack" value="${item.unitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`;
-  } else {
-    html += `<td class="col-units desktop-only">${item.unitsPerPack || '-'}</td>`;
-  }
-
-  // Price per pkg
-  if (isManager()) {
-    html += `<td class="col-price"><input type="number" class="inline-input inline-text inline-price" data-id="${item.id}" data-field="pricePerPkg" value="${item.pricePerPkg || ''}" min="0" step="0.01" placeholder="0.00"></td>`;
-  } else {
-    html += `<td class="col-price">${item.pricePerPkg ? '$' + item.pricePerPkg.toFixed(2) : ''}</td>`;
-  }
-
-  // Last Price (right after Price/Pkg)
-  const lastPrice = item.lastPricePerPkg || 0;
-  html += `<td class="col-lastprice desktop-only">${lastPrice ? '$' + lastPrice.toFixed(2) : '-'}</td>`;
-
-  // Price Change (right after Last Price)
-  const change = (item.pricePerPkg || 0) - lastPrice;
-  let changeHtml = '-';
-  let changeCls = 'col-pricechange desktop-only';
-  if (lastPrice > 0 && change !== 0) {
-    const sign = change > 0 ? '+' : '';
-    changeHtml = sign + '$' + change.toFixed(2);
-    changeCls += change > 0 ? ' price-up' : ' price-down';
-  }
-  html += `<td class="${changeCls}">${changeHtml}</td>`;
-
-  // Price per buying unit (calculated, read-only)
-  const pricePerBuyingUnit = item.pricePerBuyingUnit || 0;
-  html += `<td class="col-perunit desktop-only">${pricePerBuyingUnit ? '$' + pricePerBuyingUnit.toFixed(2) : '-'}</td>`;
-
-  // Costing unit (editable dropdown)
-  html += textCell('col-costunit desktop-only', item.id, 'costingUnit', item.costingUnit);
-
-  // Costing units per pack (editable)
-  if (isManager()) {
-    html += `<td class="col-costqty desktop-only"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="costingUnitsPerPack" value="${item.costingUnitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`;
-  } else {
-    html += `<td class="col-costqty desktop-only">${item.costingUnitsPerPack || '-'}</td>`;
-  }
-
-  // Price per costing unit (calculated, read-only)
-  const pricePerCostingUnit = item.pricePerCostingUnit || 0;
-  html += `<td class="col-percost desktop-only">${pricePerCostingUnit ? '$' + pricePerCostingUnit.toFixed(4) : '-'}</td>`;
-
-  // PAR -- manager can edit, crew sees read-only
-  if (isManager()) {
-    html += `<td class="col-par"><input type="number" class="inline-input inline-text inline-num" data-id="${item.id}" data-field="par" data-store="1" value="${par || ''}" min="0" step="1" placeholder="0"></td>`;
-  } else {
-    html += `<td class="col-par">${par || '-'}</td>`;
-  }
-
-  // On Hand -- always editable
-  html += `<td class="col-onhand"><input type="number" class="inline-input input-onhand" data-id="${item.id}" data-field="onHand" data-store="1" value="${onHand || ''}" min="0" step="1" placeholder="0"></td>`;
-  html += `<td class="col-order ${par > 0 ? (order > 0 ? 'order-positive' : 'order-zero') : 'order-zero'}">${par > 0 ? order : '-'}</td>`;
-
-  // Delete -- manager only
+  for (const col of COLUMNS) html += renderCell(col, item, par, onHand, order);
   if (isManager()) {
     html += `<td class="row-actions no-print"><button class="delete-btn" onclick="deleteItem(${item.id})" title="Delete">X</button></td>`;
   } else {

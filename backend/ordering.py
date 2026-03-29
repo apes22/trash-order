@@ -42,6 +42,7 @@ def create_item(data: dict, role: str = Depends(require_manager), db: Session = 
     data.pop("onHand", None)
     item = Item(
         category=data.get("category", ""),
+        sub_category=data.get("subCategory", ""),
         vendor=data.get("vendor", ""),
         pack_size=data.get("packSize", ""),
         brand=data.get("brand", ""),
@@ -74,7 +75,7 @@ def update_item(item_id: int, data: dict, role: str = Depends(require_manager), 
         item.last_price_per_pkg = item.price_per_pkg
 
     field_map = {
-        "category": "category", "vendor": "vendor", "packSize": "pack_size",
+        "category": "category", "subCategory": "sub_category", "vendor": "vendor", "packSize": "pack_size",
         "brand": "brand", "item": "item", "unit": "unit",
         "totalWeightOz": "total_weight_oz", "unitsPerPack": "units_per_pack",
         "pricePerPkg": "price_per_pkg", "costingUnit": "costing_unit",
@@ -154,6 +155,7 @@ def seed_data(data: dict, role: str = Depends(require_manager), db: Session = De
     for raw in seed_items:
         item = Item(
             category=raw.get("category", ""),
+            sub_category=raw.get("subCategory", ""),
             vendor=raw.get("vendor", ""),
             pack_size=raw.get("packSize", ""),
             brand=raw.get("brand", ""),
