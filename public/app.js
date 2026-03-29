@@ -366,11 +366,26 @@ function renderCategory(category) {
   return html;
 }
 
+const FIELD_OPTIONS = {
+  unit: ['each', 'gallon', 'pint', 'lb', 'oz'],
+  costingUnit: ['each', 'oz', 'lb', 'pint', 'gallon'],
+};
+
 function textCell(cls, id, field, value) {
   if (isManager()) {
+    if (FIELD_OPTIONS[field]) {
+      return selectCell(cls, id, field, value, FIELD_OPTIONS[field]);
+    }
     return `<td class="${cls}"><input type="text" class="inline-input inline-text" data-id="${id}" data-field="${field}" value="${esc(value)}"></td>`;
   }
   return `<td class="${cls}">${esc(value)}</td>`;
+}
+
+function selectCell(cls, id, field, value, options) {
+  const opts = options.map(o =>
+    `<option value="${o}" ${o === value ? 'selected' : ''}>${o}</option>`
+  ).join('');
+  return `<td class="${cls}"><select class="inline-input inline-text inline-select" data-id="${id}" data-field="${field}"><option value="">--</option>${opts}</select></td>`;
 }
 
 function renderRow(item) {
