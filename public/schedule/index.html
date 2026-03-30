@@ -332,6 +332,36 @@
         .staffing-adequate { color: #059669; }
         .staffing-minimum { color: #D97706; }
         .staffing-understaffed { color: #DC2626; }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            /* Header */
+            header .max-w-screen-2xl { padding-left: 12px; padding-right: 12px; flex-wrap: wrap; gap: 8px; }
+            header h1 { font-size: 16px; }
+            header .text-gray-400 { display: none; }
+
+            /* Controls bar */
+            .controls-bar { flex-wrap: wrap; gap: 6px; padding: 8px 12px; }
+            .controls-bar > div { flex-wrap: wrap; gap: 4px; }
+
+            /* Schedule grid: horizontal scroll */
+            .schedule-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .schedule-grid { min-width: 700px; }
+
+            /* Sidebar panels */
+            .sidebar-panel { position: fixed; right: -320px; top: 0; bottom: 0; width: 300px; z-index: 999; background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,0.15); transition: right 0.2s; overflow-y: auto; }
+            .sidebar-panel.open { right: 0; }
+
+            /* General spacing */
+            .main-content { padding: 8px; }
+            .px-6 { padding-left: 12px; padding-right: 12px; }
+
+            /* Buttons */
+            button, .btn { font-size: 12px; padding: 6px 10px; }
+
+            /* Modals */
+            .modal-content, [class*="max-w-md"], [class*="max-w-lg"] { width: 95% !important; max-width: 95% !important; margin: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -450,8 +480,12 @@
                     </div>
 
                     <!-- Grid -->
-                    <div class="grid grid-cols-7" id="grid-headers"></div>
-                    <div class="grid grid-cols-7" id="grid-body"></div>
+                    <div class="schedule-container" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+                        <div style="min-width:700px;">
+                            <div class="grid grid-cols-7" id="grid-headers"></div>
+                            <div class="grid grid-cols-7" id="grid-body"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Algorithm panel (below schedule grid) -->

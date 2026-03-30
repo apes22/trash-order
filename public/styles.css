@@ -738,6 +738,11 @@ main {
     font-size: 18px;
   }
 
+  .header-left {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
   .header-actions {
     flex-wrap: wrap;
     gap: 6px;
@@ -761,6 +766,30 @@ main {
     display: none;
   }
 
+  .delivery-info {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .delivery-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 320px;
+    padding: 24px;
+  }
+
+  .dashboard {
+    padding: 24px 16px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
   main {
     padding: 8px;
   }
@@ -769,6 +798,7 @@ main {
   .col-vendor,
   .col-unit,
   .col-price,
+  .col-subcat,
   .desktop-only {
     display: none !important;
   }
