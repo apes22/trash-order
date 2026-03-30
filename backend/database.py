@@ -49,9 +49,6 @@ class Item(Base):
 
     def _auto_costing_units(self):
         """Auto-calculate costing units per pack from buying unit → costing unit conversion."""
-        # If manually set, use that
-        if self.costing_units_per_pack and self.costing_units_per_pack > 0:
-            return self.costing_units_per_pack
         # Need buying unit, units per pack, and costing unit to convert
         if not self.unit or not self.costing_unit or not self.units_per_pack:
             return 0

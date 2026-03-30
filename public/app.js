@@ -483,9 +483,7 @@ function renderCell(col, item, par, onHand, order) {
     }
     case 'costingUnit': return textCell(col.cls, id, 'costingUnit', item.costingUnit);
     case 'costingUnitsPerPack':
-      return mgr
-        ? `<td class="${col.cls}"><input type="number" class="inline-input inline-text inline-num" data-id="${id}" data-field="costingUnitsPerPack" value="${item.costingUnitsPerPack || ''}" min="0" step="1" placeholder="0"></td>`
-        : `<td class="${col.cls}">${item.costingUnitsPerPack || '-'}</td>`;
+      return `<td class="${col.cls}">${item.costingUnitsPerPack || '-'}</td>`;
     case 'pricePerCostingUnit': {
       const v = item.pricePerCostingUnit || 0;
       return `<td class="${col.cls}">${v ? '$' + v.toFixed(4) : '-'}</td>`;
@@ -521,7 +519,7 @@ function renderRow(item) {
 
 // ===== INLINE EDITING =====
 function attachInlineListeners() {
-  const numericFields = new Set(['par', 'onHand', 'pricePerPkg', 'unitsPerPack', 'costingUnitsPerPack']);
+  const numericFields = new Set(['par', 'onHand', 'pricePerPkg', 'unitsPerPack']);
   document.querySelectorAll('.inline-input').forEach(input => {
     input.addEventListener('change', (e) => {
       const id = parseInt(e.target.dataset.id);
