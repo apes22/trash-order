@@ -109,6 +109,22 @@ header h1 {
   border-color: #d1d5db;
 }
 
+.delivery-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.delivery-badge {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 .store-select {
   padding: 6px 10px;
   border: 2px solid #2563eb;

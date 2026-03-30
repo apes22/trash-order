@@ -144,6 +144,27 @@ let eventsBound = false;
 const CATEGORY_ORDER = ['BEVERAGE', 'ICE CREAM', 'TRASH TOPPINGS', 'PAPERGOODS', 'JOB SUPPLIES', 'NOT FOR INVENTORY'];
 const DEFAULT_STORES = ['Bentonville', 'Rogers'];
 
+const DELIVERY_SCHEDULE = {
+  'Bentonville': [
+    { order: 'Monday', deliver: 'Tuesday', cutoff: '5 PM' },
+    { order: 'Thursday', deliver: 'Friday', cutoff: '5 PM' },
+  ],
+  'Rogers': [
+    { order: 'Sunday', deliver: 'Monday', cutoff: '5 PM' },
+    { order: 'Thursday', deliver: 'Friday', cutoff: '5 PM' },
+  ],
+};
+
+function updateDeliveryInfo() {
+  const el = document.getElementById('delivery-info');
+  if (!el || !currentStore) return;
+  const schedule = DELIVERY_SCHEDULE[currentStore];
+  if (!schedule) { el.innerHTML = ''; return; }
+  el.innerHTML = schedule.map(s =>
+    `<span class="delivery-badge">Order <b>${s.order}</b> by ${s.cutoff} &rarr; Delivers <b>${s.deliver}</b></span>`
+  ).join('');
+}
+
 const DEFAULT_COLUMNS = [
   { key: 'subCategory', label: 'Sub-Category', cls: 'col-subcat' },
   { key: 'vendor',      label: 'Vendor',    cls: 'col-vendor' },
@@ -225,6 +246,7 @@ async function loadData() {
 async function switchStore(storeName) {
   currentStore = storeName;
   storeData = await api('/api/inventory/' + encodeURIComponent(storeName)) || {};
+  updateDeliveryInfo();
   render();
 }
 
@@ -233,6 +255,7 @@ function updateStoreDropdown() {
   select.innerHTML = stores.map(s =>
     `<option value="${s}" ${s === currentStore ? 'selected' : ''}>${s}</option>`
   ).join('');
+  updateDeliveryInfo();
 }
 
 function getStoreVal(itemId, field) {
