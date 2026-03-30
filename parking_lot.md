@@ -25,6 +25,17 @@ Deferred features and future ideas. Things we're explicitly NOT doing right now 
 - [x] Real-time sync across devices
 - [x] Cloud backup of data
 - [x] Recipe/build sheet integration (how much of each item goes into each menu item)
+- [x] Sub-category column (QuickBooks-style item grouping)
+- [x] Draggable column reordering (saved to localStorage)
+- [x] Dynamic column visibility toggles (all columns)
+- [x] Predefined dropdown selects for Buying Unit / Costing Unit
+- [x] Auto unit conversion (gallon→oz, lb→oz, pint→oz)
+- [x] Per-category independent sorting
+- [x] Delivery schedule badges per store
+- [x] Unified location selector across ordering guide and scheduling
+- [x] Mobile responsiveness across all three tools
+- [x] Pricing matrix hamburger menu for mobile sidebar
+- [x] Scheduling horizontal scroll grid for mobile
 
 ---
 
@@ -89,6 +100,7 @@ Deferred features and future ideas. Things we're explicitly NOT doing right now 
 - [ ] Integration with vendor ordering systems (auto-submit orders)
 - [ ] Barcode/QR scanning for inventory count
 - [ ] Photo upload for items (visual identification)
+- [ ] Cache-busting for static files (prevent stale JS after deploys)
 
 ---
 
