@@ -66,30 +66,7 @@
             background: white;
         }
 
-        .tab-btn {
-            padding: 8px 24px;
-            font-weight: 600;
-            font-size: 14px;
-            border-radius: 6px 6px 0 0;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .tab-active {
-            background: white;
-            color: #1E293B;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-        }
-
-        .tab-inactive {
-            background: #334155;
-            color: #94A3B8;
-        }
-
-        .tab-inactive:hover {
-            color: white;
-            background: #475569;
-        }
+        /* Location selector in controls bar inherits inline styles matching ordering guide */
 
         .badge {
             display: inline-block;
@@ -405,15 +382,11 @@
     <div class="bg-gray-800 border-b border-gray-700">
         <div class="max-w-screen-2xl mx-auto px-6">
             <div class="flex items-center justify-between py-3">
-                <!-- Location tabs -->
-                <div class="flex gap-1">
-                    <button id="tab-bentonville" class="tab-btn tab-active" onclick="switchLocation('Bentonville')">
-                        Bentonville
-                    </button>
-                    <button id="tab-rogers" class="tab-btn tab-inactive" onclick="switchLocation('Rogers')">
-                        Rogers
-                    </button>
-                </div>
+                <!-- Location selector -->
+                <select id="location-select" onchange="switchLocation(this.value)" style="padding:6px 10px; border:2px solid #2563eb; border-radius:6px; font-size:14px; font-weight:600; color:#2563eb; background:#eef2ff; cursor:pointer; font-family:inherit;">
+                    <option value="Bentonville">Bentonville</option>
+                    <option value="Rogers">Rogers</option>
+                </select>
 
                 <!-- Week picker -->
                 <div class="flex items-center gap-3">
@@ -818,11 +791,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function switchLocation(location) {
     currentLocation = location;
 
-    // Update tab styles
-    document.getElementById('tab-bentonville').className =
-        'tab-btn ' + (location === 'Bentonville' ? 'tab-active' : 'tab-inactive');
-    document.getElementById('tab-rogers').className =
-        'tab-btn ' + (location === 'Rogers' ? 'tab-active' : 'tab-inactive');
+    // Update select
+    const sel = document.getElementById('location-select');
+    if (sel) sel.value = location;
 
     // Reload data
     loadEmployees();
