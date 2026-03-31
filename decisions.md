@@ -138,11 +138,18 @@ Example: Buying Unit=gallon, Units/Pack=2.5, Costing Unit=oz → 320 oz
 - Added Buying Unit / Costing Unit distinction for accurate recipe costing
 - Auto-migration system for database schema changes
 
-### Session 3 (2026-03-29) — UI Consistency & Polish
+### Session 3 (2026-03-29) — UI Consistency & Pricing Matrix
 - Standardized Dashboard button across all three tools
 - Standardized Manager/Crew role banner across all tools
 - Added draggable column resizing to ordering guide table headers
 - Added sub-category column (auto-parsed from item name prefixes, QuickBooks-style)
+- Pricing matrix: categories now derived from ordering guide (not hardcoded)
+- Pricing matrix: sub-category filter added between category and item dropdowns
+- Pricing matrix: "Raw Material" → "Item" to match ordering guide terminology
+- Pricing matrix: Costing Unit + Price/Costing Unit columns pull from ordering guide
+- Pricing matrix: drag-and-drop sidebar reorder with sort_order persistence
+- Pricing matrix: sizes renamed Tiny / Regular / Large / Shake
+- Pricing matrix: fixed tab/enter stealing focus in qty inputs (focus preservation across re-renders)
 - Draggable column reordering (saved to localStorage)
 - Dynamic column visibility toggles (generated from COLUMNS array)
 - Predefined dropdown selects for Buying Unit and Costing Unit (each, gallon, pint, lb, oz, jar, pack)
