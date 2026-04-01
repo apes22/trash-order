@@ -167,6 +167,10 @@ Example: Buying Unit=gallon, Units/Pack=2.5, Costing Unit=oz → 320 oz
 - Scheduling guide: horizontal scroll for 7-day grid, header wrapping, mobile button sizes
 - Location selector unified to dropdown in scheduling (matching ordering guide)
 
+### Session 5 (2026-03-30/04-01) — Final Polish
+- Unified location selector in scheduling tool (replaced tab buttons with blue dropdown matching ordering guide)
+- Ran Claude Code /insights report (45 sessions, 183 commits, 586h compute)
+
 ## Active URLs
 - **Production:** https://tic-management.onrender.com
 - **GitHub:** https://github.com/apes22/trash-order
